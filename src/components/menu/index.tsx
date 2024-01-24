@@ -1,45 +1,27 @@
-import { Home, KeyboardArrowRight } from '@mui/icons-material';
-import { ListItemContent, ListItemDecorator } from '@mui/joy';
 import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import ListItemButton from '@mui/joy/ListItemButton';
 import ListSubheader from '@mui/joy/ListSubheader';
-import { Link } from 'react-router-dom';
 
 import { Container } from '@components/menu/styles';
 
+import MenuItems from './components/MenuItems';
+
 const Menu = () => {
-  const titleArray = ['Home', 'dashboard', 'Transaction', 'Blocks'];
+  const menuItems = {
+    baseService: ['HOME', 'DASHBOARD'],
+    mainService: ['TRANSACTION', 'BLOCKS', 'TOKENS', 'NFTS']
+  };
+
   return (
     <Container>
-      <List size="lg">
-        <ListItem nested>
-          <ListSubheader>Category 1</ListSubheader>
-          {titleArray.map((item, index) => (
-            <Link to={`/${item}`} key={index}>
-              <ListItem>
-                <ListItemButton color="primary" disabled={false} selected={false} variant="plain">
-                  <ListItemDecorator>
-                    <Home />
-                  </ListItemDecorator>
-                  <ListItemContent>{item}</ListItemContent>
-                </ListItemButton>
-              </ListItem>
-            </Link>
+      <List>
+        {Object.keys(menuItems).length &&
+          Object.keys(menuItems).map((key, index) => (
+            <div key={index}>
+              <ListSubheader className="menu-item">Category {index + 1}</ListSubheader>
+
+              <MenuItems items={menuItems[key]} />
+            </div>
           ))}
-        </ListItem>
-        <ListItem nested>
-          <ListSubheader>Category 2</ListSubheader>
-          <ListItem>
-            <ListItemButton color="primary" disabled={false} selected={false} variant="plain">
-              <ListItemDecorator>
-                <Home />
-              </ListItemDecorator>
-              <ListItemContent>Orders</ListItemContent>
-              <KeyboardArrowRight />
-            </ListItemButton>
-          </ListItem>
-        </ListItem>
       </List>
     </Container>
   );

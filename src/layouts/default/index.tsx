@@ -1,15 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { Container } from '@layouts/default/styles';
+import { Container, Sider } from '@layouts/default/styles';
 
 import RouterViews from '@pages/index';
 
+import Logo from '@components/logo';
 import Menu from '@components/menu';
 
 const DefaultLayout = () => {
   return (
     <>
       <Container>
-        <Menu />
+        <Sider>
+          <Logo />
+          <Menu />
+        </Sider>
         <RouterViews />
       </Container>
     </>
