@@ -1,13 +1,19 @@
 import styled from '@emotion/styled';
 import { pink } from '@mui/material/colors';
 
-const color = pink[500];
+const second = pink[100];
+const primary = pink[500];
 
 export const Container = styled.div`
+  .gap {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
   span,
   .MuiListSubheader-root,
   .MuiListItemContent-root {
-    color: f0f4f8;
+    color: #f0f4f8;
   }
 
   .MuiListItemButton-root,
@@ -16,12 +22,12 @@ export const Container = styled.div`
   }
 
   .Mui-selected {
-    background: ${color} !important;
+    background: ${primary} !important;
   }
 
   .MuiListItemButton-root {
     &:hover {
-      background: #f0f4f812;
+      background: ${second}26 !important;
 
       div,
       span {

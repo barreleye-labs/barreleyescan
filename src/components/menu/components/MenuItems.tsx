@@ -12,7 +12,7 @@ const MenuItems = ({ items }: Props) => {
   const { pathname } = useLocation();
 
   return (
-    <div>
+    <div className="gap">
       {items.length &&
         items.map((item: string, index: number) => (
           <Link to={`/${item}`} key={index}>
