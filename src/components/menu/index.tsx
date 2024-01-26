@@ -21,7 +21,7 @@ const Menu = () => {
         {Object.keys(menuItems).length &&
           Object.keys(menuItems).map((key, index) => (
             <div key={index}>
-              <ListSubheader className="menu-item">Category {index + 1}</ListSubheader>
+              <ListSubheader>Category {index + 1}</ListSubheader>
 
               <MenuItems items={menuItems[key]} />
             </div>

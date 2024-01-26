@@ -9,7 +9,9 @@ import Blocks from '@pages/blocks';
 import Dashboard from '@pages/dashboard';
 import ErrorPage from '@pages/errorPage';
 import Home from '@pages/home';
-import Transaction from '@pages/transaction';
+import Nfts from '@pages/nfts';
+import Tokens from '@pages/tokens';
+import Transactions from '@pages/transactions';
 
 import './index.css';
 import './styles/main.css';
@@ -33,8 +35,16 @@ const router = createBrowserRouter([
         Component: Blocks
       },
       {
-        path: '/transaction',
-        Component: Transaction
+        path: '/transactions',
+        Component: Transactions
+      },
+      {
+        path: '/nfts',
+        Component: Nfts
+      },
+      {
+        path: '/tokens',
+        Component: Tokens
       }
     ]
   }
