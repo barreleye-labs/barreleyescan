@@ -1,0 +1,9 @@
+.MuiPaper-rounded {
+  border-radius: 16px !important;
+}
+
+.MuiTableContainer-root,
+.MuiPaper-root {
+  box-shadow: rgba(0, 0, 0, 0.05) 0rem 1.25rem 1.6875rem 0rem !important;
+  background-color: rgb(255, 255, 255) !important;
+}

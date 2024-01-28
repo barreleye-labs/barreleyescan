@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import { App } from '@src/App';
 import '@src/App.css';
 
+import Address from '@pages/Address';
+import Block from '@pages/block';
 import Blocks from '@pages/blocks';
 import Dashboard from '@pages/dashboard';
 import ErrorPage from '@pages/errorPage';
 import Home from '@pages/home';
 import Nfts from '@pages/nfts';
 import Tokens from '@pages/tokens';
+import Transaction from '@pages/transaction';
 import Transactions from '@pages/transactions';
 
 import './index.css';
@@ -34,18 +37,28 @@ const router = createBrowserRouter([
         path: '/blocks',
         Component: Blocks
       },
+
+      { path: '/block/:height', Component: Block },
+
       {
         path: '/transactions',
         Component: Transactions
       },
+
+      { path: '/transaction/:height', Component: Transaction },
+
       {
-        path: '/nfts',
-        Component: Nfts
-      },
-      {
-        path: '/tokens',
-        Component: Tokens
+        path: '/address',
+        Component: Address
       }
+      // {
+      //   path: '/nfts',
+      //   Component: Nfts
+      // },
+      // {
+      //   path: '/tokens',
+      //   Component: Tokens
+      // }
     ]
   }
 ]);

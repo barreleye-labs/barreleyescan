@@ -5,6 +5,6 @@ function upperFirstString(str: string) {
   return firstChar.toUpperCase() + restChar;
 }
 
-export const CharUtil = {
+export const Char = {
   upperFirstString
 };

@@ -21,11 +21,19 @@ export const Container = styled.div`
     border-radius: 6px;
   }
 
+  .MuiSvgIcon-root {
+    margin-right: 2px;
+  }
   .Mui-selected {
     background: ${primary} !important;
+    .MuiSvgIcon-root {
+      color: white;
+    }
   }
 
   .MuiListItemButton-root {
+    min-height: 44px;
+
     &:hover {
       background: ${second}26 !important;
 
@@ -34,6 +42,10 @@ export const Container = styled.div`
         color: #f0f4f8 !important;
       }
     }
+  }
+  .MuiListItemContent-root {
+    font-size: 14px;
+    font-weight: 600;
   }
 
   flex: 0.3;

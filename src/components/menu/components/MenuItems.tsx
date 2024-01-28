@@ -1,8 +1,13 @@
+import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
+import BeenhereRoundedIcon from '@mui/icons-material/BeenhereRounded';
+import GridViewColumnIcon from '@mui/icons-material/ChildCareTwoTone';
+import FilterNoneRoundedIcon from '@mui/icons-material/FilterNoneRounded';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import { ListItemContent, ListItemDecorator } from '@mui/joy';
 import ListItem from '@mui/joy/ListItem';
 import ListItemButton from '@mui/joy/ListItemButton';
 import { Link, useLocation } from 'react-router-dom';
-import { Util } from 'src/utils';
+import { Char } from 'src/utils';
 
 interface Props {
   items: string[];
@@ -11,6 +16,7 @@ interface Props {
 const MenuItems = ({ items }: Props) => {
   const { pathname } = useLocation();
 
+  const icons = [GridViewRoundedIcon, FilterNoneRoundedIcon, BeenhereRoundedIcon, AlternateEmailRoundedIcon];
   return (
     <div className="gap">
       {items.length &&
@@ -20,11 +26,13 @@ const MenuItems = ({ items }: Props) => {
               <ListItemButton
                 className="menu-item"
                 disabled={false}
-                selected={pathname.slice(1) === item ? true : false}
+                selected={
+                  pathname.split('/')[1] === item || pathname.split('/')[1] === item.slice(0, -1) ? true : false
+                }
                 variant="plain"
               >
-                <ListItemDecorator>{/* <Home /> */}</ListItemDecorator>
-                <ListItemContent>{Util.Char.upperFirstString(item)}</ListItemContent>
+                <ListItemDecorator component={icons[index]}></ListItemDecorator>
+                <ListItemContent>{Char.upperFirstString(item)}</ListItemContent>
               </ListItemButton>
             </ListItem>
           </Link>

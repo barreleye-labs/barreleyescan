@@ -1,5 +1,3 @@
-import { CharUtil } from './charUtil';
-
-export const Util = {
-  Char: CharUtil
-};
+export { Char } from './char';
+export { Time } from './time';
+export { Hash } from './hash';

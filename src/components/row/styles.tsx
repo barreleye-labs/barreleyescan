@@ -1,0 +1,19 @@
+import styles from '@emotion/styled';
+
+export const Container = styles.div`
+  .label, .content{
+    padding-bottom: 1rem;
+    font-size: 13px;
+  }
+
+  .label{
+    color: #9699b2;
+    font-weight: 700;
+    max-width: 140px;
+    font-family: Roboto;
+  }
+
+  .MuiGrid-item{
+    overflow-wrap: break-word;
+  }
+`;
