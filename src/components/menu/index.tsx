@@ -11,8 +11,7 @@ interface MenuItemsType {
 
 const Menu = () => {
   const menuItems: MenuItemsType = {
-    baseService: ['home', 'dashboard'],
-    mainService: ['transactions', 'blocks', 'tokens', 'nfts']
+    baseService: ['dashboard', 'blocks', 'transactions', 'address']
   };
 
   return (
@@ -21,7 +20,7 @@ const Menu = () => {
         {Object.keys(menuItems).length &&
           Object.keys(menuItems).map((key, index) => (
             <div key={index}>
-              <ListSubheader>Category {index + 1}</ListSubheader>
+              <ListSubheader>Category</ListSubheader>
 
               <MenuItems items={menuItems[key]} />
             </div>

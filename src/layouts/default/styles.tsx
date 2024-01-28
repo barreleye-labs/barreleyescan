@@ -14,8 +14,9 @@ export const Content = styled.div`
   flex-direction: column;
   min-width: 0;
   height: 100dvh;
-  gap: 8px;
+  gap: 17px;
   overflow: auto;
+  padding: 4rem 3rem;
 `;
 
 export const Sider = styled.div`

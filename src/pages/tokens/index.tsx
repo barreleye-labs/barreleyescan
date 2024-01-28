@@ -1,5 +1,5 @@
 const Tokens = () => {
-  return <div>tokens</div>;
+  return <div>Tokens</div>;
 };
 
 export default Tokens;
