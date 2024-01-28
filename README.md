@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+<br/>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div align="center">
+  <a href="https://github.com/toss/nestjs-aop">
+    <img src="https://github.com/k930503/k930503/assets/48827393/15d2445b-b46f-4056-92c8-6ec18115f29e" alt="Logo"  height="200">
+  </a>
 
-Currently, two official plugins are available:
+  <br />
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <h2>@Barreleye Explorer &middot; <img src="https://img.shields.io/badge/npm package-18.16.0-success" alt="npm" height="18"/></h2>
 
-## Expanding the ESLint configuration
+  <p align="center">
+   Official open source of <b>Barreleye Blockchain Explorer. </b>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+ 
+  with initial developer [@Youngmin Kim](https://github.com/k930503), [@Nayoung Kim](https://github.com/usiyoung)
 
-- Configure the top-level `parserOptions` property like this:
+  
+</a></h6>
+  </p>
+</div>
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+<br>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Where is the Core?
+- [Barreleye Core](https://github.com/barreleye-labs/barreleye)
