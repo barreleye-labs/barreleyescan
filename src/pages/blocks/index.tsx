@@ -1,3 +1,4 @@
+import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -5,6 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useEffect, useState } from 'react';
 import { Hash, Time } from 'src/utils';
 import useSWR from 'swr';
 
@@ -12,12 +14,25 @@ import LinkUnderline from '@src/components/link';
 
 import fetcher from '@utils/fetcher';
 
+import { Container } from './styles';
+
 const Blocks = () => {
-  const { data, error } = useSWR('/api/block/1', fetcher);
-  console.log(data, error);
+  const [size, setSize] = useState(10);
+  const [count, setCount] = useState(1);
+  const [page, setPage] = useState(1);
+  const { data: totalData, error: totalDataErr } = useSWR(`/api/last-block`, fetcher, { refreshInterval: 1000 });
+  const { data, error } = useSWR(`/api/blocks?page=${page}&size=${size}`, fetcher);
+
+  useEffect(() => {
+    data?.length && setCount(Math.round((totalData.height + 1) / 10));
+  }, [data, totalData]);
+
+  const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    setPage(value);
+  };
 
   return (
-    data && (
+    <Container>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
@@ -31,22 +46,29 @@ const Blocks = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {[data].map((row) => (
-              <TableRow key={row.Height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                <TableCell component="th" scope="row">
-                  <LinkUnderline path={`/block/${row.Height}`} underlink={row.Height}></LinkUnderline>
-                </TableCell>
-                <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.Timestamp))}</TableCell>
-                <TableCell align="left">{row.TxResponse.TxCount}</TableCell>
-                <TableCell align="left">
-                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.Validator)}></LinkUnderline>
-                </TableCell>
-              </TableRow>
-            ))}
+            {data?.length &&
+              data.map((row) => (
+                <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableCell component="th" scope="row">
+                    <LinkUnderline path={`/block/${row.height}`} underlink={row.height}></LinkUnderline>
+                  </TableCell>
+
+                  <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
+                  <TableCell align="left">{row.txResponse?.txCount}</TableCell>
+                  <TableCell align="left">
+                    <LinkUnderline
+                      path={`/address`}
+                      underlink={row.validator && Hash.ellipsis(row.validator)}
+                    ></LinkUnderline>
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-    )
+
+      <Pagination count={count} page={page} shape="rounded" onChange={handleChange} />
+    </Container>
   );
 };
 

@@ -1,3 +1,4 @@
+import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -31,26 +32,26 @@ const Transactions = () => {
           </TableHead>
           <TableBody>
             {[data].map((row) => (
-              <TableRow key={row.Height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell align="left">
                   <LinkUnderline
-                    path={`/transaction/${row.Validator}`}
-                    underlink={Hash.ellipsis(row.Validator)}
+                    path={`/transaction/${row.validator}`}
+                    underlink={Hash.ellipsis(row.validator)}
                   ></LinkUnderline>
                 </TableCell>
 
                 <TableCell component="th" scope="row">
-                  <LinkUnderline path={`/block/${row.Height}`} underlink={row.Height}></LinkUnderline>
+                  <LinkUnderline path={`/block/${row.height}`} underlink={row.height}></LinkUnderline>
                 </TableCell>
 
-                <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.Timestamp))}</TableCell>
+                <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
 
                 <TableCell align="left">
-                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.Validator)}></LinkUnderline>
+                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.validator)}></LinkUnderline>
                 </TableCell>
 
                 <TableCell align="left">
-                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.Validator)}></LinkUnderline>
+                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.validator)}></LinkUnderline>
                 </TableCell>
               </TableRow>
             ))}

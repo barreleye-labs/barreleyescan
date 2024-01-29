@@ -27,7 +27,7 @@ function Block() {
   };
 
   const setTime = () => {
-    const formatUnix = Time.formatUnixNano(data.Timestamp);
+    const formatUnix = Time.formatUnixNano(data.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
@@ -45,13 +45,13 @@ function Block() {
       {data && (
         <>
           <Row label="Time" content={setTime()}></Row>
-          <Row label="Hash" content={data.Hash}></Row>
-          <Row label="Prev Hash" content={data.PrevBlockHash}></Row>
-          <Row label="Total TXs" content={data.TxResponse.count}></Row>
-          <Row label="Block Reward" content={data.Timestamp}></Row>
-          <Row label="Block Size" content={data.Timestamp}></Row>
-          <Row label="Base Fee" content={data.Timestamp}></Row>
-          <Row label="Burnt Fees" content={data.Timestamp}></Row>
+          <Row label="Hash" content={data.hash}></Row>
+          <Row label="Prev Hash" content={data.prevBlockHash}></Row>
+          <Row label="Total TXs" content={data.txResponse.count}></Row>
+          <Row label="Block Reward" content={data.timestamp}></Row>
+          <Row label="Block Size" content={data.timestamp}></Row>
+          <Row label="Base Fee" content={data.timestamp}></Row>
+          <Row label="Burnt Fees" content={data.timestamp}></Row>
         </>
       )}
     </Detail>
