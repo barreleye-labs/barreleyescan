@@ -51,11 +51,11 @@ function Block() {
           <Row label="Time" content={setTime()}></Row>
           <Row label="Hash" content={data.hash}></Row>
           <Row label="Prev Hash" content={data.prevBlockHash}></Row>
-          <Row label="Total TXs" content={data.txResponse.txCount.toString()}></Row>
-          <Row label="Block Reward" content={data.timestamp.toString()}></Row>
-          <Row label="Block Size" content={data.timestamp.toString()}></Row>
-          <Row label="Base Fee" content={data.timestamp.toString()}></Row>
-          <Row label="Burnt Fees" content={data.timestamp.toString()}></Row>
+          <Row label="Total TXs" content={`${data.txResponse.txCount.toString()} TXs`}></Row>
+          <Row label="Block Reward" content="-"></Row>
+          <Row label="Block Size" content="-"></Row>
+          <Row label="Base Fee" content="-"></Row>
+          <Row label="Burnt Fees" content="-"></Row>
         </>
       )}
     </Detail>

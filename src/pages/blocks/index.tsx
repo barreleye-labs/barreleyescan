@@ -48,6 +48,10 @@ const Blocks = () => {
               </TableCell>
               <TableCell align="left">TOTAL TXs</TableCell>
               <TableCell align="left">Validator</TableCell>
+              <TableCell align="right">Block Proposer</TableCell>
+              <TableCell align="right">Base Fee</TableCell>
+              <TableCell align="right">Reward</TableCell>
+              <TableCell align="right">Burnt Fees</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -66,6 +70,10 @@ const Blocks = () => {
                       underlink={row.validator && Hash.ellipsis(row.validator)}
                     ></LinkUnderline>
                   </TableCell>
+                  <TableCell align="right">-</TableCell>
+                  <TableCell align="right">-</TableCell>
+                  <TableCell align="right">-</TableCell>
+                  <TableCell align="right">-</TableCell>
                 </TableRow>
               ))}
           </TableBody>
