@@ -17,10 +17,10 @@ function Transaction() {
   const location = useLocation();
   const [height, setHeight] = useState(location.pathname.split('/')[2]);
 
-  const { data, error } = useSWR(`/api/block/${1}`, fetcher);
+  const { data, error } = useSWR(`/api/block/${height}`, fetcher);
 
   const setTime = () => {
-    const formatUnix = Time.formatUnixNano(data.Timestamp);
+    const formatUnix = Time.formatUnixNano(data.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
@@ -30,14 +30,14 @@ function Transaction() {
     <Detail icon={<FilterNoneIcon />} title={location.pathname.split('/')[1].toUpperCase()} subheader={height}>
       {data && (
         <>
-          <Row label="TX Hash" content={data.Hash}></Row>
+          <Row label="TX Hash" content={data.hash}></Row>
           <Row label="Block" content={<LinkUnderline path={`/block/${1}`} underlink="1"></LinkUnderline>}></Row>
-          <Row label="From" content={data.Hash}></Row>
-          <Row label="To" content={data.Hash}></Row>
+          <Row label="From" content={data.hash}></Row>
+          <Row label="To" content={data.hash}></Row>
           <Row label="Age" content={setTime()}></Row>
-          <Row label="Token Transfers" content={data.Timestamp}></Row>
-          <Row label="NFT Transfers" content={data.Timestamp}></Row>
-          <Row label="Nonce" content={data.Timestamp}></Row>
+          <Row label="Token Transfers" content={data.timestamp}></Row>
+          <Row label="NFT Transfers" content={data.timestamp}></Row>
+          <Row label="Nonce" content={data.timestamp}></Row>
         </>
       )}
     </Detail>

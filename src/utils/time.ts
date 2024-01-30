@@ -11,7 +11,8 @@ function elapsedTime(date: number) {
     { name: 'month', milliSeconds: 60 * 60 * 24 * 30 },
     { name: 'day', milliSeconds: 60 * 60 * 24 },
     { name: 'hours', milliSeconds: 60 * 60 },
-    { name: 'min', milliSeconds: 60 }
+    { name: 'mins', milliSeconds: 60 },
+    { name: 'secs', milliSeconds: 1 }
   ];
 
   for (const value of times) {
