@@ -57,7 +57,7 @@ const Address = () => {
                 <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
                     <LinkUnderline
-                      path={`/block/${row.height}`}
+                      path={`/transaction/${row.validator}/${row.height}`}
                       underlink={Hash.ellipsis(row.validator)}
                     ></LinkUnderline>
                   </TableCell>
