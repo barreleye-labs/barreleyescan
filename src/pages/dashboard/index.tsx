@@ -26,7 +26,7 @@ const Dashboard = () => {
         <Grid xs={2} sm={4} md={4}>
           <DashboardCard>
             <div className="header">Transactions</div>
-            <div className="content">-</div>
+            <div className="content">3,551.57 M (43.0 TPS)</div>
             <Divider />
             <div className="footer" onClick={() => navigate('/transactions')}>
               <span>See all Transactions</span>
