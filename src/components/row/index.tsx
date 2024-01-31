@@ -1,10 +1,12 @@
 import Grid from '@mui/material/Grid';
+import { Component } from 'react';
 
 import { Container } from './styles';
 
 interface Props {
   label: string;
-  content: string;
+  content?: string;
+  children?: any;
 }
 const Row = (props: Props) => {
   return (
@@ -15,6 +17,7 @@ const Row = (props: Props) => {
         </Grid>
         <Grid item xs={8} className="content">
           {props.content}
+          {props.children}
         </Grid>
       </Grid>
     </Container>

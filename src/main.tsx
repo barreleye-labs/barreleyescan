@@ -45,7 +45,7 @@ const router = createBrowserRouter([
         Component: Transactions
       },
 
-      { path: '/transaction/:height', Component: Transaction },
+      { path: '/transaction/:hash/:height', Component: Transaction },
 
       {
         path: '/address',
