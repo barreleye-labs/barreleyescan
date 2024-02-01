@@ -1,20 +1,9 @@
-import React, { Component } from 'react';
+import loadable from '@loadable/component';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { App } from '@src/App';
 import '@src/App.css';
-
-import Address from '@pages/Address';
-import Block from '@pages/block';
-import Blocks from '@pages/blocks';
-import Dashboard from '@pages/dashboard';
-import ErrorPage from '@pages/errorPage';
-import Home from '@pages/home';
-import Nfts from '@pages/nfts';
-import Tokens from '@pages/tokens';
-import Transaction from '@pages/transaction';
-import Transactions from '@pages/transactions';
 
 import './index.css';
 import './styles/main.css';
@@ -22,34 +11,34 @@ import './styles/main.css';
 const router = createBrowserRouter([
   {
     path: '/',
-    Component: App,
-    errorElement: <ErrorPage />,
+    Component: loadable(() => import('@src/App')),
+    errorElement: loadable(() => import('@pages/errorPage')),
     children: [
       {
         path: '/home',
-        Component: Home
+        Component: loadable(() => import('@pages/home'))
       },
       {
         path: '/dashboard',
-        Component: Dashboard
+        Component: loadable(() => import('@pages/dashboard'))
       },
       {
         path: '/blocks',
-        Component: Blocks
+        Component: loadable(() => import('@pages/blocks'))
       },
 
-      { path: '/block/:height', Component: Block },
+      { path: '/block/:height', Component: import('@pages/block') },
 
       {
         path: '/transactions',
-        Component: Transactions
+        Component: loadable(() => import('@pages/transactions'))
       },
 
-      { path: '/transaction/:hash/:height', Component: Transaction },
+      { path: '/transaction/:hash/:height', Component: loadable(() => import('@pages/transaction')) },
 
       {
         path: '/address',
-        Component: Address
+        Component: loadable(() => import('@pages/address'))
       }
       // {
       //   path: '/nfts',
