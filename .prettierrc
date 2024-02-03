@@ -7,12 +7,13 @@
   "importOrder": [
     "^@src/(.*)$",
     "^@hooks/(.*)$",
-    "^@utils/(.*)$",
-    "^@typings/(.*)$",
+    "^@components/(.*)$",
     "^@layouts/(.*)$",
     "^@pages/(.*)$",
-    "^@components/(.*)$",
+    "^@utils/(.*)$",
+    "^@types/(.*)$",
     "^@styles/(.*)$",
+    "^@router/(.*)$",
 
     "^[./]"
   ],

@@ -23,8 +23,9 @@
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
       "@utils/*": ["src/utils/*"],
-      "@typings/*": ["src/typings/*"],
-      "@styles/*": ["src/styles/*"]
+      "@types/*": ["src/types/*"],
+      "@styles/*": ["src/styles/*"],
+      "@router/*": ["src/router/*"]
     },
 
     /* Linting */

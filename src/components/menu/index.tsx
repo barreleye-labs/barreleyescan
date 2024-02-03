@@ -4,25 +4,18 @@ import ListSubheader from '@mui/joy/ListSubheader';
 import { Container } from '@components/menu/styles';
 
 import MenuItems from './components/MenuItems';
-
-interface MenuItemsType {
-  [key: string]: string[];
-}
+import { type Route, routes } from './routes';
 
 const Menu = () => {
-  const menuItems: MenuItemsType = {
-    baseService: ['dashboard', 'blocks', 'transactions', 'address']
-  };
-
   return (
     <Container>
       <List>
-        {Object.keys(menuItems).length &&
-          Object.keys(menuItems).map((key, index) => (
-            <div key={index}>
-              <ListSubheader>Category</ListSubheader>
+        {Object.keys(routes).length &&
+          routes.map((route: Route, index: number) => (
+            <div className="menu-block" key={index}>
+              <ListSubheader>{route.category}</ListSubheader>
 
-              <MenuItems items={menuItems[key]} />
+              <MenuItems content={route.content} />
             </div>
           ))}
       </List>

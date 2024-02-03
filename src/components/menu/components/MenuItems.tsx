@@ -1,38 +1,34 @@
-import AlternateEmailRoundedIcon from '@mui/icons-material/AlternateEmailRounded';
-import BeenhereRoundedIcon from '@mui/icons-material/BeenhereRounded';
-import GridViewColumnIcon from '@mui/icons-material/ChildCareTwoTone';
-import FilterNoneRoundedIcon from '@mui/icons-material/FilterNoneRounded';
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
 import { ListItemContent, ListItemDecorator } from '@mui/joy';
 import ListItem from '@mui/joy/ListItem';
 import ListItemButton from '@mui/joy/ListItemButton';
 import { Link, useLocation } from 'react-router-dom';
-import { Char } from 'src/utils';
+
+import { type RouteContent } from '../routes';
 
 interface Props {
-  items: string[];
+  content: RouteContent[];
 }
-
-const MenuItems = ({ items }: Props) => {
+const MenuItems = ({ content }: Props) => {
   const { pathname } = useLocation();
 
-  const icons = [GridViewRoundedIcon, FilterNoneRoundedIcon, BeenhereRoundedIcon, AlternateEmailRoundedIcon];
   return (
     <div className="gap">
-      {items.length &&
-        items.map((item: string, index: number) => (
-          <Link to={`/${item}`} key={index}>
+      {content.length &&
+        content.map((item: RouteContent, index: number) => (
+          <Link to={`${item.path}`} key={index}>
             <ListItem>
               <ListItemButton
                 className="menu-item"
                 disabled={false}
                 selected={
-                  pathname.split('/')[1] === item || pathname.split('/')[1] === item.slice(0, -1) ? true : false
+                  pathname.split('/')[1] === item.path.slice(1) || pathname.split('/')[1] === item.path.slice(1, -1)
+                    ? true
+                    : false
                 }
                 variant="plain"
               >
-                <ListItemDecorator component={icons[index]}></ListItemDecorator>
-                <ListItemContent>{Char.upperFirstString(item)}</ListItemContent>
+                <ListItemDecorator component={item.icon}></ListItemDecorator>
+                <ListItemContent>{item.title}</ListItemContent>
               </ListItemButton>
             </ListItem>
           </Link>

@@ -5,6 +5,10 @@ const second = pink[100];
 const primary = pink[500];
 
 export const Container = styled.div`
+  .menu-block {
+    margin-bottom: 3rem;
+  }
+
   .gap {
     display: flex;
     flex-direction: column;
