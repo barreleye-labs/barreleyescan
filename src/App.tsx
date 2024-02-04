@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Crypto } from 'src/utils';
 
-import DefaultLayout from '@layouts/default';
+import Layout from '@src/layouts';
 
 import './App.css';
 import { Signature } from './utils/crypto';
@@ -28,7 +28,7 @@ export function App() {
 
   return (
     <>
-      <DefaultLayout />
+      <Layout />
     </>
   );
 }

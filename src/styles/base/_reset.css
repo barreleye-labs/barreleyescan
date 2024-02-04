@@ -15,7 +15,7 @@ input::-ms-reveal {
   box-sizing: border-box;
 }
 html {
-  font-family: sans-serif;
+  font-family: 'Public Sans';
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -119,7 +119,6 @@ code,
 kbd,
 samp {
   font-size: 1em;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 pre {
   margin-top: 0;
@@ -161,7 +160,6 @@ textarea {
   margin: 0;
   color: inherit;
   font-size: inherit;
-  font-family: inherit;
   line-height: inherit;
 }
 button,
