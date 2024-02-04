@@ -7,8 +7,7 @@ const primary = pink[500];
 export const Container = styles.div`
   .input-wrapper{
     display: flex;
-    flex-direction: column;
-    align-items: baseline;
+    align-items:center;
     gap:12px;
 
     .MuiFormControl-root{
