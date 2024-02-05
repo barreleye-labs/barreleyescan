@@ -1,10 +1,8 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
-import Skeleton from '@mui/material/Skeleton';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
 import LinkUnderline from '@src/components/link';
@@ -19,14 +17,11 @@ import { Container } from './styles';
 
 function Transaction() {
   dayjs.extend(utc);
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [height, setHeight] = useState(location.pathname.split('/')[2]);
 
-  const { data, error } = useSWR<IBlock>(`/api/block/${1}`, fetcher);
-  const { data: lastBlock, error: totalDataErr } = useSWR<IBlock>(`/api/last-block`, fetcher, {
-    refreshInterval: 1000
-  });
+  const location = useLocation();
+  const { hash, height } = useParams();
+
+  const { data, error } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
 
   const setTime = () => {
     const formatUnix = Time.formatUnixNano(data!.timestamp);
@@ -37,7 +32,7 @@ function Transaction() {
 
   return (
     <Container>
-      <Detail icon={<FilterNoneIcon />} title={location.pathname.split('/')[1].toUpperCase()} subheader={height}>
+      <Detail icon={<FilterNoneIcon />} title={location.pathname.split('/')[1].toUpperCase()} subheader={hash}>
         {data && (
           <>
             <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>

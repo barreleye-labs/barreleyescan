@@ -1,8 +1,7 @@
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
 import { IBlock } from '@src/types/api';
@@ -16,17 +15,16 @@ function Block() {
   dayjs.extend(utc);
   const navigate = useNavigate();
   const location = useLocation();
-  const [height, setHeight] = useState(Number(location.pathname.split('/')[2]));
+  const { height } = useParams();
 
-  const { data, error } = useSWR<IBlock>(`/api/block/${height}`, fetcher);
+  const { data, error } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
   const { data: lastBlock, error: totalDataErr } = useSWR<IBlock>(`/api/last-block`, fetcher, {
     refreshInterval: 1000
   });
 
-  const changeBlockPage = (height: number) => {
-    if (height >= 0 && lastBlock!.height >= height) {
-      setHeight(height);
-      navigate(`/block/${height}`);
+  const changeBlockPage = (setHeight: number) => {
+    if (setHeight >= 0 && lastBlock!.height >= setHeight) {
+      navigate(`/block/${setHeight}`);
     }
   };
 
@@ -39,8 +37,8 @@ function Block() {
 
   return (
     <Detail
-      onClickPrev={() => changeBlockPage(height - 1)}
-      onClickAfter={() => changeBlockPage(height + 1)}
+      onClickPrev={() => changeBlockPage(Number(height) - 1)}
+      onClickAfter={() => changeBlockPage(Number(height) + 1)}
       icon={<FilterNoneIcon />}
       title={location.pathname.split('/')[1].toUpperCase()}
       subheader={height}
