@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-
-import DefaultLayout from '@layouts/default';
-import WalletLayout from '@layouts/wallet';
+import { useLocation } from 'react-router-dom';
 
 import Logo from '@components/logo';
 import Menu from '@components/menu';
+
+import DefaultLayout from '@layouts/default';
+import WalletLayout from '@layouts/wallet';
 
 import { Container, Sider } from './styles';
 

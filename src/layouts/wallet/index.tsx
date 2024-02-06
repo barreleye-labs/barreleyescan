@@ -1,6 +1,6 @@
-import { Content } from '@layouts/default/styles';
-
 import RouterViews from '@pages/index';
+
+import { Content } from './styles.tsx';
 
 const WalletLayout = () => {
   return (

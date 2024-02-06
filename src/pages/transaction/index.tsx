@@ -5,13 +5,14 @@ import utc from 'dayjs/plugin/utc';
 import { useLocation, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
-import LinkUnderline from '@src/components/link';
 import { IBlock } from '@src/types/api';
-import { Time } from '@src/utils';
 import fetcher from '@src/utils/fetcher';
 
 import Detail from '@components/detail';
+import LinkUnderline from '@components/link';
 import Row from '@components/row';
+
+import { Time } from '@utils/index';
 
 import { Container } from './styles';
 
@@ -21,7 +22,7 @@ function Transaction() {
   const location = useLocation();
   const { hash, height } = useParams();
 
-  const { data, error } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
+  const { data } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
 
   const setTime = () => {
     const formatUnix = Time.formatUnixNano(data!.timestamp);

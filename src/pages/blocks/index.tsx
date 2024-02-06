@@ -18,19 +18,19 @@ import fetcher from '@utils/fetcher';
 import { Container } from './styles';
 
 const Blocks = () => {
-  const [size, setSize] = useState(10);
+  const [size] = useState(10);
   const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
-  const { data: totalData, error: totalDataErr } = useSWR<IBlock>(`/api/last-block`, fetcher, {
+  const { data: totalData } = useSWR<IBlock>(`/api/last-block`, fetcher, {
     refreshInterval: 1000
   });
-  const { data, error } = useSWR<IBlock[]>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
+  const { data } = useSWR<IBlock[]>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
     refreshInterval: 1000
   });
 
   useEffect(() => {
     data?.length && setCount(Math.ceil((totalData!.height + 1) / size));
-  });
+  }, [totalData, size]);
 
   const handleChange = (_, value: number) => {
     setPage(value);
@@ -55,27 +55,26 @@ const Blocks = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.length &&
-              data.map((row) => (
-                <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                  <TableCell component="th" scope="row">
-                    <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>
-                  </TableCell>
+            {data?.map((row) => (
+              <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component="th" scope="row">
+                  <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>
+                </TableCell>
 
-                  <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
-                  <TableCell align="left">{row.txResponse?.txCount}</TableCell>
-                  <TableCell align="left">
-                    <LinkUnderline
-                      path={`/address`}
-                      underlink={row.validator && Hash.ellipsis(row.validator)}
-                    ></LinkUnderline>
-                  </TableCell>
-                  <TableCell align="right">-</TableCell>
-                  <TableCell align="right">-</TableCell>
-                  <TableCell align="right">-</TableCell>
-                  <TableCell align="right">-</TableCell>
-                </TableRow>
-              ))}
+                <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
+                <TableCell align="left">{row.txResponse?.txCount}</TableCell>
+                <TableCell align="left">
+                  <LinkUnderline
+                    path={`/address`}
+                    underlink={row.validator && Hash.ellipsis(row.validator)}
+                  ></LinkUnderline>
+                </TableCell>
+                <TableCell align="right">-</TableCell>
+                <TableCell align="right">-</TableCell>
+                <TableCell align="right">-</TableCell>
+                <TableCell align="right">-</TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

@@ -22,10 +22,10 @@ const Transactions = () => {
   const [size, setSize] = useState(10);
   const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
-  const { data: totalData, error: totalDataErr } = useSWR<IBlock>(`/api/last-block`, fetcher, {
+  const { data: totalData } = useSWR<IBlock>(`/api/last-block`, fetcher, {
     refreshInterval: 1000
   });
-  const { data, error } = useSWR<IBlock[]>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
+  const { data } = useSWR<IBlock[]>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
     refreshInterval: 1000
   });
 

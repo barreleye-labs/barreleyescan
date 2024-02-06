@@ -2,21 +2,19 @@ import Breadcrumb from '@src/components/breadcrumb';
 
 import SearchInput from '@components/searchInput';
 
-import { Container, Content, Sider } from '@layouts/default/styles';
-
 import RouterViews from '@pages/index';
+
+import { Container } from './styles.tsx';
 
 const DefaultLayout = () => {
   return (
-    <>
-      <Content>
-        <Breadcrumb />
+    <Container>
+      <Breadcrumb />
 
-        <SearchInput />
+      <SearchInput />
 
-        <RouterViews />
-      </Content>
-    </>
+      <RouterViews />
+    </Container>
   );
 };
 

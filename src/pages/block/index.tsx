@@ -17,8 +17,8 @@ function Block() {
   const location = useLocation();
   const { height } = useParams();
 
-  const { data, error } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
-  const { data: lastBlock, error: totalDataErr } = useSWR<IBlock>(`/api/last-block`, fetcher, {
+  const { data } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
+  const { data: lastBlock } = useSWR<IBlock>(`/api/last-block`, fetcher, {
     refreshInterval: 1000
   });
 
