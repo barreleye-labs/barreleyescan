@@ -19,6 +19,7 @@
     "@mui/material": "^5.15.5",
     "@mui/x-data-grid": "^6.19.2",
     "big-integer": "^1.6.52",
+    "buffer": "^6.0.3",
     "dayjs": "^1.11.10",
     "dayjs-plugin-utc": "^0.1.2",
     "elliptic": "^6.5.4",
