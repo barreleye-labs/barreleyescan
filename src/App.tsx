@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import sha256 from 'sha256';
 import { Crypto } from 'src/utils';
 
 import Layout from '@src/layouts';
@@ -45,28 +46,34 @@ export function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const tx = {
-      nonce: '01',
-      from: '54d1b47432f5d8bfe6f747611470476225b59703',
-      to: '1e6be996ac95dc6ccbb9a119fbbc0f3eb2a449fc',
-      value: '11',
-      data: '01'
-    };
-
     const privateKey: string = Crypto.generatePrivateKey();
+    const publicKey = Crypto.generatePublicKey(privateKey);
+    const signerX = publicKey.x;
+    const signerY = publicKey.y;
+    const temp: string = signerX.concat(signerY);
+    const fromAddress = sha256(temp).toString().substring(0, 40);
+    console.log('fromAddress: ', fromAddress);
+
+    const tx = {
+      nonce: 'ab',
+      from: fromAddress,
+      to: '1e6be996ac95dc6ccbb9a119fbbc0f3eb2a449fc',
+      value: 'ab',
+      data: 'ab'
+    };
 
     const nonce = hexToUint8Array(tx.nonce);
     const from = hexToUint8Array(tx.from);
     const to = hexToUint8Array(tx.to);
     const value = hexToUint8Array(tx.value);
     const data = hexToUint8Array(tx.data);
-    const x = hexToUint8Array(Crypto.generatePublicKey(privateKey).x);
-    const y = hexToUint8Array(Crypto.generatePublicKey(privateKey).y);
+    // const x = hexToUint8Array(Crypto.generatePublicKey(privateKey).x);
+    // const y = hexToUint8Array(Crypto.generatePublicKey(privateKey).y);
 
-    console.log('signerX: ', Crypto.generatePublicKey(privateKey).x);
-    console.log('signerY: ', Crypto.generatePublicKey(privateKey).y);
+    console.log('signerX: ', signerX);
+    console.log('signerY: ', signerY);
 
-    const concatArray = new Uint8Array([...nonce, ...from, ...to, ...value, ...data, ...x, ...y]);
+    const concatArray = new Uint8Array([...nonce, ...from, ...to, ...value, ...data]);
     const message = uint8ArrayToHex(concatArray);
     const signature: Signature = Crypto.signMessage(message, privateKey);
     console.log('signatureR: ', signature.r);
