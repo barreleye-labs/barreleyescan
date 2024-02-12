@@ -13,11 +13,11 @@ import { Crypto } from '@utils';
 
 const Create = () => {
   const [privateKey] = useState(Crypto.generatePrivateKey());
-  const [addressKey] = useState(getAddressKey());
+  const [address] = useState(getAddress());
   const [step, setStep] = useState(1);
 
-  function getAddressKey() {
-    const publicKey = Crypto.generatePublicKey(Crypto.generatePrivateKey());
+  function getAddress() {
+    const publicKey = Crypto.generatePublicKey(privateKey);
 
     const { x: signerX, y: signerY } = publicKey;
 
@@ -49,7 +49,7 @@ const Create = () => {
         {step === 2 && (
           <>
             <CopyInput defaultValue={privateKey} label="Private Key" />
-            <CopyInput defaultValue={addressKey} label="Address Key" />
+            <CopyInput defaultValue={address} label="Address Key" />
           </>
         )}
       </CardContent>
