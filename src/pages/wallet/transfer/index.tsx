@@ -26,14 +26,8 @@ import { Char, Crypto } from '@utils';
 import useInput from '@hooks/useInput';
 
 const txDefaultData = (): ITx => {
-  /**
-   * @description create demo publicKey with "from" dto
-   */
-  const { x, y } = Crypto.generatePublicKey(Crypto.generatePrivateKey());
-  const from = sha256(x.concat(y)).toString().substring(0, 40);
-
   return {
-    from,
+    from: '',
     to: '',
     value: '',
     nonce: 'ab',
@@ -83,7 +77,14 @@ const Transfer = () => {
   );
 
   const onSubmit = useCallback(() => {
-    if (step === 1) return setStep(2);
+    if (step === 1) {
+      const { x, y } = Crypto.generatePublicKey(privateKey);
+      const from = sha256(x.concat(y)).toString().substring(0, 40);
+
+      setTx((tx) => ({ ...tx, from }));
+
+      return setStep(2);
+    }
 
     axios
       .post(
@@ -106,11 +107,42 @@ const Transfer = () => {
       });
   }, [getSignature, getSigner, tx, step]);
 
-  const disabled = useMemo(() => (step === 1 ? !tx.to || !tx.value : !privateKey), [tx, step, privateKey]);
+  const disabled = useMemo(() => (step === 1 ? !privateKey : !tx.to || !tx.value), [tx, step, privateKey]);
   return (
     <Container>
       <CardContent>
         {step === 1 ? (
+          <div>
+            <Typography variant="h5" sx={{ mb: 1.5 }}>
+              Enter an acceptable private key
+            </Typography>
+            <Typography sx={{ mb: 1 }} color="text.secondary">
+              Please enter your private key.
+            </Typography>
+
+            <FormControl sx={{ m: 1, width: '100%' }} variant="standard">
+              <InputLabel htmlFor="standard-adornment-password">Private Key</InputLabel>
+              <Input
+                onChange={onChangePrivateKey}
+                name="privateKey"
+                placeholder="Enter the private key"
+                id="standard-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </div>
+        ) : (
           <>
             <Typography variant="h5" sx={{ mb: 1.5 }}>
               Enter Information
@@ -146,41 +178,11 @@ const Transfer = () => {
               margin="normal"
             />
           </>
-        ) : (
-          <div>
-            <Typography variant="h5" sx={{ mb: 1.5 }}>
-              Enter an acceptable private key
-            </Typography>
-            <Typography sx={{ mb: 1 }} color="text.secondary">
-              Please enter your private key.
-            </Typography>
-
-            <FormControl sx={{ m: 1, width: '100%' }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">Private Key</InputLabel>
-              <Input
-                onChange={onChangePrivateKey}
-                name="privateKey"
-                id="standard-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-          </div>
         )}
 
         <div className="btn-wrapper">
           <Button disabled={disabled} className="button" size="large" variant="filled" onClick={onSubmit}>
-            {step === 1 ? 'Send Information' : 'Send Transaction'}
+            {step === 1 ? 'Access' : 'Send Transaction'}
           </Button>
 
           {step === 2 && <LinkUnderline onClick={() => setStep(1)} underlink="Turn Back" />}

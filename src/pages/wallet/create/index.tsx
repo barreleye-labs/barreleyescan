@@ -17,7 +17,7 @@ const Create = () => {
   const [step, setStep] = useState(1);
 
   function getAddressKey() {
-    const publicKey = Crypto.generatePublicKey(privateKey);
+    const publicKey = Crypto.generatePublicKey(Crypto.generatePrivateKey());
 
     const { x: signerX, y: signerY } = publicKey;
 
