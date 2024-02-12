@@ -5,17 +5,18 @@
   "trailingComma": "none",
   "semi": true,
   "importOrder": [
-    "^@src/(.*)$",
-    "^@hooks/(.*)$",
+    "react",
+    "^[./]",
+    "^@mui/(.*)$",
     "^@components/(.*)$",
     "^@layouts/(.*)$",
     "^@pages/(.*)$",
-    "^@utils/(.*)$",
-    "^@types/(.*)$",
-    "^@styles/(.*)$",
+    "^@src/(.*)$",
     "^@router/(.*)$",
-
-    "^[./]"
+    "^@utils",
+    "^@hooks/(.*)$",
+    "^@types/(.*.*)$",
+    "^@styles/(.*)$"
   ],
   "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrderSeparation": true,

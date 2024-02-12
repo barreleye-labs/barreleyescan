@@ -1,3 +1,9 @@
+import useSWR from 'swr';
+
+import { useEffect, useState } from 'react';
+
+import { Container } from './styles';
+
 import Pagination from '@mui/material/Pagination';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
@@ -6,16 +12,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { useEffect, useState } from 'react';
-import { Hash, Time } from 'src/utils';
-import useSWR from 'swr';
 
-import LinkUnderline from '@src/components/link';
-import { IBlock } from '@src/types/api';
+import LinkUnderline from '@components/link';
 
-import fetcher from '@utils/fetcher';
+import { Hash, Time, fetcher } from '@utils';
 
-import { Container } from './styles';
+import { IBlock } from '@types/api.d.ts';
 
 const Blocks = () => {
   const [size] = useState(10);

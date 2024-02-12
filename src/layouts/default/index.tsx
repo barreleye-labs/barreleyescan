@@ -1,10 +1,9 @@
-import Breadcrumb from '@src/components/breadcrumb';
+import { Container } from './styles.tsx';
 
+import Breadcrumb from '@components/breadcrumb';
 import SearchInput from '@components/searchInput';
 
 import RouterViews from '@pages/index';
-
-import { Container } from './styles.tsx';
 
 const DefaultLayout = () => {
   return (

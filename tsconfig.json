@@ -6,7 +6,10 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types",
+    ],
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -20,10 +23,11 @@
       "@src/*": ["src/*"],
       "@hooks/*": ["src/hooks/*"],
       "@components/*": ["src/components/*"],
+      "@layouts": ["src/layouts/index.tsx"],
       "@layouts/*": ["src/layouts/*"],
       "@pages/*": ["src/pages/*"],
-      "@utils/*": ["src/utils/*"],
-      "@types/*": ["src/types/*"],
+      "@utils": ["src/utils/index"],
+      "@type/*": ["src/types/*"],
       "@styles/*": ["src/styles/*"],
       "@router/*": ["src/router/*"]
     },
@@ -34,6 +38,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src" ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

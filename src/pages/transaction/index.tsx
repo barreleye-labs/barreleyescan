@@ -1,20 +1,21 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { useLocation, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
-import { IBlock } from '@src/types/api';
-import fetcher from '@src/utils/fetcher';
+import { useLocation, useParams } from 'react-router-dom';
+
+import { Container } from './styles';
+
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import FilterNoneIcon from '@mui/icons-material/FilterNone';
 
 import Detail from '@components/detail';
 import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
-import { Time } from '@utils/index';
+import { IBlock } from '@src/types/api';
 
-import { Container } from './styles';
+import { Time, fetcher } from '@utils';
 
 function Transaction() {
   dayjs.extend(utc);
@@ -33,7 +34,11 @@ function Transaction() {
 
   return (
     <Container>
-      <Detail icon={<FilterNoneIcon />} title={location.pathname.split('/')[1].toUpperCase()} subheader={hash}>
+      <Detail
+        icon={<FilterNoneIcon />}
+        title={location.pathname.split('/')[1].toUpperCase()}
+        subheader={hash as string}
+      >
         {data && (
           <>
             <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>

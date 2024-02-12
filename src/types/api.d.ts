@@ -1,6 +1,5 @@
 /**
- * block type
- * @description 도메인별 타입 분리 고민중
+ * Block API type
  */
 
 export interface IBlock {
@@ -16,4 +15,21 @@ export interface IBlock {
   };
   validator: Hash;
   version: number;
+}
+
+/**
+ * Transaction API type
+ */
+
+export interface ITx {
+  [index: string]: string;
+  nonce: string;
+  from: string;
+  to: string;
+  value: string;
+  data: string;
+  signerX?: string;
+  signerY?: string;
+  signatureR?: string;
+  signatureS?: string;
 }

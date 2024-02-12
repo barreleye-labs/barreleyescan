@@ -1,17 +1,16 @@
-import { ec as ec1 } from 'elliptic';
+import { ec as EC } from 'elliptic';
 import sha256 from 'sha256';
 
-const EC = ec1;
 const ec = new EC('secp256k1');
 
-export class PublicKey {
+class PublicKey {
   constructor(
     public x: string,
     public y: string
   ) {}
 }
 
-export class Signature {
+class Signature {
   constructor(
     public r: string,
     public s: string,

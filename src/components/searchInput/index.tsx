@@ -1,8 +1,8 @@
+import { Container } from './styles';
+
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/joy/Button';
 import Input from '@mui/joy/Input';
-
-import { Container } from './styles';
 
 const SearchInput = () => {
   return (

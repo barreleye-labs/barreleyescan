@@ -1,15 +1,18 @@
-import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import useSWR from 'swr';
 
-import { IBlock } from '@src/types/api';
-import { Time } from '@src/utils';
-import fetcher from '@src/utils/fetcher';
+import { useCallback } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import FilterNoneIcon from '@mui/icons-material/FilterNone';
 
 import Detail from '@components/detail';
 import Row from '@components/row';
+
+import { IBlock } from '@src/types/api';
+
+import { Time, fetcher } from '@utils';
 
 function Block() {
   dayjs.extend(utc);
@@ -22,18 +25,21 @@ function Block() {
     refreshInterval: 1000
   });
 
-  const changeBlockPage = (setHeight: number) => {
-    if (setHeight >= 0 && lastBlock!.height >= setHeight) {
-      navigate(`/block/${setHeight}`);
-    }
-  };
+  const changeBlockPage = useCallback(
+    (setHeight: number) => {
+      if (setHeight >= 0 && lastBlock!.height >= setHeight) {
+        navigate(`/block/${setHeight}`);
+      }
+    },
+    [lastBlock, navigate]
+  );
 
-  const setTime = () => {
+  const setTime = useCallback(() => {
     const formatUnix = Time.formatUnixNano(data!.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
-  };
+  }, [data]);
 
   return (
     <Detail
@@ -41,7 +47,7 @@ function Block() {
       onClickAfter={() => changeBlockPage(Number(height) + 1)}
       icon={<FilterNoneIcon />}
       title={location.pathname.split('/')[1].toUpperCase()}
-      subheader={height}
+      subheader={height as string}
       isAction={true}
     >
       {data && (

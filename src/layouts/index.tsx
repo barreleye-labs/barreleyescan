@@ -1,4 +1,7 @@
+import { useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { Container, Sider } from './styles';
 
 import Logo from '@components/logo';
 import Menu from '@components/menu';
@@ -6,11 +9,14 @@ import Menu from '@components/menu';
 import DefaultLayout from '@layouts/default';
 import WalletLayout from '@layouts/wallet';
 
-import { Container, Sider } from './styles';
-
 const Layout = () => {
   const { pathname } = useLocation();
   const walletLayoutPath = ['/create', '/transfer'];
+
+  const layoutComponent = useMemo(
+    () => (walletLayoutPath.includes(pathname) ? <WalletLayout /> : <DefaultLayout />),
+    [pathname]
+  );
   return (
     <>
       <Container>
@@ -19,7 +25,7 @@ const Layout = () => {
           <Menu />
         </Sider>
 
-        {walletLayoutPath.includes(pathname) ? <WalletLayout /> : <DefaultLayout />}
+        {layoutComponent}
       </Container>
     </>
   );

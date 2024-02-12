@@ -4,11 +4,9 @@ import { Content } from './style';
 
 const RouterViews = () => {
   return (
-    <>
-      <Content>
-        <Outlet />
-      </Content>
-    </>
+    <Content>
+      <Outlet />
+    </Content>
   );
 };
 
