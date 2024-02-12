@@ -1,10 +1,10 @@
+import { MemoizedMenuItems } from './components/MenuItems';
+import { type Route, routes } from './routes';
+
 import List from '@mui/joy/List';
 import ListSubheader from '@mui/joy/ListSubheader';
 
 import { Container } from '@components/menu/styles';
-
-import { MemoizedMenuItems } from './components/MenuItems';
-import { type Route, routes } from './routes';
 
 const Menu = () => {
   return (

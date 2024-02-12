@@ -1,14 +1,12 @@
-import RouterViews from '@pages/index';
-
 import { Content } from './styles.tsx';
+
+import RouterViews from '@pages/index';
 
 const WalletLayout = () => {
   return (
-    <>
-      <Content>
-        <RouterViews />
-      </Content>
-    </>
+    <Content>
+      <RouterViews />
+    </Content>
   );
 };
 

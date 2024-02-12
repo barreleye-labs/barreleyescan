@@ -3,14 +3,17 @@ import { Link } from 'react-router-dom';
 import { Container } from './styles';
 
 interface Props {
-  path: string;
-  underlink: string;
+  path?: string;
+  underlink: string | number;
+  onClick: (e) => void;
 }
 
-const LinkUnderline = ({ path, underlink }: Props) => {
+const LinkUnderline = ({ path, underlink, onClick }: Props) => {
   return (
     <Container>
-      <Link to={path}>{underlink}</Link>
+      <Link to={path} onClick={onClick}>
+        {underlink}
+      </Link>
     </Container>
   );
 };

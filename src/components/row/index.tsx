@@ -1,12 +1,13 @@
-import Grid from '@mui/material/Grid';
-import { Component } from 'react';
+import { ReactNode } from 'react';
 
 import { Container } from './styles';
+
+import Grid from '@mui/material/Grid';
 
 interface Props {
   label: string;
   content?: string;
-  children?: any;
+  children?: ReactNode;
 }
 const Row = (props: Props) => {
   return (

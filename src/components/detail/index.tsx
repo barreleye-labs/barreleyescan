@@ -1,3 +1,7 @@
+import { ReactNode } from 'react';
+
+import { Container } from './styles';
+
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { CardHeader } from '@mui/material';
@@ -6,10 +10,17 @@ import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 
-import { Container } from './styles';
-
-const Detail = (props) => {
-  const { icon, title, subheader, isAction } = props;
+interface Props {
+  icon: ReactNode;
+  title: string;
+  subheader: string | number;
+  isAction?: boolean;
+  children: ReactNode;
+  onClickPrev?: () => void;
+  onClickAfter?: () => void;
+}
+const Detail = (props: Props) => {
+  const { icon, title, subheader, isAction, onClickPrev, onClickAfter } = props;
 
   return (
     <Container>
@@ -21,10 +32,10 @@ const Detail = (props) => {
           action={
             isAction && (
               <>
-                <IconButton aria-label="settings" onClick={(data) => props.onClickPrev(data)}>
+                <IconButton aria-label="settings" onClick={() => onClickPrev()}>
                   <KeyboardArrowLeftIcon />
                 </IconButton>
-                <IconButton aria-label="settings" onClick={(data) => props.onClickAfter(data)}>
+                <IconButton aria-label="settings" onClick={() => onClickAfter()}>
                   <KeyboardArrowRightIcon />
                 </IconButton>
               </>

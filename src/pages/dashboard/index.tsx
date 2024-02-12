@@ -1,10 +1,11 @@
+import { useNavigate } from 'react-router-dom';
+
+import { DashboardCard } from './styles';
+
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
-import { useNavigate } from 'react-router-dom';
-
-import { DashboardCard } from './styles';
 
 const Dashboard = () => {
   const navigate = useNavigate();
