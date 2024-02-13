@@ -8,7 +8,6 @@ import { Container } from './styles';
 
 import { CardContent, Typography } from '@mui/material';
 import Button from '@mui/material-next/Button';
-import TextField from '@mui/material/TextField';
 
 import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
@@ -124,12 +123,12 @@ const Transfer = () => {
             </Typography>
 
             <Input fullWidth label="From Address" disabled={true} defaultValue={tx.from} />
-            <Input fullWidth label="To Address" name="to" onChange={(e) => onChange} defaultValue={tx.to} />
+            <Input fullWidth label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
             <Input
               fullWidth
               name="value"
               defaultValue={tx.value}
-              onChange={(e) => onChange}
+              onChange={onChange}
               type="number"
               label="Amount to Send"
               placeholder="0.000000"
