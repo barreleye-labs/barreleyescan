@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { Container, Sider } from './styles';
@@ -9,9 +9,10 @@ import Menu from '@components/menu';
 import DefaultLayout from '@layouts/default';
 import WalletLayout from '@layouts/wallet';
 
+const walletLayoutPath = ['/create', '/transfer'];
+
 const Layout = () => {
   const { pathname } = useLocation();
-  const walletLayoutPath = ['/create', '/transfer'];
 
   const layoutComponent = useMemo(
     () => (walletLayoutPath.includes(pathname) ? <WalletLayout /> : <DefaultLayout />),

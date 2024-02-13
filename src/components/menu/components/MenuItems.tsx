@@ -10,7 +10,7 @@ import ListItemButton from '@mui/joy/ListItemButton';
 interface Props {
   content: RouteContent[];
 }
-export function MenuItems({ content }: Props) {
+const MenuItems = memo(({ content }: Props) => {
   const { pathname } = useLocation();
 
   return (
@@ -34,6 +34,6 @@ export function MenuItems({ content }: Props) {
       ))}
     </div>
   );
-}
+});
 
-export const MemoizedMenuItems = memo(MenuItems);
+export default MenuItems;

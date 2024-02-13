@@ -7,7 +7,7 @@ import { Container } from './styles';
 import { CardContent, Typography } from '@mui/material';
 import Button from '@mui/material-next/Button';
 
-import CopyInput from '@components/input/CopyInput';
+import { CustomInput } from '@components/input';
 
 import { Crypto } from '@utils';
 
@@ -48,8 +48,8 @@ const Create = () => {
         )}
         {step === 2 && (
           <>
-            <CopyInput defaultValue={privateKey} label="Private Key" />
-            <CopyInput defaultValue={address} label="Address Key" />
+            <CustomInput defaultValue={privateKey} label="Private Key" isCopyBtn={true} disabled={true} />
+            <CustomInput defaultValue={address} label="Address Key" isCopyBtn={true} disabled={true} />
           </>
         )}
       </CardContent>

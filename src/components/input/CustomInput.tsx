@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, memo, useState } from 'react';
 
 import { Container } from './styles.tsx';
 
@@ -12,15 +12,19 @@ import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
 
 interface Props {
-  defaultValue: string;
+  defaultValue?: string;
   label: string;
+  placeholder?: string;
+  isCopyBtn?: boolean;
+  disabled?: boolean;
+  onChange?: (e: ChangeEvent) => void;
 }
 
 const COPY_TEXT = {
   DEFAULT: 'COPY',
   ACTIVE: 'COPIED!'
 };
-const CopyInput = (props: Props) => {
+const CustomInput = memo(({ defaultValue, label, isCopyBtn, disabled, placeholder, onChange }: Props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [copyButtonText, setCopyButtonText] = useState(COPY_TEXT.DEFAULT);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -31,7 +35,7 @@ const CopyInput = (props: Props) => {
 
   const onCopy = () => {
     setCopyButtonText(COPY_TEXT.ACTIVE);
-    navigator.clipboard.writeText(props.defaultValue);
+    navigator.clipboard.writeText(defaultValue);
 
     setTimeout(() => {
       setCopyButtonText(COPY_TEXT.DEFAULT);
@@ -41,12 +45,14 @@ const CopyInput = (props: Props) => {
   return (
     <Container>
       <FormControl sx={{ m: 1, width: '100%' }} variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">{props.label}</InputLabel>
+        <InputLabel htmlFor="standard-adornment-password">{label}</InputLabel>
         <Input
-          disabled={true}
-          defaultValue={props.defaultValue}
+          disabled={disabled}
+          defaultValue={defaultValue}
           id="standard-adornment-password"
           type={showPassword ? 'text' : 'password'}
+          onChange={(e) => onChange && onChange(e)}
+          placeholder={placeholder}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -61,11 +67,13 @@ const CopyInput = (props: Props) => {
         />
       </FormControl>
 
-      <Button onClick={onCopy} className={`${'copy-button'} ${copyButtonText === COPY_TEXT.ACTIVE && 'active'} `}>
-        {copyButtonText}
-      </Button>
+      {isCopyBtn && (
+        <Button onClick={onCopy} className={`${'copy-button'} ${copyButtonText === COPY_TEXT.ACTIVE && 'active'} `}>
+          {copyButtonText}
+        </Button>
+      )}
     </Container>
   );
-};
+});
 
-export default CopyInput;
+export default CustomInput;

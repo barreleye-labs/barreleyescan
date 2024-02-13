@@ -1,9 +1,9 @@
+import { Outlet } from 'react-router-dom';
+
 import { Container } from './styles.tsx';
 
 import Breadcrumb from '@components/breadcrumb';
 import SearchInput from '@components/searchInput';
-
-import RouterViews from '@pages/index';
 
 const DefaultLayout = () => {
   return (
@@ -12,7 +12,7 @@ const DefaultLayout = () => {
 
       <SearchInput />
 
-      <RouterViews />
+      <Outlet />
     </Container>
   );
 };
