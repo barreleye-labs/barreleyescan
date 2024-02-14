@@ -5,7 +5,7 @@ import { Container } from './styles';
 interface Props {
   path?: string;
   underlink: string | number;
-  onClick: (e) => void;
+  onClick?: (e) => void;
 }
 
 const LinkUnderline = ({ path, underlink, onClick }: Props) => {

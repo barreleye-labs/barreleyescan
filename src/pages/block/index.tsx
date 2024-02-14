@@ -8,6 +8,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 
 import Detail from '@components/detail';
+import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
 import { IBlock } from '@src/types/api';
@@ -55,7 +56,12 @@ function Block() {
           <Row label="Time" content={setTime()}></Row>
           <Row label="Hash" content={data.hash}></Row>
           <Row label="Prev Hash" content={data.prevBlockHash}></Row>
-          <Row label="Total TXs" content={`${data.txResponse.txCount.toString()} TXs`}></Row>
+          <Row label="Total TXs" content={`${data.txResponse.txCount.toString()} TXs`}>
+            {data.txResponse.hashes.length &&
+              data.txResponse.hashes.map((hash) => (
+                <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
+              ))}
+          </Row>
           <Row label="Block Reward" content="-"></Row>
           <Row label="Block Size" content="-"></Row>
           <Row label="Base Fee" content="-"></Row>

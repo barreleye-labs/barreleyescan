@@ -29,7 +29,7 @@ export const router = createBrowserRouter([
         Component: loadable(() => import('@pages/transactions'))
       },
 
-      { path: '/transaction/:hash/:height', Component: loadable(() => import('@pages/transaction')) },
+      { path: '/transaction/:hash', Component: loadable(() => import('@pages/transaction')) },
 
       {
         path: '/address',
