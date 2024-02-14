@@ -1,11 +1,11 @@
-import { Content } from './styles.tsx';
+import { Outlet } from 'react-router-dom';
 
-import RouterViews from '@pages/index';
+import { Content } from './styles.tsx';
 
 const WalletLayout = () => {
   return (
     <Content>
-      <RouterViews />
+      <Outlet />
     </Content>
   );
 };

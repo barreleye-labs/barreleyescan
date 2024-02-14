@@ -1,5 +1,6 @@
 import Layout from '@layouts';
 import { SnackbarProvider } from 'notistack';
+
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 

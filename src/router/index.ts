@@ -1,4 +1,5 @@
 import loadable from '@loadable/component';
+
 import { createBrowserRouter } from 'react-router-dom';
 
 export const router = createBrowserRouter([
@@ -11,6 +12,7 @@ export const router = createBrowserRouter([
         path: '/home',
         Component: loadable(() => import('@pages/home'))
       },
+
       {
         path: '/dashboard',
         Component: loadable(() => import('@pages/dashboard'))
@@ -27,7 +29,7 @@ export const router = createBrowserRouter([
         Component: loadable(() => import('@pages/transactions'))
       },
 
-      { path: '/transaction/:hash/:height', Component: loadable(() => import('@pages/transaction')) },
+      { path: '/transaction/:hash', Component: loadable(() => import('@pages/transaction')) },
 
       {
         path: '/address',

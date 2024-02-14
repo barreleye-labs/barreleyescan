@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { Container } from './styles';
 
@@ -18,21 +18,17 @@ import LinkUnderline from '@components/link';
 
 import { IBlock } from '@src/types/api';
 
-import { Hash, Time, fetcher } from '@utils';
+import { Hash, fetcher } from '@utils';
 
 const Transactions = () => {
-  const [size, setSize] = useState(10);
-  const [count, setCount] = useState(1);
+  const [size] = useState(10);
+  const [count] = useState(1);
   const [page, setPage] = useState(1);
   const { data: totalData } = useSWR<IBlock>(`/api/last-block`, fetcher, {
     refreshInterval: 1000
   });
-  const { data } = useSWR<IBlock[]>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
+  const { data } = useSWR(totalData ? `/api/txs?page=${page}&size=${size}` : null, fetcher, {
     refreshInterval: 1000
-  });
-
-  useEffect(() => {
-    data?.length && setCount(Math.ceil((totalData!.height + 1) / size));
   });
 
   const handleChange = (_, value: number) => {
@@ -47,37 +43,34 @@ const Transactions = () => {
             <TableRow>
               <TableCell>TX Hash</TableCell>
               <TableCell>Block</TableCell>
-              <TableCell align="left">Age</TableCell>
               <TableCell align="left">From</TableCell>
               <TableCell align="left"></TableCell>
               <TableCell align="left">To</TableCell>
+              <TableCell align="left">Value</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.map((row) => (
-              <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            {data?.transactions.map((row) => (
+              <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell align="left">
-                  <LinkUnderline
-                    path={`/transaction/${row.validator}/${row.height}`}
-                    underlink={Hash.ellipsis(row.validator)}
-                  ></LinkUnderline>
+                  <LinkUnderline path={`/transaction/${row.hash}`} underlink={Hash.ellipsis(row.hash)}></LinkUnderline>
                 </TableCell>
 
                 <TableCell component="th" scope="row">
-                  <LinkUnderline path={`/block/${row.height}`} underlink={row.height}></LinkUnderline>
+                  <LinkUnderline path={`/block/${0}`} underlink={0}></LinkUnderline>
                 </TableCell>
 
-                <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
-
                 <TableCell align="left">
-                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.validator)}></LinkUnderline>
+                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.from)}></LinkUnderline>
                 </TableCell>
                 <TableCell align="left">
                   <ArrowForwardIcon />
                 </TableCell>
-
                 <TableCell align="left">
-                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.validator)}></LinkUnderline>
+                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.to)}></LinkUnderline>
+                </TableCell>
+                <TableCell align="left">
+                  {row.value} <span className="description">Barrel</span>
                 </TableCell>
               </TableRow>
             ))}

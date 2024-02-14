@@ -6,17 +6,10 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { Container } from './styles';
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { CardContent, Typography } from '@mui/material';
 import Button from '@mui/material-next/Button';
-import FormControl from '@mui/material/FormControl';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import TextField from '@mui/material/TextField';
 
+import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
 
 import { ITx } from '@src/types/api';
@@ -41,13 +34,6 @@ const Transfer = () => {
   const [tx, onChange, setTx] = useInput<ITx>(txDefaultData());
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleClickShowPassword = useCallback(() => setShowPassword((show) => !show), []);
-
-  const handleMouseDownPassword = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  }, []);
 
   const initData = useCallback(() => {
     setTx(txDefaultData());
@@ -120,27 +106,12 @@ const Transfer = () => {
               Please enter your private key.
             </Typography>
 
-            <FormControl sx={{ m: 1, width: '100%' }} variant="standard">
-              <InputLabel htmlFor="standard-adornment-password">Private Key</InputLabel>
-              <Input
-                onChange={onChangePrivateKey}
-                name="privateKey"
-                placeholder="Enter the private key"
-                id="standard-adornment-password"
-                type={showPassword ? 'text' : 'password'}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
+            <CustomInput
+              label="Private Key"
+              placeholder="Enter the private key"
+              defaultValue={privateKey}
+              onChange={(e) => onChangePrivateKey(e)}
+            />
           </div>
         ) : (
           <>
@@ -151,23 +122,9 @@ const Transfer = () => {
               You can access your account using your private key.
             </Typography>
 
-            <TextField
-              fullWidth
-              label="From Address"
-              disabled={true}
-              id="fullWidth"
-              margin="normal"
-              defaultValue={tx.from}
-            />
-            <TextField
-              fullWidth
-              label="To Address"
-              margin="normal"
-              name="to"
-              onChange={onChange}
-              defaultValue={tx.to}
-            />
-            <TextField
+            <Input fullWidth label="From Address" disabled={true} defaultValue={tx.from} />
+            <Input fullWidth label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
+            <Input
               fullWidth
               name="value"
               defaultValue={tx.value}
@@ -175,7 +132,6 @@ const Transfer = () => {
               type="number"
               label="Amount to Send"
               placeholder="0.000000"
-              margin="normal"
             />
           </>
         )}

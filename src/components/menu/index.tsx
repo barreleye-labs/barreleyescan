@@ -1,4 +1,4 @@
-import { MemoizedMenuItems } from './components/MenuItems';
+import MenuItems from './components/MenuItems';
 import { type Route, routes } from './routes';
 
 import List from '@mui/joy/List';
@@ -14,7 +14,7 @@ const Menu = () => {
           <div className="menu-block" key={index}>
             <ListSubheader>{route.category}</ListSubheader>
 
-            <MemoizedMenuItems content={route.content} />
+            <MenuItems content={route.content} />
           </div>
         ))}
       </List>

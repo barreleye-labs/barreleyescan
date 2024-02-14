@@ -1,4 +1,5 @@
 import styles from '@emotion/styled';
+
 import { pink } from '@mui/material/colors';
 
 const primary = pink[500];
@@ -6,14 +7,14 @@ const second = pink[400];
 export const Container = styles.div`
     display:flex;
     align-items: baseline;
-  .button{
-    font-size: 1rem;
-    font-weight: 700;
-    background: ${second};
-   &:hover{
-      background: ${primary}
+    .button{
+      font-size: 1rem;
+      font-weight: 700;
+      background: ${second};
+     &:hover{
+        background: ${primary}
+      }
     }
-  }
 
   .copy-button{
     position: relative;

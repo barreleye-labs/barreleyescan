@@ -21,9 +21,9 @@ function Transaction() {
   dayjs.extend(utc);
 
   const location = useLocation();
-  const { hash, height } = useParams();
+  const { hash } = useParams();
 
-  const { data } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
+  const { data } = useSWR(`/api/txs/${hash}`, fetcher);
 
   const setTime = () => {
     const formatUnix = Time.formatUnixNano(data!.timestamp);
@@ -43,10 +43,7 @@ function Transaction() {
           <>
             <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>
             <Row label="Block">
-              <LinkUnderline
-                path={`/block/${location.pathname.split('/')[3]}`}
-                underlink={location.pathname.split('/')[3]}
-              ></LinkUnderline>
+              <LinkUnderline path={`/block/0`} underlink={0}></LinkUnderline>
             </Row>
             <Row label="TxReceipt Status">
               <div className="badge">
@@ -56,15 +53,15 @@ function Transaction() {
             </Row>
             <Row label="Age" content={setTime()}></Row>
             <Row label="From">
-              <span className="hash">{data.hash}</span>
+              <span className="hash">{data.transaction.from}</span>
             </Row>
             <Row label="To">
-              <span className="hash">{data.hash}</span>
+              <span className="hash">{data.transaction.to}</span>
             </Row>
 
             <Row label="Token Transfers" content="-"></Row>
             <Row label="NFT Transfers" content="-"></Row>
-            <Row label="Nonce" content="201"></Row>
+            <Row label="Nonce">{data.transaction.nonce}</Row>
           </>
         )}
       </Detail>

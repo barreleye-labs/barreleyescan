@@ -1,8 +1,10 @@
 import styles from '@emotion/styled';
-import { pink } from '@mui/material/colors';
+
+import { grey, pink } from '@mui/material/colors';
 
 const second = pink[100];
 const primary = pink[500];
+const description = grey[500];
 
 export const Container = styles.div`
   display: flex;
@@ -19,4 +21,7 @@ export const Container = styles.div`
       color: ${primary};
     }
   }
+  
+  .description{
+    color: ${description};
 `;
