@@ -9,7 +9,7 @@ import Menu from '@components/menu';
 import DefaultLayout from '@layouts/default';
 import WalletLayout from '@layouts/wallet';
 
-const walletLayoutPath = ['/create', '/transfer'];
+const walletLayoutPath = ['/create', '/transfer', '/faucet'];
 
 const Layout = () => {
   const { pathname } = useLocation();

@@ -1,5 +1,6 @@
 // @ts-ignore
 import loadable from '@loadable/component';
+
 import { ElementType } from 'react';
 
 export type RouteContent = { title: string; path: string; icon: ElementType };
@@ -30,8 +31,8 @@ export const routes: Route[] = [
       },
 
       {
-        title: 'Address',
-        path: '/address',
+        title: 'Account',
+        path: '/account',
         icon: loadable(() => import('@mui/icons-material/AlternateEmailRounded'))
       }
     ]
@@ -45,9 +46,14 @@ export const routes: Route[] = [
         icon: loadable(() => import('@mui/icons-material/AddBox'))
       },
       {
-        title: 'Send Transaction',
+        title: 'Send Barrel',
         path: '/transfer',
         icon: loadable(() => import('@mui/icons-material/Send'))
+      },
+      {
+        title: 'Barrel Faucet',
+        path: '/faucet',
+        icon: loadable(() => import('@mui/icons-material/InvertColors'))
       }
     ]
   }

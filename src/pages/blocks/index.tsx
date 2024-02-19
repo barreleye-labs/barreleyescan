@@ -15,19 +15,19 @@ import TableRow from '@mui/material/TableRow';
 
 import LinkUnderline from '@components/link';
 
-import { Hash, Time, fetcher } from '@utils';
+import { IBlock, IBlocks } from '@src/types/api';
 
-import { IBlock } from '@types/api.d.ts';
+import { Hash, Time, fetcher } from '@utils';
 
 const Blocks = () => {
   const [size] = useState(10);
   const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
   const { data: totalData } = useSWR<IBlock>(`/api/last-block`, fetcher, {
-    refreshInterval: 1000
+    refreshInterval: 10000
   });
-  const { data } = useSWR<IBlock[]>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
-    refreshInterval: 1000
+  const { data } = useSWR<IBlocks>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
+    refreshInterval: 10000
   });
 
   useEffect(() => {
@@ -38,6 +38,7 @@ const Blocks = () => {
     setPage(value);
   };
 
+  if (!data) return <div>loading...</div>;
   return (
     <Container>
       <TableContainer component={Paper}>
@@ -57,19 +58,16 @@ const Blocks = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.map((row) => (
+            {data?.blocks.map((row) => (
               <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">
                   <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>
                 </TableCell>
 
                 <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
-                <TableCell align="left">{row.txResponse?.txCount}</TableCell>
+                <TableCell align="left">{row.txCount}</TableCell>
                 <TableCell align="left">
-                  <LinkUnderline
-                    path={`/address`}
-                    underlink={row.validator && Hash.ellipsis(row.validator)}
-                  ></LinkUnderline>
+                  <LinkUnderline path={`/account`} underlink={row.signer && Hash.ellipsis(row.signer)}></LinkUnderline>
                 </TableCell>
                 <TableCell align="right">-</TableCell>
                 <TableCell align="right">-</TableCell>

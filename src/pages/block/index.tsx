@@ -8,7 +8,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 
 import Detail from '@components/detail';
-import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
 import { IBlock } from '@src/types/api';
@@ -28,7 +27,7 @@ function Block() {
 
   const changeBlockPage = useCallback(
     (setHeight: number) => {
-      if (setHeight >= 0 && lastBlock!.height >= setHeight) {
+      if (setHeight >= 0 && lastBlock?.block.height >= setHeight) {
         navigate(`/block/${setHeight}`);
       }
     },
@@ -36,11 +35,13 @@ function Block() {
   );
 
   const setTime = useCallback(() => {
-    const formatUnix = Time.formatUnixNano(data!.timestamp);
+    const formatUnix = Time.formatUnixNano(data?.block.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
   }, [data]);
+
+  if (!data) return <div>loading</div>;
 
   return (
     <Detail
@@ -51,23 +52,21 @@ function Block() {
       subheader={height as string}
       isAction={true}
     >
-      {data && (
-        <>
-          <Row label="Time" content={setTime()}></Row>
-          <Row label="Hash" content={data.hash}></Row>
-          <Row label="Prev Hash" content={data.prevBlockHash}></Row>
-          <Row label="Total TXs" content={`${data.txResponse.txCount.toString()} TXs`}>
-            {data.txResponse.hashes.length &&
-              data.txResponse.hashes.map((hash) => (
-                <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
-              ))}
-          </Row>
-          <Row label="Block Reward" content="-"></Row>
-          <Row label="Block Size" content="-"></Row>
-          <Row label="Base Fee" content="-"></Row>
-          <Row label="Burnt Fees" content="-"></Row>
-        </>
-      )}
+      <>
+        <Row label="Time" content={setTime()}></Row>
+        <Row label="Hash" content={data?.block.hash}></Row>
+        <Row label="Prev Hash" content={data?.block.prevBlockHash}></Row>
+        <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
+          {/*{data?.block.txCount &&*/}
+          {/*  data?.block.transactions.map((hash) => (*/}
+          {/*    <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>*/}
+          {/*  ))}*/}
+        </Row>
+        <Row label="Block Reward" content="-"></Row>
+        <Row label="Block Size" content="-"></Row>
+        <Row label="Base Fee" content="-"></Row>
+        <Row label="Burnt Fees" content="-"></Row>
+      </>
     </Detail>
   );
 }

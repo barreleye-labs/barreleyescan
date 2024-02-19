@@ -1,5 +1,4 @@
 import styles from '@emotion/styled';
-
 import { Card } from '@mui/joy';
 import { pink } from '@mui/material/colors';
 
@@ -7,6 +6,16 @@ const second = pink[400];
 const primary = pink[500];
 
 export const Container = styles(Card)`
+  .input-wrapper{
+    display: flex;
+    align-items:center;
+    gap:12px;
+
+    .MuiFormControl-root{
+      width: 50%
+    }
+  }
+  
   .MuiTypography-h5{
     font-weight: 700;
   }
@@ -30,5 +39,6 @@ export const Container = styles(Card)`
     gap: 12px;
     margin-top: 2rem;
   }
+  
  }
 `;

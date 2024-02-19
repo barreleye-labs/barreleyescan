@@ -32,8 +32,8 @@ export const router = createBrowserRouter([
       { path: '/transaction/:hash', Component: loadable(() => import('@pages/transaction')) },
 
       {
-        path: '/address',
-        Component: loadable(() => import('@pages/address'))
+        path: '/account',
+        Component: loadable(() => import('src/pages/account'))
       },
 
       // ===================== wallet ===============================
@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: '/transfer',
         Component: loadable(() => import('@pages/wallet/transfer'))
+      },
+      {
+        path: '/faucet',
+        Component: loadable(() => import('@pages/wallet/faucet'))
       }
       // ==========================================================
     ]

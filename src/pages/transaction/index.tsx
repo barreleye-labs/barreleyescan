@@ -26,12 +26,12 @@ function Transaction() {
   const { data } = useSWR(`/api/txs/${hash}`, fetcher);
 
   const setTime = () => {
-    const formatUnix = Time.formatUnixNano(data!.timestamp);
+    const formatUnix = Time.formatUnixNano(data?.transaction.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
   };
-
+  if (!data) return <div>loading...</div>;
   return (
     <Container>
       <Detail
@@ -39,31 +39,29 @@ function Transaction() {
         title={location.pathname.split('/')[1].toUpperCase()}
         subheader={hash as string}
       >
-        {data && (
-          <>
-            <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>
-            <Row label="Block">
-              <LinkUnderline path={`/block/0`} underlink={0}></LinkUnderline>
-            </Row>
-            <Row label="TxReceipt Status">
-              <div className="badge">
-                <CheckCircleIcon />
-                <span>Success</span>
-              </div>
-            </Row>
-            <Row label="Age" content={setTime()}></Row>
-            <Row label="From">
-              <span className="hash">{data.transaction.from}</span>
-            </Row>
-            <Row label="To">
-              <span className="hash">{data.transaction.to}</span>
-            </Row>
+        <>
+          <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>
+          <Row label="Block">
+            <LinkUnderline path={`/block/0`} underlink={0}></LinkUnderline>
+          </Row>
+          <Row label="TxReceipt Status">
+            <div className="badge">
+              <CheckCircleIcon />
+              <span>Success</span>
+            </div>
+          </Row>
+          <Row label="Age" content={setTime()}></Row>
+          <Row label="From">
+            <span className="hash">{data.transaction.from}</span>
+          </Row>
+          <Row label="To">
+            <span className="hash">{data.transaction.to}</span>
+          </Row>
 
-            <Row label="Token Transfers" content="-"></Row>
-            <Row label="NFT Transfers" content="-"></Row>
-            <Row label="Nonce">{data.transaction.nonce}</Row>
-          </>
-        )}
+          <Row label="Token Transfers" content="-"></Row>
+          <Row label="NFT Transfers" content="-"></Row>
+          <Row label="Nonce">{data.transaction.nonce}</Row>
+        </>
       </Detail>
     </Container>
   );
