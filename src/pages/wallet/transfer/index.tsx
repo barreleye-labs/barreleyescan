@@ -28,7 +28,7 @@ const txDefaultData = (): ITx => {
   };
 };
 
-const Transfer = () => {
+const Faucet = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [tx, onChange, setTx] = useInput<ITx>(txDefaultData());
@@ -148,4 +148,4 @@ const Transfer = () => {
   );
 };
 
-export default Transfer;
+export default Faucet;

@@ -33,3 +33,8 @@ export interface ITx {
   signatureR?: string;
   signatureS?: string;
 }
+
+export interface IFaucet {
+  accountAddress: string;
+  balance?: number;
+}

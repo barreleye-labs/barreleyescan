@@ -8,7 +8,9 @@ const useInput = <T>(initialData: T): ReturnTypes<T> => {
   const handler = useCallback(
     (e) => {
       const { value, name } = e.target;
+
       typeof values === 'object' ? setValues({ ...values, [name]: value }) : setValues(value);
+      console.log(values);
     },
     [values]
   );

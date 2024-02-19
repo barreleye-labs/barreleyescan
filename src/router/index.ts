@@ -44,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: '/transfer',
         Component: loadable(() => import('@pages/wallet/transfer'))
+      },
+      {
+        path: '/faucet',
+        Component: loadable(() => import('@pages/wallet/faucet'))
       }
       // ==========================================================
     ]
