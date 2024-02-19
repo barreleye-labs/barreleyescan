@@ -33,8 +33,7 @@ const Transfer = () => {
       .post(
         '/api/faucet',
         {
-          accountAddress,
-          balance
+          accountAddress
         },
         { withCredentials: true }
       )
@@ -71,6 +70,8 @@ const Transfer = () => {
             value="balance"
             type="number"
             placeholder="0.000000"
+            disabled={true}
+            defaultValue="10"
             fullWidth
             onChange={onChange}
           />

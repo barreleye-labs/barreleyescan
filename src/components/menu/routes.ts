@@ -31,8 +31,8 @@ export const routes: Route[] = [
       },
 
       {
-        title: 'Address',
-        path: '/address',
+        title: 'Account',
+        path: '/account',
         icon: loadable(() => import('@mui/icons-material/AlternateEmailRounded'))
       }
     ]

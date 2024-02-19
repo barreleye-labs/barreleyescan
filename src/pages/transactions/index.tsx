@@ -61,13 +61,13 @@ const Transactions = () => {
                 </TableCell>
 
                 <TableCell align="left">
-                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.from)}></LinkUnderline>
+                  <LinkUnderline path={`/account`} underlink={Hash.ellipsis(row.from)}></LinkUnderline>
                 </TableCell>
                 <TableCell align="left">
                   <ArrowForwardIcon />
                 </TableCell>
                 <TableCell align="left">
-                  <LinkUnderline path={`/address`} underlink={Hash.ellipsis(row.to)}></LinkUnderline>
+                  <LinkUnderline path={`/account`} underlink={Hash.ellipsis(row.to)}></LinkUnderline>
                 </TableCell>
                 <TableCell align="left">
                   {row.value} <span className="description">Barrel</span>

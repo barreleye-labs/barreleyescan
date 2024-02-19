@@ -3,17 +3,23 @@
  */
 
 export interface IBlock {
+  block: Block;
+}
+export interface IBlocks {
+  blocks: Block[];
+  totalCount: number;
+}
+
+export interface Block {
   dataHash: Hash;
   hash: Hash;
   height: number;
   prevBlockHash: string;
-  signature: string;
+  signature: { r: string; s: string };
+  signer: string;
   timestamp: number;
-  txResponse: {
-    txCount: number;
-    hashes: [];
-  };
-  validator: Hash;
+  transactions: [];
+  txCount: number;
   version: number;
 }
 
