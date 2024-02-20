@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 interface Props {
   icon: ReactNode;
   title: string;
-  subheader: string | number;
+  subheader?: string | number;
   isAction?: boolean;
   children: ReactNode;
   onClickPrev?: () => void;

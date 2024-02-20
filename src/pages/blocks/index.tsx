@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Container } from './styles';
 
@@ -21,22 +21,18 @@ import { Hash, Time, fetcher } from '@utils';
 
 const Blocks = () => {
   const [size] = useState(10);
-  const [count, setCount] = useState(1);
+  // const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
-  const { data: totalData } = useSWR<IBlock>(`/api/last-block`, fetcher, {
-    refreshInterval: 10000
-  });
-  const { data } = useSWR<IBlocks>(totalData ? `/api/blocks?page=${page}&size=${size}` : null, fetcher, {
-    refreshInterval: 10000
-  });
 
-  useEffect(() => {
-    data?.length && setCount(Math.ceil((totalData!.height + 1) / size));
-  }, [totalData, size]);
+  const { data } = useSWR<IBlocks>(`/api/blocks?page=${page}&size=${size}`, fetcher, {
+    refreshInterval: 10000
+  });
 
   const handleChange = (_, value: number) => {
     setPage(value);
   };
+
+  const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
 
   if (!data) return <div>loading...</div>;
   return (

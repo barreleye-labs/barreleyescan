@@ -1,6 +1,6 @@
 import useSWR from 'swr';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Container } from './styles';
 
@@ -16,25 +16,25 @@ import TableRow from '@mui/material/TableRow';
 
 import LinkUnderline from '@components/link';
 
-import { IBlock } from '@src/types/api';
+import { ITxs } from '@src/types/api';
 
-import { Hash, fetcher } from '@utils';
+import { Hash, Time, fetcher } from '@utils';
 
 const Transactions = () => {
   const [size] = useState(10);
-  const [count] = useState(1);
+
   const [page, setPage] = useState(1);
-  const { data: totalData } = useSWR<IBlock>(`/api/last-block`, fetcher, {
-    refreshInterval: 1000
-  });
-  const { data } = useSWR(totalData ? `/api/txs?page=${page}&size=${size}` : null, fetcher, {
+
+  const { data } = useSWR<ITxs>(`/api/txs?page=${page}&size=${size}`, fetcher, {
     refreshInterval: 1000
   });
 
   const handleChange = (_, value: number) => {
     setPage(value);
   };
+  const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
 
+  if (!data) return <div>loading...</div>;
   return (
     <Container>
       <TableContainer component={Paper}>
@@ -42,6 +42,7 @@ const Transactions = () => {
           <TableHead>
             <TableRow>
               <TableCell>TX Hash</TableCell>
+              <TableCell>Age</TableCell>
               <TableCell>Block</TableCell>
               <TableCell align="left">From</TableCell>
               <TableCell align="left"></TableCell>
@@ -55,9 +56,9 @@ const Transactions = () => {
                 <TableCell align="left">
                   <LinkUnderline path={`/transaction/${row.hash}`} underlink={Hash.ellipsis(row.hash)}></LinkUnderline>
                 </TableCell>
-
+                <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
                 <TableCell component="th" scope="row">
-                  <LinkUnderline path={`/block/${0}`} underlink={0}></LinkUnderline>
+                  <LinkUnderline path={`/block/${0}`} underlink={row.blockHeight}></LinkUnderline>
                 </TableCell>
 
                 <TableCell align="left">

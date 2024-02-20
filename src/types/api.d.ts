@@ -27,13 +27,23 @@ export interface Block {
  * Transaction API type
  */
 
+export interface ITxs {
+  transactions: Tx[];
+  totalCount: number;
+}
+
 export interface ITx {
+  transaction: Tx;
+}
+export interface Tx {
   [index: string]: string;
   nonce: string;
   from: string;
   to: string;
   value: string;
   data: string;
+  blockHeight: number;
+  timestamp: number;
   signerX?: string;
   signerY?: string;
   signatureR?: string;
@@ -43,4 +53,13 @@ export interface ITx {
 export interface IFaucet {
   accountAddress: string;
   balance?: number;
+}
+
+export interface IAccount {
+  account: Account;
+}
+export interface Account {
+  address: string;
+  balance: string;
+  nonce: string;
 }

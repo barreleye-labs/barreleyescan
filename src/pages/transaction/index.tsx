@@ -13,7 +13,7 @@ import Detail from '@components/detail';
 import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
-import { IBlock } from '@src/types/api';
+import { ITx } from '@src/types/api';
 
 import { Time, fetcher } from '@utils';
 
@@ -23,7 +23,7 @@ function Transaction() {
   const location = useLocation();
   const { hash } = useParams();
 
-  const { data } = useSWR(`/api/txs/${hash}`, fetcher);
+  const { data } = useSWR<ITx>(`/api/txs/${hash}`, fetcher);
 
   const setTime = () => {
     const formatUnix = Time.formatUnixNano(data?.transaction.timestamp);
@@ -42,7 +42,10 @@ function Transaction() {
         <>
           <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>
           <Row label="Block">
-            <LinkUnderline path={`/block/0`} underlink={0}></LinkUnderline>
+            <LinkUnderline
+              path={`/block/${data.transaction.blockHeight}`}
+              underlink={data.transaction.blockHeight}
+            ></LinkUnderline>
           </Row>
           <Row label="TxReceipt Status">
             <div className="badge">

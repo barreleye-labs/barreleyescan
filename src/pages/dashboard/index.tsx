@@ -1,3 +1,6 @@
+import { IBlock } from '@type/api';
+import useSWR from 'swr';
+
 import { useNavigate } from 'react-router-dom';
 
 import { DashboardCard } from './styles';
@@ -7,15 +10,21 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Unstable_Grid2';
 
+import { fetcher } from '@utils';
+
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { data } = useSWR<IBlock>(`/api/last-block`, fetcher, {
+    refreshInterval: 10000
+  });
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid xs={2} sm={4} md={4}>
           <DashboardCard>
             <div className="header">Block Height</div>
-            <div className="content">765</div>
+            <div className="content">{data ? data.block.height : 0}</div>
             <Divider />
             <div className="footer" onClick={() => navigate('/blocks')}>
               <span>See all blocks</span>
