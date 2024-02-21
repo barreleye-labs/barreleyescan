@@ -23,12 +23,12 @@ const txDefaultData = (): ITx => {
     from: '',
     to: '',
     value: '',
-    nonce: 'ab',
+    nonce: '',
     data: 'ab'
   };
 };
 
-const Faucet = () => {
+const Transfer = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [tx, onChange, setTx] = useInput<ITx>(txDefaultData());
@@ -62,16 +62,7 @@ const Faucet = () => {
     [privateKey]
   );
 
-  const onSubmit = useCallback(() => {
-    if (step === 1) {
-      const { x, y } = Crypto.generatePublicKey(privateKey);
-      const from = sha256(x.concat(y)).toString().substring(0, 40);
-
-      setTx((tx) => ({ ...tx, from }));
-
-      return setStep(2);
-    }
-
+  function requestTxs() {
     axios
       .post(
         '/api/txs',
@@ -90,6 +81,29 @@ const Faucet = () => {
       })
       .catch((err) => {
         showToast({ variant: 'error', message: err.response.data === '' ? 'Check the network.' : err.response.data });
+      });
+  }
+  const onSubmit = useCallback(() => {
+    if (step === 1) {
+      const { x, y } = Crypto.generatePublicKey(privateKey);
+      const from = sha256(x.concat(y)).toString().substring(0, 40);
+
+      setTx((tx) => ({ ...tx, from }));
+      return setStep(2);
+    }
+    console.log(tx.from);
+
+    axios
+      .get(`/api/accounts/${tx.from}`)
+      .then(({ data }) => {
+        setTx((tx) => ({ ...tx, nonce: data.account.nonce }));
+        requestTxs();
+      })
+      .catch((err) => {
+        showToast({
+          variant: 'error',
+          message: err.response.data.Error ?? 'Check the network.'
+        });
       });
   }, [getSignature, getSigner, tx, step]);
 
@@ -148,4 +162,4 @@ const Faucet = () => {
   );
 };
 
-export default Faucet;
+export default Transfer;

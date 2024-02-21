@@ -14,7 +14,7 @@ import { IFaucet } from '@src/types/api';
 
 import useInput from '@hooks/useInput';
 
-const Transfer = () => {
+const Faucet = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [faucet, onChange] = useInput<IFaucet>({ accountAddress: '', balance: 0 });
@@ -87,4 +87,4 @@ const Transfer = () => {
   );
 };
 
-export default Transfer;
+export default Faucet;
