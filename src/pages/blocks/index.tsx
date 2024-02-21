@@ -32,7 +32,7 @@ const Blocks = () => {
     setPage(value);
   };
 
-  const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
+  const count = useMemo(() => (data ? Math.ceil(data.data.totalCount / size) : 1), [data]);
 
   if (!data) return <div>loading...</div>;
   return (
@@ -54,7 +54,7 @@ const Blocks = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.blocks.map((row) => (
+            {data.data.blocks.map((row) => (
               <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell component="th" scope="row">
                   <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>

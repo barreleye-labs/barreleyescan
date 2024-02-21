@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+const breakpoints = [576, 768, 992, 1200];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+
 export const Container = styled.div`
   flex: 1;
   display: flex;
@@ -9,4 +13,8 @@ export const Container = styled.div`
   gap: 17px;
   overflow: auto;
   padding: 4rem 3rem;
+
+  ${mq[1]} {
+    padding: 3rem 3rem;
+  }
 `;

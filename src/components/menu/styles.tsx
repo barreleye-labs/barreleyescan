@@ -2,57 +2,109 @@ import styled from '@emotion/styled';
 
 import { pink } from '@mui/material/colors';
 
+const breakpoints = [576, 768, 992, 1200];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+
 const second = pink[100];
 const primary = pink[500];
 
 export const Container = styled.div`
-  .menu-block {
-    margin-bottom: 3rem;
-  }
-
-  .gap {
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-  span,
-  .MuiListSubheader-root,
-  .MuiListItemContent-root {
-    color: #f0f4f8;
-  }
-
-  .MuiListItemButton-root,
-  .Mui-selected {
-    border-radius: 6px;
-  }
-
-  .MuiSvgIcon-root {
-    margin-right: 2px;
-  }
-  .Mui-selected {
-    background: ${primary} !important;
-    .MuiSvgIcon-root {
-      color: white;
-    }
-  }
-
-  .MuiListItemButton-root {
-    min-height: 44px;
-
-    &:hover {
-      background: ${second}26 !important;
-
-      div,
-      span {
-        color: #f0f4f8 !important;
-      }
-    }
-  }
-  .MuiListItemContent-root {
-    font-size: 14px;
-    font-weight: 600;
-  }
-
   flex: 0.3;
   max-width: 256px;
+
+  ${mq[1]} {
+    max-width: none !important;
+  }
+
+  .menu-list {
+    animation-duration: 1s;
+    animation-name: slidein;
+    .menu-block {
+      margin-bottom: 3rem;
+    }
+
+    .gap {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    span,
+    .MuiListSubheader-root,
+    .MuiListItemContent-root {
+      color: #f0f4f8;
+    }
+
+    .MuiListItemButton-root,
+    .Mui-selected {
+      border-radius: 6px;
+    }
+
+    .MuiSvgIcon-root {
+      margin-right: 2px;
+    }
+    .Mui-selected {
+      background: ${primary} !important;
+      .MuiSvgIcon-root {
+        color: white;
+      }
+    }
+
+    .MuiListItemButton-root {
+      min-height: 44px;
+
+      &:hover {
+        background: ${second}26 !important;
+
+        div,
+        span {
+          color: #f0f4f8 !important;
+        }
+      }
+    }
+    .MuiListItemContent-root {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    ${mq[1]} {
+      display: none !important;
+    }
+  }
+
+  .menu-icon {
+    display: none;
+    position: absolute;
+    top: 23px;
+    right: 18px;
+    cursor: pointer;
+    padding: 1px;
+    box-shadow:
+      rgb(243, 246, 249) 0px 1px 2px inset,
+      rgba(229, 234, 242, 0.6) 0px 1px 0.5px;
+    border-radius: 4px;
+    width: 23px;
+    align-items: center;
+    justify-content: center;
+    ${mq[1]} {
+      display: flex;
+    }
+  }
+
+  @keyframes slidein {
+    from {
+      transform: translateX(-200px);
+      width: 100%;
+    }
+
+    to {
+      transform: translateX(0);
+      width: 100%;
+    }
+  }
+
+  .active {
+    display: flex !important;
+  }
 `;

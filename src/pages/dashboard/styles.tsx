@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+const breakpoints = [576, 768, 992, 1200];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+
 export const DashboardCard = styled.div`
   background-color: rgb(255, 255, 255);
   color: rgb(33, 43, 54);
@@ -15,7 +19,7 @@ export const DashboardCard = styled.div`
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-
+  min-width: 150px;
   height: 150px;
   display: flex;
   flex-direction: column;
@@ -32,6 +36,9 @@ export const DashboardCard = styled.div`
 
   .content {
     font-size: 2rem;
+    ${mq[1]} {
+      font-size: 21px;
+    }
     margin: 0px 0px 8px;
     font-weight: 700;
     padding: 0 24px;

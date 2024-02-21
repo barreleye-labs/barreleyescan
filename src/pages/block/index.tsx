@@ -27,7 +27,7 @@ function Block() {
 
   const changeBlockPage = useCallback(
     (setHeight: number) => {
-      if (setHeight >= 0 && lastBlock?.block.height >= setHeight) {
+      if (setHeight >= 0 && lastBlock?.data.block.height >= setHeight) {
         navigate(`/block/${setHeight}`);
       }
     },
@@ -35,7 +35,7 @@ function Block() {
   );
 
   const setTime = useCallback(() => {
-    const formatUnix = Time.formatUnixNano(data?.block.timestamp);
+    const formatUnix = Time.formatUnixNano(data.data.block.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
@@ -54,9 +54,9 @@ function Block() {
     >
       <>
         <Row label="Time" content={setTime()}></Row>
-        <Row label="Hash" content={data?.block.hash}></Row>
-        <Row label="Prev Hash" content={data?.block.prevBlockHash}></Row>
-        <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
+        <Row label="Hash" content={data.data?.block.hash}></Row>
+        <Row label="Prev Hash" content={data.data?.block.prevBlockHash}></Row>
+        <Row label="Total TXs" content={`${data.data?.block.txCount.toString()} TXs`}>
           {/*{data?.block.txCount &&*/}
           {/*  data?.block.transactions.map((hash) => (*/}
           {/*    <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>*/}
