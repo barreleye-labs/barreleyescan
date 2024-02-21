@@ -28,9 +28,13 @@ const Account = () => {
   const fetchAccount = useCallback(
     debounce(async (address: string) => {
       try {
-        const { data } = await axios.get(`/api/accounts/${address}`);
+        const {
+          data: {
+            data: { account }
+          }
+        } = await axios.get(`/api/accounts/${address}`);
 
-        setData(data.account);
+        setData(account);
       } catch (err) {
         showToast({ variant: 'error', message: err.response.data.Error ?? 'No Account Data' });
       }

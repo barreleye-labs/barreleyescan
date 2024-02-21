@@ -32,7 +32,7 @@ const Transactions = () => {
   const handleChange = (_, value: number) => {
     setPage(value);
   };
-  const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
+  const count = useMemo(() => (data ? Math.ceil(data.data.totalCount / size) : 1), [data]);
 
   if (!data) return <div>loading...</div>;
   return (
@@ -51,7 +51,7 @@ const Transactions = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data?.transactions.map((row) => (
+            {data.data.transactions.map((row) => (
               <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                 <TableCell align="left">
                   <LinkUnderline path={`/transaction/${row.hash}`} underlink={Hash.ellipsis(row.hash)}></LinkUnderline>

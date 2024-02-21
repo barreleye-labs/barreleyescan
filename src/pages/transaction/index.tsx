@@ -26,7 +26,7 @@ function Transaction() {
   const { data } = useSWR<ITx>(`/api/txs/${hash}`, fetcher);
 
   const setTime = () => {
-    const formatUnix = Time.formatUnixNano(data?.transaction.timestamp);
+    const formatUnix = Time.formatUnixNano(data.data?.transaction.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
@@ -43,8 +43,8 @@ function Transaction() {
           <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>
           <Row label="Block">
             <LinkUnderline
-              path={`/block/${data.transaction.blockHeight}`}
-              underlink={data.transaction.blockHeight}
+              path={`/block/${data.data.transaction.blockHeight}`}
+              underlink={data.data.transaction.blockHeight}
             ></LinkUnderline>
           </Row>
           <Row label="TxReceipt Status">
@@ -55,15 +55,15 @@ function Transaction() {
           </Row>
           <Row label="Age" content={setTime()}></Row>
           <Row label="From">
-            <span className="hash">{data.transaction.from}</span>
+            <span className="hash">{data.data.transaction.from}</span>
           </Row>
           <Row label="To">
-            <span className="hash">{data.transaction.to}</span>
+            <span className="hash">{data.data.transaction.to}</span>
           </Row>
 
           <Row label="Token Transfers" content="-"></Row>
           <Row label="NFT Transfers" content="-"></Row>
-          <Row label="Nonce">{data.transaction.nonce}</Row>
+          <Row label="Nonce">{data.data.transaction.nonce}</Row>
         </>
       </Detail>
     </Container>
