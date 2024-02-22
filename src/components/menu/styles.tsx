@@ -6,8 +6,9 @@ const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
-const second = pink[100];
 const primary = pink[500];
+const second = pink[100];
+const sub = pink[50];
 
 export const Container = styled.div`
   flex: 0.3;
@@ -18,8 +19,8 @@ export const Container = styled.div`
   }
 
   .menu-list {
-    animation-duration: 1s;
-    animation-name: slidein;
+    animation: slidein 1000ms;
+
     .menu-block {
       margin-bottom: 3rem;
     }
@@ -74,6 +75,7 @@ export const Container = styled.div`
   }
 
   .menu-icon {
+    color: ${sub};
     display: none;
     position: absolute;
     top: 23px;

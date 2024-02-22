@@ -9,8 +9,10 @@ import ListItemButton from '@mui/joy/ListItemButton';
 
 interface Props {
   content: RouteContent[];
+  onClick: () => void;
 }
-const MenuItems = memo(({ content }: Props) => {
+
+const MenuItems = memo(({ content, onClick }: Props) => {
   const { pathname } = useLocation();
 
   return (
@@ -19,6 +21,7 @@ const MenuItems = memo(({ content }: Props) => {
         <Link to={`${item.path}`} key={index}>
           <ListItem>
             <ListItemButton
+              onClick={onClick}
               className="menu-item"
               disabled={false}
               selected={

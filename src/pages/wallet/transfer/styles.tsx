@@ -7,6 +7,15 @@ const second = pink[400];
 const primary = pink[500];
 
 export const Container = styles(Card)`
+ border: none;
+  background-color: rgb(255, 255, 255);
+  color: rgb(33, 43, 54);
+  box-shadow:
+    rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+  border-radius: 16px;
+
+
   .MuiTypography-h5{
     font-weight: 700;
   }

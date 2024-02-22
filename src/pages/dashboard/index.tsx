@@ -8,7 +8,13 @@ import { DashboardCard } from './styles';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Unstable_Grid2';
+
+import Logo from '@components/logo';
+
+import Blocks from '@pages/blocks';
+import Transactions from '@pages/transactions';
 
 import { fetcher } from '@utils';
 
@@ -18,41 +24,86 @@ const Dashboard = () => {
     refreshInterval: 10000
   });
 
+  if (!data)
+    return (
+      <div>
+        <Skeleton />
+        <Skeleton width="80%" />
+        <Skeleton width="60%" />
+        <Skeleton width="30%" />
+      </div>
+    );
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         <Grid xs={2} sm={4} md={4}>
           <DashboardCard>
-            <div className="header">Block Height</div>
-            <div className="content">{data ? data.data.block.height : 0}</div>
-            <Divider />
-            <div className="footer" onClick={() => navigate('/blocks')}>
-              <span>See all blocks</span>
-              <ArrowForwardRoundedIcon />
+            <div className="dashboard-content-type">
+              <div className="header">Block Height</div>
+              <div className="content">#{data ? data.data.block.height : 0}</div>
+
+              <div className="footer" onClick={() => navigate('/blocks')}>
+                <div>
+                  <span>See all blocks</span>
+                  <ArrowForwardRoundedIcon />
+                </div>
+              </div>
             </div>
           </DashboardCard>
         </Grid>
 
         <Grid xs={2} sm={4} md={4}>
           <DashboardCard>
-            <div className="header">Transactions</div>
-            <div className="content">3,51.57 M </div>
-            <Divider />
-            <div className="footer" onClick={() => navigate('/transactions')}>
-              <span>See all Transactions</span>
-              <ArrowForwardRoundedIcon />
+            <div className="dashboard-content-type">
+              <div className="header">Avg Block Time</div>
+              <div className="content">1.0 s</div>
+
+              <div className="footer">
+                <div>
+                  <span>(1 Hour)</span>
+                </div>
+              </div>
             </div>
           </DashboardCard>
         </Grid>
 
         <Grid xs={2} sm={4} md={4}>
           <DashboardCard>
-            <div className="header">Address</div>
-            <div className="content">-</div>
-            <Divider />
-            <div className="footer" onClick={() => navigate('/address')}>
-              <span>See all address</span>
-              <ArrowForwardRoundedIcon />
+            <div className="dashboard-content-type">
+              <div className="header">Consensus Nodes</div>
+              <div className="content">34</div>
+            </div>
+          </DashboardCard>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        <Grid xs={12} sm={12} md={12}>
+          <DashboardCard>
+            <div className="dashboard-custom">
+              <div className="left">
+                <img src="src/assets/barreleye.png" />
+                <Logo />
+              </div>
+              <div className="right"></div>
+            </div>
+          </DashboardCard>
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 6, sm: 6, md: 12 }}>
+        <Grid xs={6} sm={6} md={6}>
+          <DashboardCard>
+            <div className="dashboard-table">
+              <Blocks isPagination={false} />
+            </div>
+          </DashboardCard>
+        </Grid>
+
+        <Grid xs={6} sm={6} md={6}>
+          <DashboardCard>
+            <div className="dashboard-table">
+              <Transactions isPagination={false} />
             </div>
           </DashboardCard>
         </Grid>

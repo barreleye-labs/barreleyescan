@@ -3,7 +3,7 @@ import { Logo } from './styles';
 const BarreleyeLogo = () => {
   return (
     <Logo>
-      Barreleye <span>Explorer</span>
+      <span className="bold">Barreleye</span> <span>Explorer</span>
     </Logo>
   );
 };

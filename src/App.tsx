@@ -1,10 +1,11 @@
-import Layout from '@layouts';
 import { SnackbarProvider } from 'notistack';
 
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import './App.css';
+
+import { GlobalStyle } from '@styles/globalStyle';
 
 export function App() {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export function App() {
 
   return (
     <SnackbarProvider maxSnack={3}>
-      <Layout />
+      <GlobalStyle />
     </SnackbarProvider>
   );
 }
