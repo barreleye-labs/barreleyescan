@@ -5,6 +5,10 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Logo = styled.div`
+  .bold {
+    font-weight: 700;
+    font-size: 19px;
+  }
   font-size: 18px;
   height: 90px;
   color: white;

@@ -9,7 +9,8 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Container = styled.div`
-  background: #f5f5f5;
+  background: #f8f9fa;
+
   display: flex;
   min-height: 100dvh;
 
@@ -19,6 +20,7 @@ export const Container = styled.div`
 `;
 
 export const Sider = styled.div`
+  z-index: 1;
   span,
   .MuiListSubheader-root,
   .MuiListItemContent-root {
@@ -36,15 +38,13 @@ export const Sider = styled.div`
     }
   }
 
-  ${mq[1]} {
-    min-width: 100%;
-  }
   position: sticky;
   min-width: 248px;
   border-right: #636b7433;
-  padding: 16px;
   background: #001529;
+  padding: 16px;
   ${mq[1]} {
+    min-width: 100%;
     position: sticky;
     top: 0;
   }

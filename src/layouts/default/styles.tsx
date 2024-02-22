@@ -15,6 +15,6 @@ export const Container = styled.div`
   padding: 4rem 3rem;
 
   ${mq[1]} {
-    padding: 3rem 3rem;
+    padding: 2rem 1.9rem;
   }
 `;

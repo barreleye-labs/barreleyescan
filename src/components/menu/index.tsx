@@ -25,7 +25,7 @@ const Menu = () => {
           <div className="menu-block" key={index}>
             <ListSubheader>{route.category}</ListSubheader>
 
-            <MenuItems content={route.content} />
+            <MenuItems content={route.content} onClick={onClick} />
           </div>
         ))}
       </List>
