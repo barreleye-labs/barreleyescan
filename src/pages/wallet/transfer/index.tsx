@@ -20,10 +20,10 @@ import useInput from '@hooks/useInput';
 
 const txDefaultData = (): Tx => {
   return {
+    nonce: '',
     from: '',
     to: '',
     value: '',
-    nonce: '',
     data: 'ab'
   };
 };
@@ -64,6 +64,8 @@ const Transfer = () => {
         Object.keys(info).reduce((acc: number[], key) => acc.concat(...Char.hexToUint8Array(info[key])), [])
       );
 
+      console.log(txUintArray);
+
       const message = Char.uint8ArrayToHex(txUintArray);
       return Crypto.signMessage(message, privateKey);
     },
@@ -101,7 +103,18 @@ const Transfer = () => {
     axios
       .get(`/api/accounts/${tx.from}`)
       .then(({ data }) => {
-        setTx({ ...tx, nonce: data.data.account.nonce });
+        // const {from,
+        //   to,
+        //   value,
+        //   data} = tx
+
+        setTx({
+          nonce: data.data.account.nonce,
+          from: tx.from,
+          to: tx.to,
+          value: tx.value,
+          data: tx.data
+        });
         // const ttt = { ...tx, nonce: data.data.account.nonce };
         // console.log(ttt);
         seta(true);
