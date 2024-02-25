@@ -40,4 +40,39 @@ const verifyMessage = (message: string, publicKey: PublicKey, signature: Signatu
   return key.verify(message, signature);
 };
 
-export const Crypto = { generatePrivateKey, generatePublicKey, signMessage, verifyMessage, PublicKey, Signature };
+function isAddress(address: string) {
+  if (address.indexOf('0x') === 0) {
+    address = address.replace('0x', '');
+  }
+
+  if (address.length !== 40) {
+    return false;
+  }
+
+  const regexp: RegExp = /^[0-9a-fA-F]+$/;
+
+  if (regexp.test(address)) {
+    return true;
+  }
+  return false;
+}
+
+function remove0x(hex: string) {
+  return hex.replace('0x', '');
+}
+
+function hexToDecimal(hex: string) {
+  return parseInt(hex, 16).toString();
+}
+
+export const Crypto = {
+  isAddress,
+  remove0x,
+  hexToDecimal,
+  generatePrivateKey,
+  generatePublicKey,
+  signMessage,
+  verifyMessage,
+  PublicKey,
+  Signature
+};

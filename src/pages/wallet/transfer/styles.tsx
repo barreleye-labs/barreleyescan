@@ -1,10 +1,10 @@
 import styles from '@emotion/styled';
 
 import { Card } from '@mui/joy';
-import { pink } from '@mui/material/colors';
+import { teal } from '@mui/material/colors';
 
-const second = pink[400];
-const primary = pink[500];
+const second = teal[400];
+const primary = teal[500];
 
 export const Container = styles(Card)`
  border: none;

@@ -4,10 +4,10 @@ import ITable from '@mui/material/Table';
 import IBody from '@mui/material/TableBody';
 import ITableContainer from '@mui/material/TableContainer';
 import IHead from '@mui/material/TableHead';
-import { grey, pink } from '@mui/material/colors';
+import { grey, teal } from '@mui/material/colors';
 
-const second = pink[100];
-const primary = pink[500];
+const second = teal[100];
+const primary = teal[500];
 const description = grey[500];
 
 export const Container = styled.div`
@@ -37,6 +37,9 @@ export const TableContainer = styled(ITableContainer)`
     }
   }
 
+  th {
+    font-weight: 700;
+  }
   .description {
     color: ${description};
   }

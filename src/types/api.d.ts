@@ -14,6 +14,7 @@ export interface Block {
   dataHash: Hash;
   hash: Hash;
   height: number;
+  extra: string;
   prevBlockHash: string;
   signature: { r: string; s: string };
   signer: string;
