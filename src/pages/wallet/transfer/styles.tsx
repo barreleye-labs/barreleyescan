@@ -23,6 +23,7 @@ export const Container = styles(Card)`
   .button{
     font-size: 1rem;
     font-weight: 700;
+    color:white;
     background: ${second};
     &:hover{
       background: ${primary};

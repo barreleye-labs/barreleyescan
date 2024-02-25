@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { Container } from './styles';
 
+import { LoadingButton } from '@mui/lab';
 import { CardContent, Typography } from '@mui/material';
 import Button from '@mui/material-next/Button';
 
@@ -18,6 +19,7 @@ const Faucet = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [faucet, onChange] = useInput<IFaucet>({ accountAddress: '', balance: 0 });
+  const [loading, setLoading] = useState(false);
   const { accountAddress, balance } = faucet;
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
@@ -38,7 +40,11 @@ const Faucet = () => {
         { withCredentials: true }
       )
       .then(() => {
-        showToast({ variant: 'success', message: 'Your Barrel Faucet request accepted.' });
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+          showToast({ variant: 'success', message: 'Your Barrel Faucet request accepted.' });
+        }, 13000);
       })
       .catch((err) => {
         showToast({ variant: 'error', message: 'Invalid address format.\n' });
@@ -78,9 +84,16 @@ const Faucet = () => {
         </>
 
         <div className="btn-wrapper">
-          <Button disabled={disabled} className="button" size="large" variant="filled" onClick={onSubmit}>
+          <LoadingButton
+            loading={loading}
+            disabled={disabled}
+            className="button"
+            size="large"
+            variant="filled"
+            onClick={onSubmit}
+          >
             Run Faucet
-          </Button>
+          </LoadingButton>
         </div>
       </CardContent>
     </Container>

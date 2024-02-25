@@ -2,12 +2,12 @@ import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import sha256 from 'sha256';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Container } from './styles';
 
+import LoadingButton from '@mui/lab/LoadingButton';
 import { CardContent, Typography } from '@mui/material';
-import Button from '@mui/material-next/Button';
 
 import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
@@ -32,8 +32,16 @@ const Transfer = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [tx, onChange, setTx] = useInput<Tx>(txDefaultData());
+  const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
+  const [a, seta] = useState(false);
+
+  useEffect(() => {
+    if (a) {
+      requestTxs();
+    }
+  }, [a]);
 
   const initData = useCallback(() => {
     setTx(txDefaultData());
@@ -76,19 +84,27 @@ const Transfer = () => {
     axios
       .post('/api/txs', requestBody, { withCredentials: true })
       .then(() => {
-        showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
-        initData();
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+          showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
+          initData();
+        }, 13000);
       })
+
       .catch((err) => {
         showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
       });
-  }, [tx, tx.nonce]);
+  }, [tx]);
 
   const checkAccount = useCallback(() => {
     axios
       .get(`/api/accounts/${tx.from}`)
       .then(({ data }) => {
-        setTx((tx) => ({ ...tx, nonce: data.data.account.nonce }));
+        setTx({ ...tx, nonce: data.data.account.nonce });
+        // const ttt = { ...tx, nonce: data.data.account.nonce };
+        // console.log(ttt);
+        seta(true);
         requestTxs();
       })
       .catch((err) => {
@@ -98,7 +114,7 @@ const Transfer = () => {
           message: 'Insufficient balance. You can receive coins through faucet.'
         });
       });
-  }, [tx]);
+  }, [tx, tx.nonce]);
   const onSubmit = useCallback(() => {
     if (step === 1) {
       const { x, y } = Crypto.generatePublicKey(privateKey);
@@ -158,9 +174,16 @@ const Transfer = () => {
         )}
 
         <div className="btn-wrapper">
-          <Button disabled={disabled} className="button" size="large" variant="filled" onClick={onSubmit}>
+          <LoadingButton
+            loading={loading}
+            disabled={disabled}
+            className="button"
+            size="large"
+            variant="filled"
+            onClick={onSubmit}
+          >
             {step === 1 ? 'Access' : 'Send Transaction'}
-          </Button>
+          </LoadingButton>
 
           {step === 2 && <LinkUnderline onClick={() => setStep(1)} underlink="Turn Back" />}
         </div>
