@@ -11,7 +11,7 @@ import { Table, TableBody, TableHead } from '@components/table/index.ts';
 
 import { ITxs } from '@src/types/api';
 
-import { Hash, Time, fetcher } from '@utils';
+import { Crypto, Hash, Time, fetcher } from '@utils';
 
 interface Props {
   isPagination: boolean;
@@ -74,7 +74,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
               </TableCell>
               {!isSimpleData && (
                 <TableCell align="left">
-                  {row.value} <span className="description">Barrel</span>
+                  {Crypto.hexToDecimal(row.value)} <span className="description">Barrel</span>
                 </TableCell>
               )}
             </TableRow>
