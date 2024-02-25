@@ -20,6 +20,8 @@ import { Hash, Time, fetcher } from '@utils';
 
 interface Props {
   isPagination: boolean;
+  isSimpleData: boolean;
+  size: number;
 }
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -34,9 +36,9 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   }
 }));
 
-const Blocks = ({ isPagination = true }: Props) => {
+const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props) => {
   const navigate = useNavigate();
-  const [size] = useState(10);
+
   // const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
 
@@ -65,7 +67,7 @@ const Blocks = ({ isPagination = true }: Props) => {
             Total TXs
           </TableCell>
           <TableCell align="left">Block Proposer</TableCell>
-          <TableCell align="left">Block Hash</TableCell>
+          {!isSimpleData && <TableCell align="left">Block Hash</TableCell>}
           <TableCell align="right">Reward</TableCell>
         </TableRow>
       </TableHead>
@@ -104,11 +106,14 @@ const Blocks = ({ isPagination = true }: Props) => {
                 </HtmlTooltip>
               </TableCell>
 
-              <TableCell align="left">
-                <HtmlTooltip title={<em>{row.hash}</em>}>
-                  <span>{Hash.ellipsis(row.hash)}</span>
-                </HtmlTooltip>
-              </TableCell>
+              {!isSimpleData && (
+                <TableCell align="left">
+                  <HtmlTooltip title={<em>{row.hash}</em>}>
+                    <span>{Hash.ellipsis(row.hash)}</span>
+                  </HtmlTooltip>
+                </TableCell>
+              )}
+
               <TableCell align="right">
                 10 <span className="sub-text">Barrel</span>
               </TableCell>

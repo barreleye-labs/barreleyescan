@@ -7,7 +7,7 @@ import { DashboardCard } from './styles';
 
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Unstable_Grid2';
 
@@ -36,7 +36,7 @@ const Dashboard = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid xs={2} sm={4} md={4}>
+        <Grid xs={2} sm={3} md={3}>
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Block Height</div>
@@ -51,12 +51,11 @@ const Dashboard = () => {
             </div>
           </DashboardCard>
         </Grid>
-
-        <Grid xs={2} sm={4} md={4}>
+        <Grid xs={2} sm={3} md={3}>
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Avg Block Time</div>
-              <div className="content">1.0 s</div>
+              <div className="content">10s</div>
 
               <div className="footer">
                 <div>
@@ -66,12 +65,20 @@ const Dashboard = () => {
             </div>
           </DashboardCard>
         </Grid>
-
-        <Grid xs={2} sm={4} md={4}>
+        <Grid xs={2} sm={3} md={3}>
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Consensus Nodes</div>
-              <div className="content">34</div>
+              <div className="content">3</div>
+            </div>
+          </DashboardCard>
+        </Grid>
+
+        <Grid xs={2} sm={3} md={3}>
+          <DashboardCard>
+            <div className="dashboard-content-type">
+              <div className="header">Circulating Supply</div>
+              <div className="content">{data ? data.data.block.height * 10 : 0}</div>
             </div>
           </DashboardCard>
         </Grid>
@@ -94,17 +101,25 @@ const Dashboard = () => {
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 6, sm: 6, md: 12 }}>
         <Grid xs={6} sm={6} md={6}>
           <DashboardCard>
-            <div className="dashboard-table">
-              <Blocks isPagination={false} />
+            <div className="dashboard-table-wrapper">
+              <h2>Recent Blocks</h2>
+              <div className="dashboard-table">
+                <Blocks isSimpleData={true} isPagination={false} size={5} />
+              </div>
             </div>
+            <Button onClick={() => navigate('/blocks')}>VIEW ALL BLOCKS </Button>
           </DashboardCard>
         </Grid>
 
         <Grid xs={6} sm={6} md={6}>
           <DashboardCard>
-            <div className="dashboard-table">
-              <Transactions isPagination={false} />
+            <div className="dashboard-table-wrapper">
+              <h2>Recent Transactions</h2>
+              <div className="dashboard-table">
+                <Transactions isSimpleData={true} isPagination={false} size={5} />
+              </div>
             </div>
+            <Button onClick={() => navigate('/transactions')}>VIEW ALL TRANSACTIONS </Button>
           </DashboardCard>
         </Grid>
       </Grid>

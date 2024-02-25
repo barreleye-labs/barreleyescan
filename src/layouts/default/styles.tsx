@@ -14,6 +14,9 @@ export const Container = styled.div`
   overflow: auto;
   padding: 4rem 3rem;
 
+  max-width: 1200px;
+  margin: 0 auto;
+
   ${mq[1]} {
     padding: 2rem 1.9rem;
   }
