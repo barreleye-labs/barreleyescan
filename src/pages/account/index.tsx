@@ -56,9 +56,9 @@ const Account = () => {
           'Search Account!'
         ) : (
           <>
-            <Row label="Address" content={data?.data ? data.data.account.address : '0'}></Row>
-            <Row label="Balance" content={data?.data ? data.data.account.balance : '0'}></Row>
-            <Row label="Nonce" content={data?.data ? data.data.account.nonce : '0'}></Row>
+            <Row label="Address" content={address}></Row>
+            <Row label="Balance" content={data?.data ? Crypto.hexToDecimal(data.data.account.balance) : '0'}></Row>
+            <Row label="Nonce" content={data?.data ? Crypto.hexToDecimal(data.data.account.nonce) : '0'}></Row>
           </>
         )}
       </Detail>
