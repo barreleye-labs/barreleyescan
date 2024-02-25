@@ -8,7 +8,10 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 
 import Detail from '@components/detail';
+import LinkUnderline from '@components/link';
 import Row from '@components/row';
+
+import { Button } from '@pages/blocks/styles.tsx';
 
 import { IBlock } from '@src/types/api';
 
@@ -57,15 +60,21 @@ function Block() {
         <Row label="Hash" content={data.data?.block.hash}></Row>
         <Row label="Prev Hash" content={data.data?.block.prevBlockHash}></Row>
         <Row label="Total TXs" content={`${data.data?.block.txCount.toString()} TXs`}>
-          {/*{data?.block.txCount &&*/}
-          {/*  data?.block.transactions.map((hash) => (*/}
-          {/*    <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>*/}
-          {/*  ))}*/}
+          {data.data?.block.txCount > 0
+            ? data.data?.block.transactions.map((hash) => (
+                <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
+              ))
+            : ''}
         </Row>
-        <Row label="Block Reward" content="-"></Row>
-        <Row label="Block Size" content="-"></Row>
-        <Row label="Base Fee" content="-"></Row>
-        <Row label="Burnt Fees" content="-"></Row>
+        <Row label="Block Reward" content="10 Barrel"></Row>
+        <Row label="Version" content={data.data?.block.version}></Row>
+        <Row label="Datahash" content={data.data?.block.dataHash}></Row>
+        <Row label="Extra">
+          <Button onClick={() => navigate(`/account/${data.data?.block.signer}`)} size="small" variant="outlined">
+            {data.data?.block.extra}
+          </Button>
+        </Row>
+        <Row label="Block producer" content={data.data?.block.signer}></Row>
       </>
     </Detail>
   );

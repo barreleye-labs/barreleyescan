@@ -78,7 +78,7 @@ const Dashboard = () => {
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Circulating Supply</div>
-              <div className="content">{data ? data.data.block.height * 10 : 0}</div>
+              <div className="content">{data ? (data.data.block.height * 10).toLocaleString('ko-KR') : 0}</div>
             </div>
           </DashboardCard>
         </Grid>

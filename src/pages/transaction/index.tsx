@@ -15,7 +15,7 @@ import Row from '@components/row';
 
 import { ITx } from '@src/types/api';
 
-import { Time, fetcher } from '@utils';
+import { Crypto, Time, fetcher } from '@utils';
 
 function Transaction() {
   dayjs.extend(utc);
@@ -55,14 +55,28 @@ function Transaction() {
           </Row>
           <Row label="Age" content={setTime()}></Row>
           <Row label="From">
-            <span className="hash">{data.data.transaction.from}</span>
+            <LinkUnderline
+              key={data.data.transaction.from}
+              path={`/account/${data.data.transaction.from}`}
+              underlink={data.data.transaction.from}
+            ></LinkUnderline>
           </Row>
           <Row label="To">
-            <span className="hash">{data.data.transaction.to}</span>
+            <LinkUnderline
+              key={data.data.transaction.to}
+              path={`/account/${data.data.transaction.to}`}
+              underlink={data.data.transaction.to}
+            ></LinkUnderline>
           </Row>
 
-          <Row label="Token Transfers" content="-"></Row>
-          <Row label="NFT Transfers" content="-"></Row>
+          <Row
+            label="Value"
+            content={`${Number(Crypto.hexToDecimal(data.data.transaction.value)).toLocaleString('ko-KR')} Barrel`}
+          ></Row>
+          <Row label="Signer">
+            <p>{data.data.transaction.signer.x}</p>
+            <p>{data.data.transaction.signer.y}</p>
+          </Row>
           <Row label="Nonce">{data.data.transaction.nonce}</Row>
         </>
       </Detail>

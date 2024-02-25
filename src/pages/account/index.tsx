@@ -57,7 +57,14 @@ const Account = () => {
         ) : (
           <>
             <Row label="Address" content={address}></Row>
-            <Row label="Balance" content={data?.data ? Crypto.hexToDecimal(data.data.account.balance) : '0'}></Row>
+            <Row
+              label="Balance"
+              content={
+                data?.data
+                  ? `${Number(Crypto.hexToDecimal(data.data.account.balance)).toLocaleString('ko-KR')} Barrel`
+                  : '0 Barrel'
+              }
+            ></Row>
             <Row label="Nonce" content={data?.data ? Crypto.hexToDecimal(data.data.account.nonce) : '0'}></Row>
           </>
         )}
