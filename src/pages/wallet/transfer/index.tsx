@@ -105,7 +105,6 @@ const Transfer = () => {
         // const ttt = { ...tx, nonce: data.data.account.nonce };
         // console.log(ttt);
         seta(true);
-        requestTxs();
       })
       .catch((err) => {
         console.log(err);
