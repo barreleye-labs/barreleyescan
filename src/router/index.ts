@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       { path: '/transaction/:hash', Component: loadable(() => import('@pages/transaction')) },
 
       {
-        path: '/account',
+        path: '/account/:address?',
         Component: loadable(() => import('src/pages/account'))
       },
 

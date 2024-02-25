@@ -1,9 +1,15 @@
 import useSWR from 'swr';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { Button } from './styles.tsx';
 
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
 
 import LinkUnderline from '@components/link';
 import { Table, TableBody, TableHead } from '@components/table/index.ts';
@@ -15,7 +21,21 @@ import { Hash, Time, fetcher } from '@utils';
 interface Props {
   isPagination: boolean;
 }
+
+const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9'
+  }
+}));
+
 const Blocks = ({ isPagination = true }: Props) => {
+  const navigate = useNavigate();
   const [size] = useState(10);
   // const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
@@ -41,15 +61,12 @@ const Blocks = ({ isPagination = true }: Props) => {
           <TableCell width="100px" size="medium" align="left">
             Age
           </TableCell>
-
           <TableCell width="100px" align="left">
-            TOTAL TXs
+            Total TXs
           </TableCell>
-          <TableCell align="left">Validator</TableCell>
-          <TableCell align="right">Block Proposer</TableCell>
-          <TableCell align="right">Base Fee</TableCell>
+          <TableCell align="left">Block Proposer</TableCell>
+          <TableCell align="left">Block Hash</TableCell>
           <TableCell align="right">Reward</TableCell>
-          <TableCell align="right">Burnt Fees</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -67,14 +84,34 @@ const Blocks = ({ isPagination = true }: Props) => {
               </TableCell>
 
               <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
+
               <TableCell align="left">{row.txCount}</TableCell>
+
               <TableCell align="left">
-                <LinkUnderline path={`/account`} underlink={row.signer && Hash.ellipsis(row.signer)}></LinkUnderline>
+                <HtmlTooltip
+                  title={
+                    <>
+                      <Typography color="inherit">
+                        <b>{row.extra}</b>
+                      </Typography>
+                      <em>({row.signer})</em>
+                    </>
+                  }
+                >
+                  <Button onClick={() => navigate(`/account/${row.signer}`)} size="small" variant="outlined">
+                    {row.extra}
+                  </Button>
+                </HtmlTooltip>
               </TableCell>
-              <TableCell align="right">-</TableCell>
-              <TableCell align="right">-</TableCell>
-              <TableCell align="right">-</TableCell>
-              <TableCell align="right">-</TableCell>
+
+              <TableCell align="left">
+                <HtmlTooltip title={<em>{row.hash}</em>}>
+                  <span>{Hash.ellipsis(row.hash)}</span>
+                </HtmlTooltip>
+              </TableCell>
+              <TableCell align="right">
+                10 <span className="sub-text">Barrel</span>
+              </TableCell>
             </TableRow>
           ))
         )}

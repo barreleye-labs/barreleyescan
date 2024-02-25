@@ -12,13 +12,13 @@ import Button from '@mui/material-next/Button';
 import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
 
-import { ITx } from '@src/types/api';
+import { ITx, Tx } from '@src/types/api';
 
 import { Char, Crypto } from '@utils';
 
 import useInput from '@hooks/useInput';
 
-const txDefaultData = (): ITx => {
+const txDefaultData = (): Tx => {
   return {
     from: '',
     to: '',
@@ -31,7 +31,7 @@ const txDefaultData = (): ITx => {
 const Transfer = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const [tx, onChange, setTx] = useInput<ITx>(txDefaultData());
+  const [tx, onChange, setTx] = useInput<Tx>(txDefaultData());
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
 
@@ -62,27 +62,43 @@ const Transfer = () => {
     [privateKey]
   );
 
-  function requestTxs() {
+  const requestTxs = useCallback(() => {
+    console.log(tx.nonce);
+
+    const requestBody = {
+      ...tx,
+      signatureR: getSignature(tx).r,
+      signatureS: getSignature(tx).s,
+      signerX: getSigner().x,
+      signerY: getSigner().y
+    };
+
     axios
-      .post(
-        '/api/txs',
-        {
-          ...tx,
-          signatureR: getSignature(tx).r,
-          signatureS: getSignature(tx).s,
-          signerX: getSigner().x,
-          signerY: getSigner().y
-        },
-        { withCredentials: true }
-      )
+      .post('/api/txs', requestBody, { withCredentials: true })
       .then(() => {
         showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
         initData();
       })
       .catch((err) => {
-        showToast({ variant: 'error', message: err.response.data === '' ? 'Check the network.' : err.response.data });
+        showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
       });
-  }
+  }, [tx, tx.nonce]);
+
+  const checkAccount = useCallback(() => {
+    axios
+      .get(`/api/accounts/${tx.from}`)
+      .then(({ data }) => {
+        setTx((tx) => ({ ...tx, nonce: data.data.account.nonce }));
+        requestTxs();
+      })
+      .catch((err) => {
+        console.log(err);
+        showToast({
+          variant: 'error',
+          message: 'Insufficient balance. You can receive coins through faucet.'
+        });
+      });
+  }, [tx]);
   const onSubmit = useCallback(() => {
     if (step === 1) {
       const { x, y } = Crypto.generatePublicKey(privateKey);
@@ -91,21 +107,12 @@ const Transfer = () => {
       setTx((tx) => ({ ...tx, from }));
       return setStep(2);
     }
-    console.log(tx.from);
 
-    axios
-      .get(`/api/accounts/${tx.from}`)
-      .then(({ data }) => {
-        setTx((tx) => ({ ...tx, nonce: data.account.nonce }));
-        requestTxs();
-      })
-      .catch((err) => {
-        showToast({
-          variant: 'error',
-          message: err.response.data.Error ?? 'Check the network.'
-        });
-      });
-  }, [getSignature, getSigner, tx, step]);
+    /**
+     * validator
+     */
+    Crypto.isAddress(tx.to) ? checkAccount() : showToast({ variant: 'error', message: 'Check your address format' });
+  }, [privateKey, tx, step]);
 
   const disabled = useMemo(() => (step === 1 ? !privateKey : !tx.to || !tx.value), [tx, step, privateKey]);
   return (

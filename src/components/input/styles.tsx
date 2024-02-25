@@ -1,9 +1,9 @@
 import styles from '@emotion/styled';
 
-import { pink } from '@mui/material/colors';
+import { teal } from '@mui/material/colors';
 
-const primary = pink[500];
-const second = pink[400];
+const primary = teal[500];
+const second = teal[400];
 export const Container = styles.div`
     display:flex;
     align-items: baseline;
@@ -44,13 +44,13 @@ export const Container = styles.div`
 
     &:hover{
       color: ${primary};
-      background: ${pink[50]}
+      background: ${teal[50]}
     }
   }
 
   .active{
     color: ${primary};
-    background: ${pink[50]}
+    background: ${teal[50]}
   }
   
   .input-wrapper{

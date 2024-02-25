@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 
-import { pink } from '@mui/material/colors';
+import { teal } from '@mui/material/colors';
 
-const color = pink[100];
+const color = teal[100];
 
 const breakpoints = [576, 768, 992, 1200];
 

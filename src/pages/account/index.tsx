@@ -1,9 +1,10 @@
-import { IAccount } from '@type/api';
-import axios from 'axios';
+import { IBlock } from '@type/api';
 import { debounce } from 'lodash-es';
 import { useSnackbar } from 'notistack';
+import useSWR from 'swr';
 
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { Container } from './styles';
 
@@ -13,10 +14,14 @@ import Detail from '@components/detail';
 import Row from '@components/row';
 import SearchInput from '@components/searchInput';
 
+import { Crypto, fetcher } from '@utils';
+
 const Account = () => {
+  const navigate = useNavigate();
+  const { address } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [data, setData] = useState<IAccount>();
+  const { data } = useSWR<IBlock>(address && `/api/accounts/${address}`, fetcher);
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -27,37 +32,34 @@ const Account = () => {
 
   const fetchAccount = useCallback(
     debounce(async (address: string) => {
-      try {
-        const {
-          data: {
-            data: { account }
-          }
-        } = await axios.get(`/api/accounts/${address}`);
-
-        setData(account);
-      } catch (err) {
-        showToast({ variant: 'error', message: err.response.data.Error ?? 'No Account Data' });
-      }
+      /**
+       * validator
+       */
+      Crypto.isAddress(address)
+        ? navigate(`/account/${address}`)
+        : showToast({ variant: 'error', message: 'Check your address format' });
     }, 500),
     [data]
   );
-
+  {
+  }
   const onChange = useCallback(async (e) => {
     fetchAccount(e.target.value);
   }, []);
+
   return (
     <Container>
       <SearchInput onChange={onChange} />
 
-      <Detail icon={<FilterNoneIcon />} title={data?.address ?? 'No Account Info'}>
-        {data ? (
-          <>
-            <Row label="Address" content={data.address}></Row>
-            <Row label="Balance" content={data.balance}></Row>
-            <Row label="Nonce" content={data.nonce}></Row>
-          </>
+      <Detail icon={<FilterNoneIcon />} title={address ?? 'No Account Info'}>
+        {!address ? (
+          'Search Account!'
         ) : (
-          'Search Your Address!'
+          <>
+            <Row label="Address" content={data?.data ? data.data.account.address : '0'}></Row>
+            <Row label="Balance" content={data?.data ? data.data.account.balance : '0'}></Row>
+            <Row label="Nonce" content={data?.data ? data.data.account.nonce : '0'}></Row>
+          </>
         )}
       </Detail>
     </Container>

@@ -8,11 +8,12 @@ interface Props {
   onClick?: (e) => void;
 }
 
-const LinkUnderline = ({ path, underlink, onClick }: Props) => {
+const LinkUnderline = ({ path, underlink, children, onClick }: Props) => {
   return (
     <Container>
       <Link to={path} onClick={onClick}>
         {underlink}
+        {children}
       </Link>
     </Container>
   );

@@ -44,7 +44,7 @@ const Transactions = ({ isPagination }: Props) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {!data?.totalCount ? (
+        {!data ? (
           <TableRow>
             <TableCell colSpan={8} align="center">
               No Data
@@ -62,13 +62,13 @@ const Transactions = ({ isPagination }: Props) => {
               </TableCell>
 
               <TableCell align="left">
-                <LinkUnderline path={`/account`} underlink={Hash.ellipsis(row.from)}></LinkUnderline>
+                <LinkUnderline path={`/account/${row.from}`} underlink={Hash.ellipsis(row.from)}></LinkUnderline>
               </TableCell>
               <TableCell align="left">
                 <ArrowForwardIcon />
               </TableCell>
               <TableCell align="left">
-                <LinkUnderline path={`/account`} underlink={Hash.ellipsis(row.to)}></LinkUnderline>
+                <LinkUnderline path={`/account/${row.to}`} underlink={Hash.ellipsis(row.to)}></LinkUnderline>
               </TableCell>
               <TableCell align="left">
                 {row.value} <span className="description">Barrel</span>

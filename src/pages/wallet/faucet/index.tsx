@@ -41,7 +41,7 @@ const Faucet = () => {
         showToast({ variant: 'success', message: 'Your Barrel Faucet request accepted.' });
       })
       .catch((err) => {
-        showToast({ variant: 'error', message: err.response.data === '' ? 'Check the network.' : err.response.data });
+        showToast({ variant: 'error', message: 'Invalid address format.\n' });
       });
   }, [accountAddress, balance]);
   const disabled = useMemo(() => !accountAddress, [accountAddress]);

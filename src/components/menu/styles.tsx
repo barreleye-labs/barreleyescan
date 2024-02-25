@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 
-import { pink } from '@mui/material/colors';
+import { teal } from '@mui/material/colors';
 
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
-const primary = pink[500];
-const second = pink[100];
-const sub = pink[50];
+const primary = teal[300];
+const second = teal[100];
+const sub = teal[50];
 
 export const Container = styled.div`
   flex: 0.3;
