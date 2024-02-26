@@ -28,7 +28,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
   const handleChange = (_, value: number) => {
     setPage(value);
   };
-  const count = useMemo(() => (data ? Math.ceil(data.data.totalCount / size) : 1), [data]);
+  const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
 
   return (
     <Table count={count} page={page} isPagination={isPagination} onChange={handleChange}>
@@ -51,10 +51,13 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
             </TableCell>
           </TableRow>
         ) : (
-          data.data.transactions.map((row) => (
+          data.transactions.map((row) => (
             <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell align="left">
-                <LinkUnderline path={`/transaction/${row.hash}`} underlink={Hash.ellipsis(row.hash)}></LinkUnderline>
+                <LinkUnderline
+                  path={`/transaction/${row.hash}`}
+                  underlink={`0x${Hash.ellipsis(row.hash)}`}
+                ></LinkUnderline>
               </TableCell>
               <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
               {!isSimpleData && (
@@ -64,13 +67,13 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
               )}
 
               <TableCell align="left">
-                <LinkUnderline path={`/account/${row.from}`} underlink={Hash.ellipsis(row.from)}></LinkUnderline>
+                <LinkUnderline path={`/account/${row.from}`} underlink={`0x${Hash.ellipsis(row.from)}`}></LinkUnderline>
               </TableCell>
               <TableCell align="left">
                 <ArrowForwardIcon />
               </TableCell>
               <TableCell align="left">
-                <LinkUnderline path={`/account/${row.to}`} underlink={Hash.ellipsis(row.to)}></LinkUnderline>
+                <LinkUnderline path={`/account/${row.to}`} underlink={`0x${Hash.ellipsis(row.to)}`}></LinkUnderline>
               </TableCell>
               {!isSimpleData && (
                 <TableCell align="left">

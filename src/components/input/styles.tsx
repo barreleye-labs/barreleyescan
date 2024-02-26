@@ -2,11 +2,21 @@ import styles from '@emotion/styled';
 
 import { teal } from '@mui/material/colors';
 
+const breakpoints = [576, 768, 992, 1200];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 const primary = teal[500];
 const second = teal[400];
+
 export const Container = styles.div`
     display:flex;
     align-items: baseline;
+    
+   ${mq[1]} {
+    .MuiFormControl-root{
+      width: 100% !important;
+      }
+    }
     .button{
       font-size: 1rem;
       font-weight: 700;
@@ -59,9 +69,11 @@ export const Container = styles.div`
     gap:12px;
 
     .MuiFormControl-root{
-      width: 50%
+      width: 50%;
     }
   }
+  
+   
   
  }
 `;

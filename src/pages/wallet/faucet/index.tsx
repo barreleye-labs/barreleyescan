@@ -7,11 +7,12 @@ import { Container } from './styles';
 
 import { LoadingButton } from '@mui/lab';
 import { CardContent, Typography } from '@mui/material';
-import Button from '@mui/material-next/Button';
 
 import { Input } from '@components/input';
 
 import { IFaucet } from '@src/types/api';
+
+import { Crypto } from '@utils';
 
 import useInput from '@hooks/useInput';
 
@@ -35,7 +36,7 @@ const Faucet = () => {
       .post(
         '/api/faucet',
         {
-          accountAddress
+          accountAddress: Crypto.remove0x(accountAddress)
         },
         { withCredentials: true }
       )
@@ -59,7 +60,7 @@ const Faucet = () => {
             Barrel Faucet
           </Typography>
           <Typography sx={{ mb: 1 }} color="text.secondary">
-            The Barrel Faucet runs on Testnet.
+            The Barrel Faucet runs on Testnet. It takes 13 seconds to transmit barrelee transaction.
           </Typography>
 
           <Input

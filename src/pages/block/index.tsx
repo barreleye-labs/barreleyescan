@@ -30,7 +30,7 @@ function Block() {
 
   const changeBlockPage = useCallback(
     (setHeight: number) => {
-      if (setHeight >= 0 && lastBlock?.data.block.height >= setHeight) {
+      if (setHeight >= 0 && lastBlock?.block.height >= setHeight) {
         navigate(`/block/${setHeight}`);
       }
     },
@@ -38,7 +38,7 @@ function Block() {
   );
 
   const setTime = useCallback(() => {
-    const formatUnix = Time.formatUnixNano(data.data.block.timestamp);
+    const formatUnix = Time.formatUnixNano(data.block.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
@@ -57,24 +57,24 @@ function Block() {
     >
       <>
         <Row label="Time" content={setTime()}></Row>
-        <Row label="Hash" content={data.data?.block.hash}></Row>
-        <Row label="Prev Hash" content={data.data?.block.prevBlockHash}></Row>
-        <Row label="Total TXs" content={`${data.data?.block.txCount.toString()} TXs`}>
-          {data.data?.block.txCount > 0
-            ? data.data?.block.transactions.map((hash) => (
+        <Row label="Hash" content={`0x${data?.block.hash}`}></Row>
+        <Row label="Prev Hash" content={`0x${data?.block.prevBlockHash}`}></Row>
+        <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
+          {data?.block.txCount > 0
+            ? data?.block.transactions.map((hash) => (
                 <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
               ))
             : ''}
         </Row>
         <Row label="Block Reward" content="10 Barrel"></Row>
-        <Row label="Version" content={data.data?.block.version}></Row>
-        <Row label="Datahash" content={data.data?.block.dataHash}></Row>
+        <Row label="Version" content={data?.block.version}></Row>
+        <Row label="Datahash" content={`0x${data?.block.dataHash}`}></Row>
         <Row label="Extra">
-          <Button onClick={() => navigate(`/account/${data.data?.block.signer}`)} size="small" variant="outlined">
-            {data.data?.block.extra}
+          <Button onClick={() => navigate(`/account/${data?.block.signer}`)} size="small" variant="outlined">
+            {data?.block.extra}
           </Button>
         </Row>
-        <Row label="Block producer" content={data.data?.block.signer}></Row>
+        <Row label="Block producer" content={data?.block.signer}></Row>
       </>
     </Detail>
   );

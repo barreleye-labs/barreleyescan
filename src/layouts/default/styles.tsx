@@ -13,7 +13,7 @@ export const Container = styled.div`
   gap: 17px;
   overflow: auto;
   padding: 4rem 3rem;
-
+  min-width: 400px;
   max-width: 1200px;
   margin: 0 auto;
 

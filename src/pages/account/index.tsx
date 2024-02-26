@@ -23,7 +23,7 @@ const Account = () => {
 
   const { data } = useSWR<IBlock>(address && `/api/accounts/${address}`, fetcher);
 
-  const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
+  const showToast = useCallback(({ variant, message }: { var; iant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
       variant,
       anchorOrigin: { vertical: 'top', horizontal: 'right' }
@@ -36,13 +36,12 @@ const Account = () => {
        * validator
        */
       Crypto.isAddress(address)
-        ? navigate(`/account/${address}`)
+        ? navigate(`/account/${Crypto.remove0x(address)}`)
         : showToast({ variant: 'error', message: 'Check your address format' });
     }, 500),
     [data]
   );
-  {
-  }
+
   const onChange = useCallback(async (e) => {
     fetchAccount(e.target.value);
   }, []);
@@ -51,21 +50,21 @@ const Account = () => {
     <Container>
       <SearchInput onChange={onChange} />
 
-      <Detail icon={<FilterNoneIcon />} title={address ?? 'No Account Info'}>
+      <Detail icon={<FilterNoneIcon />} title={address ? `0x${address}` : 'No Account Info'}>
         {!address ? (
           'Search Account!'
         ) : (
           <>
-            <Row label="Address" content={address}></Row>
+            <Row label="Address" content={`0x${address}`}></Row>
             <Row
               label="Balance"
               content={
-                data?.data
-                  ? `${Number(Crypto.hexToDecimal(data.data.account.balance)).toLocaleString('ko-KR')} Barrel`
+                data
+                  ? `${Number(Crypto.hexToDecimal(data.account.balance)).toLocaleString('ko-KR')} Barrel`
                   : '0 Barrel'
               }
             ></Row>
-            <Row label="Nonce" content={data?.data ? Crypto.hexToDecimal(data.data.account.nonce) : '0'}></Row>
+            <Row label="Nonce" content={data ? Crypto.hexToDecimal(data.account.nonce) : '0'}></Row>
           </>
         )}
       </Detail>

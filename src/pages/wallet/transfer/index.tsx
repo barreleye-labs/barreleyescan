@@ -103,19 +103,14 @@ const Transfer = () => {
     axios
       .get(`/api/accounts/${tx.from}`)
       .then(({ data }) => {
-        // const {from,
-        //   to,
-        //   value,
-        //   data} = tx
-
         setTx({
           nonce: data.data.account.nonce,
           from: tx.from,
-          to: tx.to,
+          to: Crypto.remove0x(tx.to),
           value: tx.value,
           data: tx.data
         });
-        // const ttt = { ...tx, nonce: data.data.account.nonce };
+        // const ttt = { ...tx, nonce: data.account.nonce };
         // console.log(ttt);
         seta(true);
       })
@@ -149,10 +144,10 @@ const Transfer = () => {
         {step === 1 ? (
           <div>
             <Typography variant="h5" sx={{ mb: 1.5 }}>
-              Enter an acceptable private key
+              Enter an acceptable private key.
             </Typography>
             <Typography sx={{ mb: 1 }} color="text.secondary">
-              Please enter your private key.
+              Please enter your private key. It takes 13 seconds to transmit barrelee transaction.
             </Typography>
 
             <CustomInput
@@ -168,7 +163,7 @@ const Transfer = () => {
               Enter Information
             </Typography>
             <Typography sx={{ mb: 1 }} color="text.secondary">
-              You can access your account using your private key.
+              You can access your account using your private key. It takes 13 seconds to send.
             </Typography>
 
             <Input fullWidth label="From Address" disabled={true} defaultValue={tx.from} />

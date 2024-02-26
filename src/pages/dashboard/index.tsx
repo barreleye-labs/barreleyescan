@@ -36,11 +36,11 @@ const Dashboard = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid xs={2} sm={3} md={3}>
+        <Grid xs={2} sm={4} md={3}>
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Block Height</div>
-              <div className="content">#{data ? data.data.block.height : 0}</div>
+              <div className="content">#{data.block.height ?? '0'}</div>
 
               <div className="footer" onClick={() => navigate('/blocks')}>
                 <div>
@@ -51,7 +51,7 @@ const Dashboard = () => {
             </div>
           </DashboardCard>
         </Grid>
-        <Grid xs={2} sm={3} md={3}>
+        <Grid xs={2} sm={4} md={3}>
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Avg Block Time</div>
@@ -65,7 +65,7 @@ const Dashboard = () => {
             </div>
           </DashboardCard>
         </Grid>
-        <Grid xs={2} sm={3} md={3}>
+        <Grid xs={2} sm={4} md={3}>
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Consensus Nodes</div>
@@ -74,18 +74,20 @@ const Dashboard = () => {
           </DashboardCard>
         </Grid>
 
-        <Grid xs={2} sm={3} md={3}>
+        <Grid xs={2} sm={4} md={3}>
           <DashboardCard>
             <div className="dashboard-content-type">
               <div className="header">Circulating Supply</div>
-              <div className="content">{data ? (data.data.block.height * 10).toLocaleString('ko-KR') : 0}</div>
+              <div className="content">
+                {data.block?.height ? (data.block?.height * 10).toLocaleString('ko-KR') : '0'}
+              </div>
             </div>
           </DashboardCard>
         </Grid>
       </Grid>
 
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid xs={12} sm={12} md={12}>
+        <Grid xs={4} sm={12} md={12}>
           <DashboardCard>
             <div className="dashboard-custom">
               <div className="left">
@@ -98,8 +100,8 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 6, sm: 6, md: 12 }}>
-        <Grid xs={6} sm={6} md={6}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 6, md: 12 }}>
+        <Grid xs={4} sm={6} md={6}>
           <DashboardCard>
             <div className="dashboard-table-wrapper">
               <h2>Recent Blocks</h2>
@@ -111,7 +113,7 @@ const Dashboard = () => {
           </DashboardCard>
         </Grid>
 
-        <Grid xs={6} sm={6} md={6}>
+        <Grid xs={4} sm={6} md={6}>
           <DashboardCard>
             <div className="dashboard-table-wrapper">
               <h2>Recent Transactions</h2>

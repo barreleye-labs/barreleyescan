@@ -53,8 +53,8 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
     [page]
   );
 
-  const count = useMemo(() => (data ? Math.ceil(data.data.totalCount / size) : 1), [data]);
-
+  const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
+  console.log(data);
   return (
     <Table count={count} page={page} onChange={handleChange} isPagination={isPagination}>
       <TableHead>
@@ -79,7 +79,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
             </TableCell>
           </TableRow>
         ) : (
-          data.data.blocks.map((row) => (
+          data?.blocks.map((row) => (
             <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
                 <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>
@@ -96,7 +96,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
                       <Typography color="inherit">
                         <b>{row.extra}</b>
                       </Typography>
-                      <em>({row.signer})</em>
+                      <em>(0x{row.signer})</em>
                     </>
                   }
                 >
@@ -108,8 +108,8 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
 
               {!isSimpleData && (
                 <TableCell align="left">
-                  <HtmlTooltip title={<em>{row.hash}</em>}>
-                    <span>{Hash.ellipsis(row.hash)}</span>
+                  <HtmlTooltip title={<em>0x{row.hash}</em>}>
+                    <span>0x{Hash.ellipsis(row.hash)}</span>
                   </HtmlTooltip>
                 </TableCell>
               )}

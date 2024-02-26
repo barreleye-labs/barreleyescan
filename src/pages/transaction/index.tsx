@@ -26,7 +26,7 @@ function Transaction() {
   const { data } = useSWR<ITx>(`/api/txs/${hash}`, fetcher);
 
   const setTime = () => {
-    const formatUnix = Time.formatUnixNano(data.data?.transaction.timestamp);
+    const formatUnix = Time.formatUnixNano(data?.transaction.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
@@ -37,14 +37,14 @@ function Transaction() {
       <Detail
         icon={<FilterNoneIcon />}
         title={location.pathname.split('/')[1].toUpperCase()}
-        subheader={hash as string}
+        subheader={`0x${hash as string}`}
       >
         <>
-          <Row label="TX Type" content="Fee Delegated Smart Contract Execution"></Row>
+          <Row label="TX Type" content="Transfer"></Row>
           <Row label="Block">
             <LinkUnderline
-              path={`/block/${data.data.transaction.blockHeight}`}
-              underlink={data.data.transaction.blockHeight}
+              path={`/block/${data.transaction.blockHeight}`}
+              underlink={data.transaction.blockHeight}
             ></LinkUnderline>
           </Row>
           <Row label="TxReceipt Status">
@@ -56,28 +56,30 @@ function Transaction() {
           <Row label="Age" content={setTime()}></Row>
           <Row label="From">
             <LinkUnderline
-              key={data.data.transaction.from}
-              path={`/account/${data.data.transaction.from}`}
-              underlink={data.data.transaction.from}
+              key={data.transaction.from}
+              path={`/account/${data.transaction.from}`}
+              underlink={`0x${data.transaction.from}`}
             ></LinkUnderline>
           </Row>
           <Row label="To">
             <LinkUnderline
-              key={data.data.transaction.to}
-              path={`/account/${data.data.transaction.to}`}
-              underlink={data.data.transaction.to}
+              key={data.transaction.to}
+              path={`/account/${data.transaction.to}`}
+              underlink={`0x${data.transaction.to}`}
             ></LinkUnderline>
           </Row>
 
           <Row
             label="Value"
-            content={`${Number(Crypto.hexToDecimal(data.data.transaction.value)).toLocaleString('ko-KR')} Barrel`}
+            content={`${Number(Crypto.hexToDecimal(data.transaction.value)).toLocaleString('ko-KR')} Barrel`}
           ></Row>
-          <Row label="Signer">
-            <p>{data.data.transaction.signer.x}</p>
-            <p>{data.data.transaction.signer.y}</p>
+          <Row label="Signer PublicKey">
+            <span> x: 0x{data.transaction.signer.x}</span>
+            <br />
+            <span> y: 0x{data.transaction.signer.y}</span>
           </Row>
-          <Row label="Nonce">{data.data.transaction.nonce}</Row>
+
+          <Row label="Nonce">{Crypto.hexToDecimal(data.transaction.nonce)}</Row>
         </>
       </Detail>
     </Container>
