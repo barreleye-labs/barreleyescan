@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import useSWR from 'swr';
 
+import { useCallback } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
 import { Container } from './styles';
@@ -13,9 +13,9 @@ import Detail from '@components/detail';
 import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
-import { ITx } from '@src/types/api';
+import { Crypto, Time } from '@utils';
 
-import { Crypto, Time, fetcher } from '@utils';
+import transactions from '@services/transactions.ts';
 
 function Transaction() {
   dayjs.extend(utc);
@@ -23,14 +23,15 @@ function Transaction() {
   const location = useLocation();
   const { hash } = useParams();
 
-  const { data } = useSWR<ITx>(`/api/txs/${hash}`, fetcher);
+  const { data } = transactions().GetOneById(hash as string);
 
-  const setTime = () => {
-    const formatUnix = Time.formatUnixNano(data?.transaction.timestamp);
+  const setTime = useCallback(() => {
+    const formatUnix = Time.formatUnixNano(data?.transaction.timestamp as string);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
-  };
+  }, [data]);
+
   if (!data) return <div>loading...</div>;
   return (
     <Container>

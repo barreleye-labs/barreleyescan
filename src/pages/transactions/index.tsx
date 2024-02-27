@@ -13,6 +13,8 @@ import { ITxs } from '@src/types/api';
 
 import { Crypto, Hash, Time, fetcher } from '@utils';
 
+import transactions from '@services/transactions';
+
 interface Props {
   isPagination: boolean;
   isSimpleData: boolean;
@@ -21,9 +23,7 @@ interface Props {
 const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: Props) => {
   const [page, setPage] = useState(1);
 
-  const { data } = useSWR<ITxs>(`/api/txs?page=${page}&size=${size}`, fetcher, {
-    refreshInterval: 1000
-  });
+  const { data } = transactions().GetAll({ page, size });
 
   const handleChange = (_, value: number) => {
     setPage(value);

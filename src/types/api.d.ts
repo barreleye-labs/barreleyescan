@@ -64,3 +64,8 @@ export interface Account {
   balance: string;
   nonce: string;
 }
+
+interface Pagination {
+  page: number;
+  size: number;
+}

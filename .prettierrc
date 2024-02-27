@@ -14,6 +14,7 @@
     "^@src/(.*)$",
     "^@router/(.*)$",
     "^@utils",
+    "^@services/(.*)$",
     "^@hooks/(.*)$",
     "^@types/(.*.*)$",
     "^@styles/(.*)$"

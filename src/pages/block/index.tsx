@@ -1,6 +1,5 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import useSWR from 'swr';
 
 import { useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -13,9 +12,9 @@ import Row from '@components/row';
 
 import { Button } from '@pages/blocks/styles.tsx';
 
-import { IBlock } from '@src/types/api';
+import { Time } from '@utils';
 
-import { Time, fetcher } from '@utils';
+import BlocksService from '@services/blocks.ts';
 
 function Block() {
   dayjs.extend(utc);
@@ -23,10 +22,8 @@ function Block() {
   const location = useLocation();
   const { height } = useParams();
 
-  const { data } = useSWR<IBlock>(`/api/blocks/${height}`, fetcher);
-  const { data: lastBlock } = useSWR<IBlock>(`/api/last-block`, fetcher, {
-    refreshInterval: 1000
-  });
+  const { data } = BlocksService().GetOneById(height as string);
+  const { data: lastBlock } = BlocksService().GetLast();
 
   const changeBlockPage = useCallback(
     (setHeight: number) => {
@@ -61,7 +58,7 @@ function Block() {
         <Row label="Prev Hash" content={`0x${data?.block.prevBlockHash}`}></Row>
         <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
           {data?.block.txCount > 0
-            ? data?.block.transactions.map((hash) => (
+            ? data?.block.transactions.map((hash: string) => (
                 <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
               ))
             : ''}

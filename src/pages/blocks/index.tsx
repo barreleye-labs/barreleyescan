@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+import { Block } from '@type/api';
 
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,9 +14,9 @@ import { styled } from '@mui/material/styles';
 import LinkUnderline from '@components/link';
 import { Table, TableBody, TableHead } from '@components/table/index.ts';
 
-import { IBlocks } from '@src/types/api';
+import { Hash, Time } from '@utils';
 
-import { Hash, Time, fetcher } from '@utils';
+import BlocksService from '@services/blocks';
 
 interface Props {
   isPagination: boolean;
@@ -39,12 +39,8 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props) => {
   const navigate = useNavigate();
 
-  // const [count, setCount] = useState(1);
   const [page, setPage] = useState(1);
-
-  const { data } = useSWR<IBlocks>(`/api/blocks?page=${page}&size=${size}`, fetcher, {
-    refreshInterval: 10000
-  });
+  const { data } = BlocksService().GetAll({ page, size });
 
   const handleChange = useCallback(
     (_, value: number) => {
@@ -79,7 +75,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
             </TableCell>
           </TableRow>
         ) : (
-          data?.blocks.map((row) => (
+          data?.blocks.map((row: Block) => (
             <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell component="th" scope="row">
                 <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>

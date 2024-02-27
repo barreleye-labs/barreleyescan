@@ -1,7 +1,5 @@
-import { IBlock } from '@type/api';
 import { debounce } from 'lodash-es';
 import { useSnackbar } from 'notistack';
-import useSWR from 'swr';
 
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -14,16 +12,18 @@ import Detail from '@components/detail';
 import Row from '@components/row';
 import SearchInput from '@components/searchInput';
 
-import { Crypto, fetcher } from '@utils';
+import { Crypto } from '@utils';
+
+import AccountService from '@services/account.ts';
 
 const Account = () => {
   const navigate = useNavigate();
   const { address } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data } = useSWR<IBlock>(address && `/api/accounts/${address}`, fetcher);
+  const { data } = AccountService().GetOneById(address as string);
 
-  const showToast = useCallback(({ variant, message }: { var; iant: 'success' | 'error'; message: string }) => {
+  const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
       variant,
       anchorOrigin: { vertical: 'top', horizontal: 'right' }

@@ -22,6 +22,7 @@
     "paths": {
       "@src/*": ["src/*"],
       "@hooks/*": ["src/hooks/*"],
+      "@services/*": ["src/services/*"],
       "@components/*": ["src/components/*"],
       "@layouts": ["src/layouts/index.tsx"],
       "@layouts/*": ["src/layouts/*"],
