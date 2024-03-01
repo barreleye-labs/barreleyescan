@@ -59,7 +59,9 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
                   underlink={`0x${Hash.ellipsis(row.hash)}`}
                 ></LinkUnderline>
               </TableCell>
-              <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
+              <TableCell style={{ width: 100 }} align="left">
+                {Time.elapsedTime(Time.formatUnixNano(row.timestamp))}
+              </TableCell>
               {!isSimpleData && (
                 <TableCell component="th" scope="row">
                   <LinkUnderline path={`/block/${row.blockHeight}`} underlink={row.blockHeight}></LinkUnderline>
@@ -69,7 +71,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
               <TableCell align="left">
                 <LinkUnderline path={`/account/${row.from}`} underlink={`0x${Hash.ellipsis(row.from)}`}></LinkUnderline>
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="left" style={{ padding: 0 }}>
                 <ArrowForwardIcon />
               </TableCell>
               <TableCell align="left">

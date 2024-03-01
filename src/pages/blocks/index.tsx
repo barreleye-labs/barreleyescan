@@ -64,6 +64,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
           </TableCell>
           <TableCell align="left">Block Proposer</TableCell>
           {!isSimpleData && <TableCell align="left">Block Hash</TableCell>}
+          {!isSimpleData && <TableCell align="left">Parent Hash</TableCell>}
           <TableCell align="right">Reward</TableCell>
         </TableRow>
       </TableHead>
@@ -106,6 +107,14 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
                 <TableCell align="left">
                   <HtmlTooltip title={<em>0x{row.hash}</em>}>
                     <span>0x{Hash.ellipsis(row.hash)}</span>
+                  </HtmlTooltip>
+                </TableCell>
+              )}
+
+              {!isSimpleData && (
+                <TableCell align="left">
+                  <HtmlTooltip title={<em>0x{row.prevBlockHash}</em>}>
+                    <span>0x{Hash.ellipsis(row.prevBlockHash)}</span>
                   </HtmlTooltip>
                 </TableCell>
               )}

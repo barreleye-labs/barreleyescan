@@ -44,8 +44,13 @@ export const Container = styles(Card)`
   
   .btn-wrapper{
     display:flex;
-    flex-direction: column;
-    align-items: end;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    .warning {
+      color: red;
+    }
+
     gap: 12px;
     margin-top: 2rem;
   }

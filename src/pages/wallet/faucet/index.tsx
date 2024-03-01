@@ -85,6 +85,7 @@ const Faucet = () => {
         </>
 
         <div className="btn-wrapper">
+          <span className="warning">{loading && ' Takes up to 13 seconds'}</span>
           <LoadingButton
             loading={loading}
             disabled={disabled}
