@@ -12,7 +12,7 @@ const BlocksService = () => {
   }
 
   function GetOneById(id: string) {
-    return useApi<IBlock>(`${PATH}/blocks/${id}`);
+    return useApi<IBlock>(`${PATH}/blocks/${id}`, {});
   }
 
   function GetLast() {

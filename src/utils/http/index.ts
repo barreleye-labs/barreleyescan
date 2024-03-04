@@ -1,5 +1,3 @@
-import { createAxios } from '@src/utils/http/axios';
+import { createAxios } from './axios';
 
-export const service = createAxios({
-  baseURL: 'http://localhost:9001'
-});
+export const service = createAxios();

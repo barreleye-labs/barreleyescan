@@ -1,12 +1,11 @@
 import { IBlock } from '@type/api';
-import useSWR from 'swr';
+import { useSWRConfig } from 'swr';
 
 import { useNavigate } from 'react-router-dom';
 
-import { DashboardCard } from './styles';
+import { Card, Container } from './styles';
 
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -16,13 +15,12 @@ import Logo from '@components/logo';
 import Blocks from '@pages/blocks';
 import Transactions from '@pages/transactions';
 
-import { fetcher } from '@utils';
+import BlocksService from '@services/blocks.ts';
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { data } = useSWR<IBlock>(`/api/last-block`, fetcher, {
-    refreshInterval: 10000
-  });
+
+  const { data } = BlocksService().GetLast();
 
   if (!data)
     return (
@@ -34,10 +32,10 @@ const Dashboard = () => {
       </div>
     );
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid xs={2} sm={4} md={3}>
-          <DashboardCard>
+    <Container>
+      <Grid container spacing={2}>
+        <Grid xs={16} sm={6} md={3}>
+          <Card>
             <div className="dashboard-content-type">
               <div className="header">Block Height</div>
               <div className="content">#{data.block.height ?? '0'}</div>
@@ -49,10 +47,10 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </DashboardCard>
+          </Card>
         </Grid>
-        <Grid xs={2} sm={4} md={3}>
-          <DashboardCard>
+        <Grid xs={16} sm={6} md={3}>
+          <Card>
             <div className="dashboard-content-type">
               <div className="header">Avg Block Time</div>
               <div className="content">10s</div>
@@ -63,32 +61,31 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </DashboardCard>
+          </Card>
         </Grid>
-        <Grid xs={2} sm={4} md={3}>
-          <DashboardCard>
+        <Grid xs={16} sm={6} md={3}>
+          <Card>
             <div className="dashboard-content-type">
               <div className="header">Consensus Nodes</div>
               <div className="content">3</div>
             </div>
-          </DashboardCard>
+          </Card>
         </Grid>
-
-        <Grid xs={2} sm={4} md={3}>
-          <DashboardCard>
+        <Grid xs={16} sm={6} md={3}>
+          <Card>
             <div className="dashboard-content-type">
               <div className="header">Circulating Supply</div>
               <div className="content">
                 {data.block?.height ? (data.block?.height * 10).toLocaleString('ko-KR') : '0'}
               </div>
             </div>
-          </DashboardCard>
+          </Card>
         </Grid>
       </Grid>
 
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-        <Grid xs={4} sm={12} md={12}>
-          <DashboardCard>
+      <Grid container spacing={2}>
+        <Grid xs={16}>
+          <Card>
             <div className="dashboard-custom">
               <div className="left">
                 <img src="src/assets/barreleye.png" />
@@ -96,13 +93,13 @@ const Dashboard = () => {
               </div>
               <div className="right"></div>
             </div>
-          </DashboardCard>
+          </Card>
         </Grid>
       </Grid>
 
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 6, md: 12 }}>
-        <Grid xs={4} sm={6} md={6}>
-          <DashboardCard>
+      <Grid container spacing={2}>
+        <Grid xs={16} md={6}>
+          <Card>
             <div className="dashboard-table-wrapper">
               <h2>Recent Blocks</h2>
               <div className="dashboard-table">
@@ -110,11 +107,10 @@ const Dashboard = () => {
               </div>
             </div>
             <Button onClick={() => navigate('/blocks')}>VIEW ALL BLOCKS </Button>
-          </DashboardCard>
+          </Card>
         </Grid>
-
-        <Grid xs={4} sm={6} md={6}>
-          <DashboardCard>
+        <Grid xs={16} md={6}>
+          <Card>
             <div className="dashboard-table-wrapper">
               <h2>Recent Transactions</h2>
               <div className="dashboard-table">
@@ -122,10 +118,10 @@ const Dashboard = () => {
               </div>
             </div>
             <Button onClick={() => navigate('/transactions')}>VIEW ALL TRANSACTIONS </Button>
-          </DashboardCard>
+          </Card>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 export default Dashboard;

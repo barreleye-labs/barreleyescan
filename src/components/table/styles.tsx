@@ -11,6 +11,7 @@ const primary = teal[500];
 const description = grey[500];
 
 export const Container = styled.div`
+  width: 100%;
   .MuiPagination-ul {
     margin-top: 1rem;
     float: right;

@@ -4,14 +4,25 @@ const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
-export const DashboardCard = styled.div`
+export const Container = styled.div``;
+export const Card = styled.div`
+  width: 100%;
   background-color: rgb(255, 255, 255);
-  justify-content: space-between;
   color: rgb(33, 43, 54);
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   background-image: none;
   padding: 1rem;
   height: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow:
+    rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+  border-radius: 16px;
+  z-index: 0;
 
   .dashboard-table-wrapper {
     width: 100%;
@@ -28,7 +39,6 @@ export const DashboardCard = styled.div`
     font-weight: 700;
   }
   .dashboard-content-type {
-    min-width: 150px;
     height: 150px;
 
     .header {
@@ -85,18 +95,6 @@ export const DashboardCard = styled.div`
       }
     }
   }
-  overflow: hidden;
-  position: relative;
-  box-shadow:
-    rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
-    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
-  border-radius: 16px;
-  z-index: 0;
-  -webkit-box-align: center;
-
-  display: flex;
-  flex-direction: column;
-  align-items: start;
 
   .dashboard-custom {
     display: flex;
@@ -115,9 +113,6 @@ export const DashboardCard = styled.div`
       img {
         width: 50px;
       }
-    }
-
-    .right {
     }
   }
 `;

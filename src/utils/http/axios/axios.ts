@@ -15,7 +15,23 @@ export class AxiosHttpClient {
    * @description Rest APIs
    */
 
-  post<T>(url: string, params?: object | string) {
-    return this.axiosInstance.post(url, params);
+  async get<T>(url: string) {
+    try {
+      const { data } = await this.axiosInstance.get(url);
+
+      return data;
+    } catch (err) {
+      const error = err.response.data;
+      return error;
+    }
+  }
+  async post<T>(url: string, params?: object | string) {
+    try {
+      const { data } = await this.axiosInstance.post(url, params);
+      return data;
+    } catch (err) {
+      const error = err.response.data;
+      return error;
+    }
   }
 }

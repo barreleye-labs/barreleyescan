@@ -12,7 +12,7 @@ interface Props {
   defaultValue?: string;
   disabled?: boolean;
   fullWidth?: boolean;
-  width: string;
+  width?: string;
   placeholder?: string;
   onChange?: (e: ChangeEvent) => void;
 }

@@ -1,8 +1,7 @@
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import sha256 from 'sha256';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import { Container } from './styles';
 
@@ -12,9 +11,12 @@ import { CardContent, Typography } from '@mui/material';
 import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
 
-import { ITx, Tx } from '@src/types/api';
+import { Tx } from '@src/types/api';
 
 import { Char, Crypto } from '@utils';
+
+import AccountService from '@services/account';
+import TransactionsService from '@services/transactions.ts';
 
 import useInput from '@hooks/useInput';
 
@@ -35,13 +37,6 @@ const Transfer = () => {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
-  const [a, seta] = useState(false);
-
-  useEffect(() => {
-    if (a) {
-      requestTxs();
-    }
-  }, [a]);
 
   const initData = useCallback(() => {
     setTx(txDefaultData());
@@ -59,12 +54,10 @@ const Transfer = () => {
   const getSigner = useCallback(() => Crypto.generatePublicKey(privateKey), [privateKey]);
 
   const getSignature = useCallback(
-    (info: ITx) => {
+    (info: Tx) => {
       const txUintArray = new Uint8Array(
         Object.keys(info).reduce((acc: number[], key) => acc.concat(...Char.hexToUint8Array(info[key])), [])
       );
-
-      console.log(txUintArray);
 
       const message = Char.uint8ArrayToHex(txUintArray);
       return Crypto.signMessage(message, privateKey);
@@ -72,69 +65,52 @@ const Transfer = () => {
     [privateKey]
   );
 
-  const requestTxs = useCallback(() => {
-    console.log(tx.nonce);
+  const sendTransaction = useCallback(async () => {
+    const { data, error } = await AccountService().GetOneById(tx.from);
+    console.log(data);
+    if (error)
+      return showToast({
+        variant: 'error',
+        message: 'Insufficient balance. You can receive coins through faucet.'
+      });
 
-    const requestBody = {
+    const { r, s } = getSignature(tx);
+    const { x, y } = getSigner();
+
+    const { error: sendError } = TransactionsService().Send({
       ...tx,
-      signatureR: getSignature(tx).r,
-      signatureS: getSignature(tx).s,
-      signerX: getSigner().x,
-      signerY: getSigner().y
-    };
+      nonce: data.account.nonce,
+      to: Crypto.remove0x(tx.to),
+      signatureR: r,
+      signatureS: s,
+      signerX: x,
+      signerY: y
+    });
 
-    axios
-      .post('/api/txs', requestBody, { withCredentials: true })
-      .then(() => {
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-          showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
-          initData();
-        }, 13000);
-      })
+    if (sendError)
+      return showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
 
-      .catch((err) => {
-        showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
-      });
-  }, [tx]);
-
-  const checkAccount = useCallback(() => {
-    axios
-      .get(`/api/accounts/${tx.from}`)
-      .then(({ data }) => {
-        setTx({
-          nonce: data.data.account.nonce,
-          from: tx.from,
-          to: Crypto.remove0x(tx.to),
-          value: tx.value,
-          data: tx.data
-        });
-        // const ttt = { ...tx, nonce: data.account.nonce };
-        // console.log(ttt);
-        seta(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        showToast({
-          variant: 'error',
-          message: 'Insufficient balance. You can receive coins through faucet.'
-        });
-      });
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
+      initData();
+    }, 13000);
   }, [tx, tx.nonce]);
+
   const onSubmit = useCallback(() => {
     if (step === 1) {
       const { x, y } = Crypto.generatePublicKey(privateKey);
       const from = sha256(x.concat(y)).toString().substring(0, 40);
 
-      setTx((tx) => ({ ...tx, from }));
+      setTx({ ...tx, from });
       return setStep(2);
     }
 
     /**
      * validator
      */
-    Crypto.isAddress(tx.to) ? checkAccount() : showToast({ variant: 'error', message: 'Check your address format' });
+    Crypto.isAddress(tx.to) ? sendTransaction() : showToast({ variant: 'error', message: 'Check your address format' });
   }, [privateKey, tx, step]);
 
   const disabled = useMemo(() => (step === 1 ? !privateKey : !tx.to || !tx.value), [tx, step, privateKey]);
@@ -181,19 +157,14 @@ const Transfer = () => {
         )}
 
         <div className="btn-wrapper">
-          <LoadingButton
-            loading={loading}
-            disabled={disabled}
-            className="button"
-            size="large"
-            variant="filled"
-            onClick={onSubmit}
-          >
+          <span className="warning">{loading && ' Takes up to 13 seconds'}</span>
+          <LoadingButton loading={loading} disabled={disabled} className="button" size="large" onClick={onSubmit}>
             {step === 1 ? 'Access' : 'Send Transaction'}
           </LoadingButton>
-
-          {step === 2 && <LinkUnderline onClick={() => setStep(1)} underlink="Turn Back" />}
         </div>
+        <span className="return">
+          {step === 2 && <LinkUnderline onClick={() => setStep(1)} underlink="Turn Back" />}
+        </span>
       </CardContent>
     </Container>
   );

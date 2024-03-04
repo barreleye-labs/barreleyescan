@@ -19,20 +19,20 @@ import react from '@vitejs/plugin-react-swc';
 // });
 
 export default ({ mode }) => {
-  Object.assign(process.env, loadEnv(mode, process.cwd()))
+  Object.assign(process.env, loadEnv(mode, process.cwd()));
 
   return defineConfig({
     plugins: [react(), tsconfigPaths()],
-      server: {
-        proxy: {
-          '/api': {
-            target: process.env.VITE_API_SERVER_URL,
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-            secure: false,
-            ws: true
-          }
+    server: {
+      proxy: {
+        '/api': {
+          target: process.env.VITE_API_SERVER_URL,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+          secure: false,
+          ws: true
         }
       }
+    }
   });
-}
+};

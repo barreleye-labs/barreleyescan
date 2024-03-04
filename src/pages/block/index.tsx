@@ -71,7 +71,7 @@ function Block() {
             {data?.block.extra}
           </Button>
         </Row>
-        <Row label="Block producer" content={data?.block.signer}></Row>
+        <Row label="Block producer" content={`0x${data?.block.signer}`}></Row>
       </>
     </Detail>
   );

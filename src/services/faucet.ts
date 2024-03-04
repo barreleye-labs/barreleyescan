@@ -1,16 +1,23 @@
 import { IAccount } from '@type/api';
 
+import { service } from '@src/utils/http';
+
 import useApi from '@hooks/useApi';
 
 const FaucetService = () => {
   const PATH: string = '/api';
 
   function GetOneById(id: string) {
-    return useApi<IAccount>(`${PATH}/accounts/${id}`);
+    return useApi<IAccount>(`${PATH}/accounts/${id}`, {});
+  }
+
+  function Send(params: { accountAddress: string }) {
+    return service.post('/faucet', params);
   }
 
   return {
-    GetOneById
+    GetOneById,
+    Send
   };
 };
 export default FaucetService;

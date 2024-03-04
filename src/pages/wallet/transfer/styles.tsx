@@ -33,12 +33,24 @@ export const Container = styles(Card)`
     }
     }
   
+    .return {
+      text-align: right;
+    }
+    
   .btn-wrapper{
     display:flex;
-    flex-direction: column;
-    align-items: end;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
     gap: 12px;
     margin-top: 2rem;
+    margin-bottom: 1rem;
+
+    .warning {
+      color: red;
+    }
+
+ 
   }
  }
 `;

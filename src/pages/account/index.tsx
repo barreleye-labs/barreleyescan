@@ -14,14 +14,14 @@ import SearchInput from '@components/searchInput';
 
 import { Crypto } from '@utils';
 
-import AccountService from '@services/account.ts';
+import FaucetService from '@services/faucet.ts';
 
 const Account = () => {
   const navigate = useNavigate();
   const { address } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data } = AccountService().GetOneById(address as string);
+  const { data } = FaucetService().GetOneById(address as string);
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -30,20 +30,18 @@ const Account = () => {
     });
   }, []);
 
-  const fetchAccount = useCallback(
-    debounce(async (address: string) => {
-      /**
-       * validator
-       */
-      Crypto.isAddress(address)
-        ? navigate(`/account/${Crypto.remove0x(address)}`)
-        : showToast({ variant: 'error', message: 'Check your address format' });
-    }, 500),
-    [data]
-  );
+  const fetchAccount = debounce(async (address: string) => {
+    /**
+     * validator
+     */
+
+    Crypto.isAddress(address)
+      ? navigate(`/account/${Crypto.remove0x(address)}`)
+      : showToast({ variant: 'error', message: 'Check your address format' });
+  }, 500);
 
   const onChange = useCallback(async (e) => {
-    fetchAccount(e.target.value);
+    fetchAccount(Crypto.remove0x(e.target.value));
   }, []);
 
   return (

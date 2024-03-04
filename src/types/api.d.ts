@@ -37,14 +37,13 @@ export interface ITx {
   transaction: Tx;
 }
 export interface Tx {
-  [index: string]: string;
   nonce: string;
   from: string;
   to: string;
   value: string;
   data: string;
-  blockHeight: number;
-  timestamp: number;
+  blockHeight?: string;
+  timestamp?: number;
   signerX?: string;
   signerY?: string;
   signatureR?: string;

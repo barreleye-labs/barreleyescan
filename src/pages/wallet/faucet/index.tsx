@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useSnackbar } from 'notistack';
 
 import { useCallback, useMemo, useState } from 'react';
@@ -13,6 +12,8 @@ import { Input } from '@components/input';
 import { IFaucet } from '@src/types/api';
 
 import { Crypto } from '@utils';
+
+import FaucetService from '@services/faucet';
 
 import useInput from '@hooks/useInput';
 
@@ -30,26 +31,20 @@ const Faucet = () => {
     });
   }, []);
 
-  const onSubmit = useCallback(() => {
-    console.log(faucet);
-    axios
-      .post(
-        '/api/faucet',
-        {
-          accountAddress: Crypto.remove0x(accountAddress)
-        },
-        { withCredentials: true }
-      )
-      .then(() => {
-        setLoading(true);
-        setTimeout(() => {
-          setLoading(false);
-          showToast({ variant: 'success', message: 'Your Barrel Faucet request accepted.' });
-        }, 13000);
-      })
-      .catch((err) => {
-        showToast({ variant: 'error', message: 'Invalid address format.\n' });
-      });
+  const onSubmit = useCallback(async () => {
+    const { data, error } = await FaucetService().Send({
+      accountAddress: Crypto.remove0x(accountAddress)
+    });
+
+    console.log(data);
+
+    if (!data) return showToast({ variant: 'error', message: 'Invalid address format.\n' });
+
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      showToast({ variant: 'success', message: 'Your Barrel Faucet request accepted.' });
+    }, 13000);
   }, [accountAddress, balance]);
   const disabled = useMemo(() => !accountAddress, [accountAddress]);
   return (
@@ -86,14 +81,7 @@ const Faucet = () => {
 
         <div className="btn-wrapper">
           <span className="warning">{loading && ' Takes up to 13 seconds'}</span>
-          <LoadingButton
-            loading={loading}
-            disabled={disabled}
-            className="button"
-            size="large"
-            variant="filled"
-            onClick={onSubmit}
-          >
+          <LoadingButton loading={loading} disabled={disabled} className="button" size="large" onClick={onSubmit}>
             Run Faucet
           </LoadingButton>
         </div>

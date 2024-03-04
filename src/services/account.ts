@@ -1,12 +1,10 @@
 import { IAccount } from '@type/api';
 
-import useApi from '@hooks/useApi';
+import { service } from '@src/utils/http';
 
 const AccountService = () => {
-  const PATH: string = '/api';
-
   function GetOneById(id: string) {
-    return useApi<IAccount>(`${PATH}/accounts/${id}`);
+    return service.get<IAccount>(`/accounts/${id}`);
   }
 
   return {

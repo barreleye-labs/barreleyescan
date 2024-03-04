@@ -56,12 +56,10 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
       <TableHead>
         <TableRow>
           <TableCell>Block</TableCell>
-          <TableCell width="100px" size="medium" align="left">
+          <TableCell size="medium" align="left">
             Age
           </TableCell>
-          <TableCell width="100px" align="left">
-            Total TXs
-          </TableCell>
+          <TableCell align="left">Total TXs</TableCell>
           <TableCell align="left">Block Proposer</TableCell>
           {!isSimpleData && <TableCell align="left">Block Hash</TableCell>}
           {!isSimpleData && <TableCell align="left">Parent Hash</TableCell>}
