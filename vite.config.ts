@@ -8,7 +8,7 @@ import react from '@vitejs/plugin-react-swc';
 //   server: {
 //     proxy: {
 //       '/api': {
-//         target: import.meta.env.VITE_API_SERVER_URL,
+//         target: "http://localhost:9000",
 //         changeOrigin: true,
 //         rewrite: (path) => path.replace(/^\/api/, ''),
 //         secure: false,

@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import { useCallback, useState } from 'react';
 
 import MenuItems from './components/MenuItems';

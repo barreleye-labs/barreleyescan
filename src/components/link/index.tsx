@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Container } from './styles';
 
 interface Props {
-  path?: string;
+  path: string;
   underlink: string | number;
-  onClick?: (e) => void;
+  children: any;
+  onClick?: (e: any) => void;
 }
 
 const LinkUnderline = ({ path, underlink, children, onClick }: Props) => {

@@ -19,8 +19,8 @@ COPY . .
 # 3000번 포트 노출
 #EXPOSE 5173
 
-ENV NODE_ENV production1
-ENV VITE_API_SERVER_URL http://172.31.8.44:9000
+#ENV NODE_ENV production1
+#ENV VITE_API_SERVER_URL http://172.31.8.44:9000
 
 # npm start 스크립트 실행
 CMD ["npm", "run", "start:prod"]
