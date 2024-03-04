@@ -37,7 +37,7 @@ const CustomInput = memo(
 
     const onCopy = () => {
       setCopyButtonText(COPY_TEXT.ACTIVE);
-      navigator.clipboard.writeText(defaultValue);
+      navigator.clipboard.writeText(defaultValue as string);
 
       setTimeout(() => {
         setCopyButtonText(COPY_TEXT.DEFAULT);
