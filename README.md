@@ -7,10 +7,10 @@
 
   <br />
 
-  <h2>@Barreleye Explorer &middot; <img src="https://img.shields.io/badge/npm package-18.16.0-success" alt="npm" height="18"/></h2>
+  <h2>@Barreleye scan &middot; <img src="https://img.shields.io/badge/npm package-18.16.0-success" alt="npm" height="18"/></h2>
 
   <p align="center">
-   Official open source of <b>Barreleye Blockchain Explorer. </b>
+   Official open source of <b>Barreleye Blockchain scan. </b>
 
  
   with initial developer [@Youngmin Kim](https://github.com/k930503), [@Nayoung Kim](https://github.com/usiyoung)

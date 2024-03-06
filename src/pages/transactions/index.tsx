@@ -59,7 +59,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
                   underlink={`0x${Hash.ellipsis(row.hash)}`}
                 ></LinkUnderline>
               </TableCell>
-              <TableCell style={{ width: 100 }} align="left">
+              <TableCell style={{ width: 120 }} align="left">
                 {Time.elapsedTime(Time.formatUnixNano(row.timestamp))}
               </TableCell>
               {!isSimpleData && (

@@ -10,17 +10,40 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Container = styled.div`
   background: #f8f9fa;
-
+  height: calc(var(--vh, 1vh) * 100);
   display: flex;
-  min-height: 100dvh;
 
   ${mq[1]} {
+    .menu:has(.active) {
+      height: 540px;
+    }
     flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 2rem;
   }
 `;
 
 export const Sider = styled.div`
   z-index: 1;
+  min-width: 248px;
+  border-right: #636b7433;
+  background: #001529;
+  padding: 16px;
+  ${mq[1]} {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-width: 100%;
+    position: fixed;
+    top: 0;
+    padding: 7px;
+    height: 57px;
+    > div {
+      margin-left: 13px;
+      width: 95%;
+    }
+  }
+
   span,
   .MuiListSubheader-root,
   .MuiListItemContent-root {
@@ -36,16 +59,5 @@ export const Sider = styled.div`
         color: black !important;
       }
     }
-  }
-
-  position: sticky;
-  min-width: 248px;
-  border-right: #636b7433;
-  background: #001529;
-  padding: 16px;
-  ${mq[1]} {
-    min-width: 100%;
-    position: sticky;
-    top: 0;
   }
 `;

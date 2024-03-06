@@ -13,7 +13,16 @@ const sub = teal[50];
 export const Container = styled.div`
   flex: 0.3;
   max-width: 256px;
-
+  .copyRight {
+    span {
+      position: absolute;
+      bottom: 3rem;
+      color: rgba(202, 203, 216, 0.5) !important;
+    }
+    ${mq[1]} {
+      display: none;
+    }
+  }
   ${mq[1]} {
     max-width: none !important;
   }
@@ -78,8 +87,8 @@ export const Container = styled.div`
     color: ${sub};
     display: none;
     position: absolute;
-    top: 23px;
-    right: 18px;
+    top: 18px;
+    right: 14px;
     cursor: pointer;
     padding: 1px;
     box-shadow:

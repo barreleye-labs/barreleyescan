@@ -4,6 +4,6 @@ const fetcher = (url: string) =>
   axios
     .get(url)
     .then(({ data }) => data.data)
-    .catch((err) => err.response);
+    .catch((err) => err.response.data);
 
 export { fetcher };

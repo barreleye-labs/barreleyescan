@@ -1,3 +1,12 @@
 @import './base/_reset.css';
 @import './base/_fonts.css';
 @import './base/_mui.css';
+:root {
+    --vh: 100%;
+}
+
+body {
+    overflow: hidden;
+    touch-action: none;
+    position: fixed;
+}

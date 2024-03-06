@@ -8,7 +8,7 @@ import DefaultLayout from '@layouts/default';
 const Layout = () => {
   return (
     <Container>
-      <Sider>
+      <Sider className="menu">
         <Logo />
         <Menu />
       </Sider>

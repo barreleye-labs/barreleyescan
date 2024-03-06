@@ -4,25 +4,125 @@ const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
-export const Container = styled.div``;
-export const Card = styled.div`
+export const Container = styled.div`
+  .margin-spacing {
+    margin: 3px 0;
+  }
+`;
+export const DashboardTable = styled.div`
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  justify-content: space-between;
+`;
+export const Card = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: row;
   background-color: rgb(255, 255, 255);
   color: rgb(33, 43, 54);
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  background-image: none;
-  padding: 1rem;
-  height: 100%;
   overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   box-shadow:
-    rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
-    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
-  border-radius: 16px;
+    rgba(145, 158, 171, 0.08) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.08) 0px 12px 24px -4px;
+  position: relative;
   z-index: 0;
+  border-radius: 16px;
+
+  .signature {
+    transform: translateX(60%);
+    ${mq[1]} {
+      transform: translateX(10%);
+    }
+    span {
+      color: black;
+    }
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 1rem;
+    img {
+      width: 50px;
+    }
+  }
+
+  .purple {
+    .icon-wrapper {
+      background-color: rgba(140, 141, 255, 0.1);
+    }
+    color: rgb(140, 141, 255);
+    h2 {
+      color: rgb(140, 141, 255);
+    }
+  }
+  .yellow {
+    .icon-wrapper {
+      background-color: rgba(255, 198, 117, 0.1);
+    }
+    color: rgb(255, 198, 117);
+    h2 {
+      color: rgb(255, 198, 117);
+    }
+  }
+  .blue {
+    .icon-wrapper {
+      background-color: rgba(36, 153, 239, 0.1);
+    }
+    color: rgb(36, 153, 239);
+    h2 {
+      color: rgb(36, 153, 239);
+    }
+  }
+  .wrapper {
+    padding: 40px 24px;
+    display: flex;
+    align-items: center;
+    h4 {
+      font-weight: 600;
+      line-height: 1.57143;
+      font-size: 14px;
+      color: rgb(145, 158, 171);
+    }
+    h2 {
+      color: #212b36;
+      font-size: 27px;
+      font-weight: 900;
+      margin: 0;
+      span {
+        font-size: 13px;
+        font-weight: 600;
+        margin-left: 3px;
+      }
+    }
+
+    .icon-wrapper {
+      color: #34b4a9;
+      background: #e5fbf8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      margin-right: 16px;
+      border-radius: 50%;
+      box-shadow:
+        rgba(95, 116, 141, 0.03) 0px 2px 1px -1px,
+        rgba(95, 116, 141, 0.04) 0px 1px 1px 0px,
+        rgba(95, 116, 141, 0.08) 0px 1px 3px 0px;
+      .MuiSvgIcon-root {
+        user-select: none;
+        width: 1em;
+        height: 1em;
+        display: inline-block;
+        fill: currentcolor;
+        flex-shrink: 0;
+        transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        font-size: 1.5rem;
+      }
+    }
+  }
 
   .dashboard-table-wrapper {
     width: 100%;
@@ -30,41 +130,77 @@ export const Card = styled.div`
   .MuiTableContainer-root {
     box-shadow: none !important;
   }
-
+  .MuiStack-root {
+    display: flex;
+    align-items: center;
+  }
   button {
     margin: 0 auto;
   }
   h2 {
     margin: 7px 0 0 7px;
     font-weight: 700;
+    color: black;
   }
   .dashboard-content-type {
     height: 150px;
 
+    ${mq[1]} {
+      height: 100px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
     .header {
-      font-size: 14px;
-      font-weight: 700;
-      margin: 0px 0px 16px;
-      line-height: 1.57143;
-      padding: 12px 0 0 0;
-      font-family: 'Public Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 4px;
+
+      span {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 9px 0;
+        font-family: 'Public Sans', sans-serif;
+      }
+
+      ${mq[1]} {
+        padding: 0;
+      }
     }
 
     .content {
-      font-size: 2rem;
+      p {
+        margin-bottom: 0;
+      }
+      span {
+        font-size: 13px;
+      }
       ${mq[1]} {
-        font-size: 21px;
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+        gap: 9px;
+        text-align: right;
+        font-size: 37px;
       }
 
+      font-size: 2rem;
       font-weight: 700;
       padding: 0 0;
       margin-top: -4px;
     }
 
     .footer {
-      div {
-        position: absolute;
-        bottom: 9px;
+      position: absolute;
+      bottom: 9px;
+      .MuiSvgIcon-root {
+        font-size: 12px;
+        margin-left: 3px;
+      }
+      .footer-button {
         display: inline-flex;
         align-items: center;
         font-weight: 600;
@@ -97,6 +233,23 @@ export const Card = styled.div`
   }
 
   .dashboard-custom {
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    color: rgb(33, 43, 54);
+    transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    background-image: none;
+    padding: 1rem;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow:
+      rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+      rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+    border-radius: 16px;
+    z-index: 0;
     display: flex;
     width: 100%;
     span {
@@ -105,14 +258,5 @@ export const Card = styled.div`
 
     justify-content: space-around;
     padding: 1rem;
-
-    .left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      img {
-        width: 50px;
-      }
-    }
   }
 `;

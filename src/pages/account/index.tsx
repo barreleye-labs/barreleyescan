@@ -21,7 +21,7 @@ const Account = () => {
   const { address } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data } = FaucetService().GetOneById(address as string);
+  const { data, error } = FaucetService().GetOneById(address as string);
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -54,15 +54,16 @@ const Account = () => {
         ) : (
           <>
             <Row label="Address" content={`0x${address}`}></Row>
+
             <Row
               label="Balance"
               content={
-                data
+                data?.account
                   ? `${Number(Crypto.hexToDecimal(data.account.balance)).toLocaleString('ko-KR')} Barrel`
                   : '0 Barrel'
               }
             ></Row>
-            <Row label="Nonce" content={data ? Crypto.hexToDecimal(data.account.nonce) : '0'}></Row>
+            <Row label="Nonce" content={data?.account ? Crypto.hexToDecimal(data.account.nonce) : '0'}></Row>
           </>
         )}
       </Detail>
