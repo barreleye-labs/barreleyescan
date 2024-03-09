@@ -1,17 +1,16 @@
-import useSWR from 'swr';
-
 import { useMemo, useState } from 'react';
+
+import { TableRow } from './styles.tsx';
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
 
+import { SkeletonTable } from '@components/Skeleton';
 import LinkUnderline from '@components/link';
 import { Table, TableBody, TableHead } from '@components/table/index.ts';
+import IntervalTimestamp from '@components/time';
 
-import { ITxs } from '@src/types/api';
-
-import { Crypto, Hash, Time, fetcher } from '@utils';
+import { Crypto, Hash, Time } from '@utils';
 
 import transactions from '@services/transactions';
 
@@ -45,11 +44,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
       </TableHead>
       <TableBody>
         {!data ? (
-          <TableRow>
-            <TableCell colSpan={8} align="center">
-              No Data
-            </TableCell>
-          </TableRow>
+          <SkeletonTable columns={isSimpleData ? 5 : 7} size={size} />
         ) : (
           data.transactions.map((row) => (
             <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
@@ -60,7 +55,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
                 ></LinkUnderline>
               </TableCell>
               <TableCell style={{ width: 120 }} align="left">
-                {Time.elapsedTime(Time.formatUnixNano(row.timestamp))}
+                <IntervalTimestamp data={row.timestamp as number}></IntervalTimestamp>
               </TableCell>
               {!isSimpleData && (
                 <TableCell component="th" scope="row">

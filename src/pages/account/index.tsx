@@ -1,7 +1,7 @@
 import { debounce } from 'lodash-es';
 import { useSnackbar } from 'notistack';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Container } from './styles';
@@ -21,7 +21,11 @@ const Account = () => {
   const { address } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data, error } = FaucetService().GetOneById(address as string);
+  const { data, error, mutate } = FaucetService().GetOneById(address as string);
+
+  useEffect(() => {
+    address && mutate();
+  }, [address]);
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -34,7 +38,7 @@ const Account = () => {
     /**
      * validator
      */
-
+    ``;
     Crypto.isAddress(address)
       ? navigate(`/account/${Crypto.remove0x(address)}`)
       : showToast({ variant: 'error', message: 'Check your address format' });

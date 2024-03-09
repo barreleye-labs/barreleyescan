@@ -54,32 +54,41 @@ const Transfer = () => {
   const getSigner = useCallback(() => Crypto.generatePublicKey(privateKey), [privateKey]);
 
   const getSignature = useCallback(
-    (info: Tx) => {
+    (nonce: string) => {
+      const { from, to, value, data } = tx;
+
+      const sig = {
+        nonce,
+        from,
+        to,
+        value,
+        data
+      };
       const txUintArray = new Uint8Array(
-        Object.keys(info).reduce((acc: number[], key) => acc.concat(...Char.hexToUint8Array(info[key])), [])
+        Object.keys(sig).reduce((acc: number[], key: string) => acc.concat(...Char.hexToUint8Array(sig[key])), [])
       );
 
       const message = Char.uint8ArrayToHex(txUintArray);
       return Crypto.signMessage(message, privateKey);
     },
-    [privateKey]
+    [privateKey, tx]
   );
 
   const sendTransaction = useCallback(async () => {
     const { data, error } = await AccountService().GetOneById(tx.from);
-    console.log(data);
+
     if (error)
       return showToast({
         variant: 'error',
         message: 'Insufficient balance. You can receive coins through faucet.'
       });
-
-    const { r, s } = getSignature(tx);
+    const nonce = data.account.nonce;
+    const { r, s } = getSignature(nonce);
     const { x, y } = getSigner();
 
     const { error: sendError } = TransactionsService().Send({
       ...tx,
-      nonce: data.account.nonce,
+      nonce,
       to: Crypto.remove0x(tx.to),
       signatureR: r,
       signatureS: s,
@@ -96,7 +105,7 @@ const Transfer = () => {
       showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
       initData();
     }, 13000);
-  }, [tx, tx.nonce]);
+  }, [tx]);
 
   const onSubmit = useCallback(() => {
     if (step === 1) {

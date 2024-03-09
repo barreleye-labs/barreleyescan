@@ -3,18 +3,19 @@ import { Block } from '@type/api';
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Button } from './styles.tsx';
+import { Button, TableRow } from './styles.tsx';
 
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
 import LinkUnderline from '@components/link';
-import { Table, TableBody, TableHead } from '@components/table/index.ts';
+import { Table, TableBody, TableCell, TableHead } from '@components/table';
+import IntervalTimestamp from '@components/time';
 
-import { Hash, Time } from '@utils';
+import { SkeletonTable } from '@src/components/Skeleton';
+
+import { Hash } from '@utils';
 
 import BlocksService from '@services/blocks';
 
@@ -40,7 +41,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const { data } = BlocksService().GetAll({ page, size });
+  const { data, isLoading } = BlocksService().GetAll({ page, size });
 
   const handleChange = useCallback(
     (_, value: number) => {
@@ -51,6 +52,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
 
   const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
   console.log(data);
+
   return (
     <Table count={count} page={page} onChange={handleChange} isPagination={isPagination}>
       <TableHead>
@@ -68,19 +70,16 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
       </TableHead>
       <TableBody>
         {!data ? (
-          <TableRow>
-            <TableCell colSpan={8} align="center">
-              No Data
-            </TableCell>
-          </TableRow>
+          <SkeletonTable columns={isSimpleData ? 5 : 7} size={size} />
         ) : (
           data?.blocks.map((row: Block) => (
             <TableRow key={row.height} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell component="th" scope="row">
+              <TableCell>
                 <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>
               </TableCell>
-
-              <TableCell align="left">{Time.elapsedTime(Time.formatUnixNano(row.timestamp))}</TableCell>
+              <TableCell align="left">
+                <IntervalTimestamp data={row.timestamp}></IntervalTimestamp>
+              </TableCell>
 
               <TableCell align="left">{row.txCount}</TableCell>
 

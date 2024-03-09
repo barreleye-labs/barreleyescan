@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 
-function elapsedTime(date: number) {
-  const start = new Date(date);
-  const end = new Date();
+function elapsedTime(date: number): string {
+  const start: Date = new Date(date);
+  const end: Date = new Date();
 
-  const diff = (end - start) / 1000;
+  const diff = (Number(end) - Number(start)) / 1000;
 
   const times = [
     { name: 'year', milliSeconds: 60 * 60 * 24 * 365 },
@@ -25,13 +25,14 @@ function elapsedTime(date: number) {
   return 'now';
 }
 
-function formatUnixNano(timestamp: number) {
+function formatUnixNano(timestamp: number): number {
   return timestamp / 1000000;
 }
 
 function formatUtc(timestamp: number) {
   return dayjs(timestamp).utc().format('MMM D,YYYY HH:mm:ss');
 }
+
 export const Time = {
   elapsedTime,
   formatUnixNano,
