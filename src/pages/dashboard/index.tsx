@@ -26,29 +26,22 @@ const Dashboard = () => {
   const BlockHeightCard = useCallback(() => {
     return (
       <Highlight>
-        <h2>#{data.block.height ?? '0'}</h2>
+        <h2>#{data?.block?.height ?? '0'}</h2>
       </Highlight>
     );
-  });
+  }, [data]);
+
   const SupplyCard = useCallback(() => {
     return (
       <Highlight>
         <h2>
-          {data.block?.height ? (data.block?.height * 10).toLocaleString('ko-KR') : '0'}
+          {data?.block?.height ? (data?.block?.height * 10).toLocaleString('ko-KR') : '0'}
           <span>Barrel</span>
         </h2>
       </Highlight>
     );
   }, [data]);
-  if (!data)
-    return (
-      <div>
-        <Skeleton />
-        <Skeleton width="80%" />
-        <Skeleton width="60%" />
-        <Skeleton width="30%" />
-      </div>
-    );
+
   return (
     <Container>
       <Grid container spacing={2} className="margin-spacing">
