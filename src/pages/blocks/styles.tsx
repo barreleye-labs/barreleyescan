@@ -1,8 +1,20 @@
 import styled from '@emotion/styled';
 
 import Btn from '@mui/material/Button';
+import Row from '@mui/material/TableRow';
 import { teal } from '@mui/material/colors';
 
+export const TableRow = styled(Row)`
+  animation-name: twinkle;
+  animation-duration: 600ms;
+
+  background-size: cover;
+  @keyframes twinkle {
+    50% {
+      filter: blur(8px);
+    }
+  }
+`;
 export const Button = styled(Btn)`
   border-color: ${teal[100]};
   color: ${teal[500]};

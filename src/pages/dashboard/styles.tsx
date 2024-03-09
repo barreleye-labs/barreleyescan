@@ -1,5 +1,7 @@
 import styled from '@emotion/styled';
 
+import Row from '@mui/material/TableRow';
+
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
@@ -15,6 +17,18 @@ export const DashboardTable = styled.div`
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
+`;
+
+export const Highlight = styled.div`
+  animation-name: twinkle;
+  animation-duration: 600ms;
+
+  background-size: cover;
+  @keyframes twinkle {
+    50% {
+      filter: blur(8px);
+    }
+  }
 `;
 export const Card = styled.div`
   display: flex;

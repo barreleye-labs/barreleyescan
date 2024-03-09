@@ -1,6 +1,7 @@
+import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Card, Container, DashboardTable } from './styles';
+import { Card, Container, DashboardTable, Highlight } from './styles';
 
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -22,6 +23,23 @@ const Dashboard = () => {
 
   const { data } = BlocksService().GetLast();
 
+  const BlockHeightCard = useCallback(() => {
+    return (
+      <Highlight>
+        <h2>#{data.block.height ?? '0'}</h2>
+      </Highlight>
+    );
+  });
+  const SupplyCard = useCallback(() => {
+    return (
+      <Highlight>
+        <h2>
+          {data.block?.height ? (data.block?.height * 10).toLocaleString('ko-KR') : '0'}
+          <span>Barrel</span>
+        </h2>
+      </Highlight>
+    );
+  }, [data]);
   if (!data)
     return (
       <div>
@@ -41,12 +59,27 @@ const Dashboard = () => {
                 <ViewInArIcon />
               </div>
               <div>
-                <h2>#{data.block.height ?? '0'}</h2>
+                <BlockHeightCard />
                 <h4>Block Height</h4>
               </div>
             </div>
           </Card>
         </Grid>
+
+        <Grid xs={12} sm={6} md={3}>
+          <Card>
+            <div className="wrapper purple">
+              <div className="icon-wrapper">
+                <AccessTimeIcon />
+              </div>
+              <div>
+                <SupplyCard />
+                <h4>Circulating Supply</h4>
+              </div>
+            </div>
+          </Card>
+        </Grid>
+
         <Grid xs={12} sm={6} md={3}>
           <Card>
             <div className="wrapper yellow">
@@ -75,22 +108,6 @@ const Dashboard = () => {
             </div>
           </Card>
         </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          <Card>
-            <div className="wrapper purple">
-              <div className="icon-wrapper">
-                <AccessTimeIcon />
-              </div>
-              <div>
-                <h2>
-                  {data.block?.height ? (data.block?.height * 10).toLocaleString('ko-KR') : '0'}
-                  <span>Barrel</span>
-                </h2>
-                <h4>Circulating Supply</h4>
-              </div>
-            </div>
-          </Card>
-        </Grid>
       </Grid>
 
       <Grid container spacing={2} className="margin-spacing">
@@ -98,7 +115,7 @@ const Dashboard = () => {
           <Card>
             <div className="signature">
               <img src="src/assets/barreleye.png" />
-              <Logo />
+              <Logo className="logo" />
             </div>
           </Card>
         </Grid>

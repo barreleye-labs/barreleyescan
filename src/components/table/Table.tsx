@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ChangeEvent, ReactNode } from 'react';
 
 import { TableContainer, TableWrapper } from './styles';
 import { Container } from './styles';
@@ -10,7 +10,7 @@ interface Props {
   isPagination?: boolean;
   count?: number;
   page?: number;
-  onChange?: () => void;
+  onChange?: (event: ChangeEvent, page: number) => void;
 }
 const Table = ({ isPagination = true, count, page, children, onChange }: Props) => {
   return (
