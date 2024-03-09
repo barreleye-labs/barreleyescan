@@ -38,7 +38,6 @@ const Account = () => {
     /**
      * validator
      */
-    ``;
     Crypto.isAddress(address)
       ? navigate(`/account/${Crypto.remove0x(address)}`)
       : showToast({ variant: 'error', message: 'Check your address format' });
