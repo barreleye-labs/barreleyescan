@@ -37,7 +37,7 @@ const Transfer = () => {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
-
+  const { data, error, mutate: accountMutate } = AccountService().GetOneById(tx.from);
   const initData = useCallback(() => {
     setTx(txDefaultData());
     setStep(1);
@@ -75,18 +75,19 @@ const Transfer = () => {
   );
 
   const sendTransaction = useCallback(async () => {
-    const { data, error } = await AccountService().GetOneById(tx.from);
+    await accountMutate();
 
     if (error)
       return showToast({
         variant: 'error',
         message: 'Insufficient balance. You can receive coins through faucet.'
       });
-    const nonce = data.account.nonce;
+
+    const nonce = data!.account.nonce;
     const { r, s } = getSignature(nonce);
     const { x, y } = getSigner();
 
-    const { error: sendError } = TransactionsService().Send({
+    const { error: sendError } = await TransactionsService().Send({
       ...tx,
       nonce,
       to: Crypto.remove0x(tx.to),

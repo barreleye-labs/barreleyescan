@@ -10,7 +10,7 @@ import LinkUnderline from '@components/link';
 import { Table, TableBody, TableHead } from '@components/table/index.ts';
 import IntervalTimestamp from '@components/time';
 
-import { Crypto, Hash, Time } from '@utils';
+import { Crypto, Hash } from '@utils';
 
 import transactions from '@services/transactions';
 

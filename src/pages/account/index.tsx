@@ -14,14 +14,14 @@ import SearchInput from '@components/searchInput';
 
 import { Crypto } from '@utils';
 
-import FaucetService from '@services/faucet.ts';
+import AccountService from '@services/account';
 
 const Account = () => {
   const navigate = useNavigate();
   const { address } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { data, error, mutate } = FaucetService().GetOneById(address as string);
+  const { data, mutate } = AccountService().GetOneById(address as string);
 
   useEffect(() => {
     address && mutate();
@@ -38,6 +38,7 @@ const Account = () => {
     /**
      * validator
      */
+
     Crypto.isAddress(address)
       ? navigate(`/account/${Crypto.remove0x(address)}`)
       : showToast({ variant: 'error', message: 'Check your address format' });

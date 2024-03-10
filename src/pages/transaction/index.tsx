@@ -26,7 +26,7 @@ function Transaction() {
   const { data } = transactions().GetOneById(hash as string);
 
   const setTime = useCallback(() => {
-    const formatUnix = Time.formatUnixNano(data?.transaction.timestamp as string);
+    const formatUnix = Time.formatUnixNano(data?.transaction.timestamp as number);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;

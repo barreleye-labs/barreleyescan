@@ -32,11 +32,9 @@ const Faucet = () => {
   }, []);
 
   const onSubmit = useCallback(async () => {
-    const { data, error } = await FaucetService().Send({
+    const { data } = await FaucetService().Send({
       accountAddress: Crypto.remove0x(accountAddress)
     });
-
-    console.log(data);
 
     if (!data) return showToast({ variant: 'error', message: 'Invalid address format.\n' });
 

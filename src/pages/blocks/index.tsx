@@ -41,7 +41,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const { data, isLoading } = BlocksService().GetAll({ page, size });
+  const { data } = BlocksService().GetAll({ page, size });
 
   const handleChange = useCallback(
     (_, value: number) => {
@@ -51,7 +51,6 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
   );
 
   const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
-  console.log(data);
 
   return (
     <Table count={count} page={page} onChange={handleChange} isPagination={isPagination}>

@@ -8,7 +8,6 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import PolylineIcon from '@mui/icons-material/Polyline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import Button from '@mui/material/Button';
-import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import Logo from '@components/logo';
@@ -21,12 +20,12 @@ import BlocksService from '@services/blocks.ts';
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const { data } = BlocksService().GetLast();
+  const { data } = BlocksService().GetAll({ size: 5, page: 1 });
 
   const BlockHeightCard = useCallback(() => {
     return (
       <Highlight>
-        <h2>#{data?.block?.height ?? '0'}</h2>
+        <h2>#{data ? Number(data?.totalCount) - 1 : '0'}</h2>
       </Highlight>
     );
   }, [data]);
@@ -35,7 +34,7 @@ const Dashboard = () => {
     return (
       <Highlight>
         <h2>
-          {data?.block?.height ? (data?.block?.height * 10).toLocaleString('ko-KR') : '0'}
+          {data ? ((Number(data?.totalCount) - 1) * 10).toLocaleString('ko-KR') : '0'}
           <span>Barrel</span>
         </h2>
       </Highlight>
@@ -108,7 +107,7 @@ const Dashboard = () => {
           <Card>
             <div className="signature">
               <img src="src/assets/barreleye.png" />
-              <Logo className="logo" />
+              <Logo />
             </div>
           </Card>
         </Grid>
@@ -127,6 +126,7 @@ const Dashboard = () => {
             </DashboardTable>
           </Card>
         </Grid>
+
         <Grid xs={16} md={6.5}>
           <Card>
             <DashboardTable>
