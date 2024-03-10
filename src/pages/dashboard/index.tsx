@@ -5,12 +5,14 @@ import { Card, Container, DashboardTable, Highlight } from './styles';
 
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PolylineIcon from '@mui/icons-material/Polyline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import Button from '@mui/material/Button';
-import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Unstable_Grid2';
 
+import Link from '@components/link';
 import Logo from '@components/logo';
 
 import Blocks from '@pages/blocks';
@@ -21,40 +23,33 @@ import BlocksService from '@services/blocks.ts';
 const Dashboard = () => {
   const navigate = useNavigate();
 
-  const { data } = BlocksService().GetLast();
+  const { data } = BlocksService().GetAll({ size: 5, page: 1 });
 
   const BlockHeightCard = useCallback(() => {
     return (
       <Highlight>
-        <h2>#{data.block.height ?? '0'}</h2>
+        <h2>#{data ? Number(data?.totalCount) - 1 : '0'}</h2>
       </Highlight>
     );
-  });
+  }, [data]);
+
   const SupplyCard = useCallback(() => {
     return (
       <Highlight>
         <h2>
-          {data.block?.height ? (data.block?.height * 10).toLocaleString('ko-KR') : '0'}
+          {data ? ((Number(data?.totalCount) - 1) * 10).toLocaleString('ko-KR') : '0'}
           <span>Barrel</span>
         </h2>
       </Highlight>
     );
   }, [data]);
-  if (!data)
-    return (
-      <div>
-        <Skeleton />
-        <Skeleton width="80%" />
-        <Skeleton width="60%" />
-        <Skeleton width="30%" />
-      </div>
-    );
+
   return (
     <Container>
       <Grid container spacing={2} className="margin-spacing">
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper purple">
+            <div className="wrapper">
               <div className="icon-wrapper ">
                 <ViewInArIcon />
               </div>
@@ -68,7 +63,7 @@ const Dashboard = () => {
 
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper purple">
+            <div className="wrapper">
               <div className="icon-wrapper">
                 <AccessTimeIcon />
               </div>
@@ -82,7 +77,7 @@ const Dashboard = () => {
 
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper yellow">
+            <div className="wrapper">
               <div className="icon-wrapper ">
                 <AccessAlarmIcon />
               </div>
@@ -97,7 +92,7 @@ const Dashboard = () => {
         </Grid>
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper blue">
+            <div className="wrapper">
               <div className="icon-wrapper ">
                 <PolylineIcon />
               </div>
@@ -115,7 +110,7 @@ const Dashboard = () => {
           <Card>
             <div className="signature">
               <img src="src/assets/barreleye.png" />
-              <Logo className="logo" />
+              <Logo />
             </div>
           </Card>
         </Grid>
@@ -126,22 +121,31 @@ const Dashboard = () => {
           <Card>
             <DashboardTable>
               <div>
-                <h2>Recent Blocks</h2>
+                <div className="header">
+                  <h2>Recent Blocks</h2>
+
+                  <Link underlink="View All" onClick={() => navigate('/blocks')}>
+                    <KeyboardArrowRightIcon />
+                  </Link>
+                </div>
                 <Blocks isSimpleData={true} isPagination={false} size={5} />
               </div>
-
-              <Button onClick={() => navigate('/blocks')}>VIEW ALL BLOCKS </Button>
             </DashboardTable>
           </Card>
         </Grid>
+
         <Grid xs={16} md={6.5}>
           <Card>
             <DashboardTable>
               <div>
-                <h2>Recent Transactions</h2>
+                <div className="header">
+                  <h2>Recent Transactions</h2>
+                  <Link underlink="View All" onClick={() => navigate('/transactions')}>
+                    <KeyboardArrowRightIcon />
+                  </Link>
+                </div>
                 <Transactions isSimpleData={true} isPagination={false} size={5} />
               </div>
-              <Button onClick={() => navigate('/transactions')}>VIEW ALL TRANSACTIONS </Button>
             </DashboardTable>
           </Card>
         </Grid>

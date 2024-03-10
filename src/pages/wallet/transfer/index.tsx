@@ -2,12 +2,16 @@ import { useSnackbar } from 'notistack';
 import sha256 from 'sha256';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Container } from './styles';
-
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import CallMadeIcon from '@mui/icons-material/CallMade';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { CardContent, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
 
+import Card from '@components/card';
 import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
 
@@ -32,12 +36,12 @@ const txDefaultData = (): Tx => {
 
 const Transfer = () => {
   const { enqueueSnackbar } = useSnackbar();
-
+  const navigate = useNavigate();
   const [tx, onChange, setTx] = useInput<Tx>(txDefaultData());
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
-
+  const { data, error, mutate: accountMutate } = AccountService().GetOneById(tx.from);
   const initData = useCallback(() => {
     setTx(txDefaultData());
     setStep(1);
@@ -75,18 +79,19 @@ const Transfer = () => {
   );
 
   const sendTransaction = useCallback(async () => {
-    const { data, error } = await AccountService().GetOneById(tx.from);
+    await accountMutate();
 
     if (error)
       return showToast({
         variant: 'error',
         message: 'Insufficient balance. You can receive coins through faucet.'
       });
-    const nonce = data.account.nonce;
+
+    const nonce = data!.account.nonce;
     const { r, s } = getSignature(nonce);
     const { x, y } = getSigner();
 
-    const { error: sendError } = TransactionsService().Send({
+    const { error: sendError } = await TransactionsService().Send({
       ...tx,
       nonce,
       to: Crypto.remove0x(tx.to),
@@ -124,58 +129,80 @@ const Transfer = () => {
 
   const disabled = useMemo(() => (step === 1 ? !privateKey : !tx.to || !tx.value), [tx, step, privateKey]);
   return (
-    <Container>
-      <CardContent>
-        {step === 1 ? (
-          <div>
-            <Typography variant="h5" sx={{ mb: 1.5 }}>
-              Enter an acceptable private key.
-            </Typography>
-            <Typography sx={{ mb: 1 }} color="text.secondary">
-              Please enter your private key. It takes 13 seconds to transmit barrelee transaction.
-            </Typography>
+    <>
+      <Card>
+        <CardContent>
+          {step === 1 ? (
+            <div>
+              <Typography variant="h5" sx={{ mb: 1.5 }}>
+                Enter an acceptable private key.
+              </Typography>
+              <Typography sx={{ mb: 1 }} color="text.secondary">
+                Please enter your private key. It takes 13 seconds to transmit barrelee transaction.
+              </Typography>
 
-            <CustomInput
-              label="Private Key"
-              placeholder="Enter the private key"
-              defaultValue={privateKey}
-              onChange={(e) => onChangePrivateKey(e)}
-            />
-          </div>
-        ) : (
-          <>
-            <Typography variant="h5" sx={{ mb: 1.5 }}>
-              Enter Information
-            </Typography>
-            <Typography sx={{ mb: 1 }} color="text.secondary">
-              You can access your account using your private key. It takes 13 seconds to send.
-            </Typography>
+              <CustomInput
+                label="Private Key"
+                placeholder="Enter the private key"
+                defaultValue={privateKey}
+                onChange={(e) => onChangePrivateKey(e)}
+              />
+            </div>
+          ) : (
+            <>
+              {step === 2 && (
+                <Button className="return" onClick={() => setStep(1)}>
+                  <ArrowBackIosNewIcon />
+                  Back
+                </Button>
+              )}
+              <div className="input-wrapper">
+                <Typography variant="h5" sx={{ mb: 1.5 }}>
+                  Enter Information
+                </Typography>
+                <Typography sx={{ mb: 1 }} color="text.secondary">
+                  You can access your account using your private key. It takes 13 seconds to send.
+                </Typography>
 
-            <Input fullWidth label="From Address" disabled={true} defaultValue={tx.from} />
-            <Input fullWidth label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
-            <Input
-              fullWidth
-              name="value"
-              defaultValue={tx.value}
-              onChange={onChange}
-              type="number"
-              label="Amount to Send"
-              placeholder="0.000000"
-            />
-          </>
-        )}
+                <Input label="From Address" disabled={true} defaultValue={tx.from} />
+                <Input label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
+                <Input
+                  name="value"
+                  defaultValue={tx.value}
+                  onChange={onChange}
+                  type="number"
+                  label="Amount to Send"
+                  placeholder="0.000000"
+                />
+              </div>
+            </>
+          )}
+          <CardActions>
+            <span className="warning">{loading && ' Takes up to 13 seconds'}</span>
 
-        <div className="btn-wrapper">
-          <span className="warning">{loading && ' Takes up to 13 seconds'}</span>
-          <LoadingButton loading={loading} disabled={disabled} className="button" size="large" onClick={onSubmit}>
-            {step === 1 ? 'Access' : 'Send Transaction'}
-          </LoadingButton>
-        </div>
-        <span className="return">
-          {step === 2 && <LinkUnderline onClick={() => setStep(1)} underlink="Turn Back" />}
-        </span>
-      </CardContent>
-    </Container>
+            <LoadingButton loading={loading} disabled={disabled} className="button" size="large" onClick={onSubmit}>
+              {step === 1 ? 'Access' : 'Send Transaction'}
+            </LoadingButton>
+          </CardActions>
+        </CardContent>
+      </Card>
+      {step === 2 && (
+        <Card custom onClick={() => navigate('/faucet')} background={'#e5fbf842'}>
+          <CardContent>
+            <Typography variant="h5">Click if your balance is insufficient!</Typography>
+            <span className="link">
+              <LinkUnderline underlink="You need to use the faucet service to get a Barrel." />
+            </span>
+          </CardContent>
+
+          <CardActions className="wrapper">
+            <div className="icon-wrapper">
+              <CallMadeIcon />
+            </div>
+          </CardActions>
+        </Card>
+      )}
+    </>
   );
 };
 

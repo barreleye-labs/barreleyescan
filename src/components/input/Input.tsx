@@ -17,7 +17,7 @@ interface Props {
   onChange?: (e: ChangeEvent) => void;
 }
 const Input = memo(
-  ({ name, width = '50%', type, defaultValue, disabled, label, fullWidth, onChange, placeholder }: Props) => {
+  ({ name, width = '80%', type, defaultValue, disabled, label, fullWidth, onChange, placeholder }: Props) => {
     return (
       <Container>
         <FormControl sx={{ m: 1, width }} variant="standard">

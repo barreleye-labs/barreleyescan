@@ -9,14 +9,14 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100dvh;
+  height: 100%;
   gap: 17px;
   overflow: auto;
-  padding: 4rem 3rem;
+  padding: 3.4rem 3rem;
   max-width: 1200px;
   margin: 0 auto;
 
   ${mq[1]} {
-    padding: 2rem 1.9rem;
+    padding: 2rem 1rem;
   }
 `;

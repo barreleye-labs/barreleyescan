@@ -1,3 +1,5 @@
+import { SkeletonTable } from 'src/components/skeleton';
+
 import { useMemo, useState } from 'react';
 
 import { TableRow } from './styles.tsx';
@@ -5,12 +7,11 @@ import { TableRow } from './styles.tsx';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TableCell from '@mui/material/TableCell';
 
-import { SkeletonTable } from '@components/Skeleton';
 import LinkUnderline from '@components/link';
 import { Table, TableBody, TableHead } from '@components/table/index.ts';
 import IntervalTimestamp from '@components/time';
 
-import { Crypto, Hash, Time } from '@utils';
+import { Crypto, Hash } from '@utils';
 
 import transactions from '@services/transactions';
 

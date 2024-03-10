@@ -1,17 +1,21 @@
 import sha256 from 'sha256';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { Container } from './styles';
-
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import { LoadingButton } from '@mui/lab';
 import { CardContent, Typography } from '@mui/material';
-import Button from '@mui/material-next/Button';
+import CardActions from '@mui/material/CardActions';
 
+import Card from '@components/card';
 import { CustomInput } from '@components/input';
+import LinkUnderline from '@components/link';
 
 import { Crypto } from '@utils';
 
 const Create = () => {
+  const navigate = useNavigate();
   const [privateKey] = useState(Crypto.generatePrivateKey());
   const [address] = useState(getAddress());
   const [step, setStep] = useState(1);
@@ -30,30 +34,48 @@ const Create = () => {
   };
 
   return (
-    <Container>
-      <CardContent>
-        <Typography variant="h5" sx={{ mb: 1.5 }}>
-          {step === 1 ? 'Please Set The Private Key' : 'Please save Your Wallet Key'}
-        </Typography>
-        <Typography sx={{ mb: 4 }} color="text.secondary">
-          {step === 1
-            ? 'If you want to generate a private key for your account, please click the button below.'
-            : 'Your new account has been created. Please copy and securely store the Wallet Key below.'}
-        </Typography>
+    <>
+      <Card>
+        <CardContent>
+          <Typography variant="h5" sx={{ mb: 1.5 }}>
+            {step === 1 ? 'Please Set The Private Key' : 'Please save Your Wallet Key'}
+          </Typography>
+          <Typography sx={{ mb: 4 }} color="text.secondary">
+            {step === 1
+              ? 'If you want to generate a private key for your account, please click the button below.'
+              : 'Your new account has been created.   Please copy and securely store the Wallet Key below.'}
+          </Typography>
 
-        {step === 1 && (
-          <Button className="button" size="large" variant="filled" onClick={onClick}>
-            SET PRIVATE KEY
-          </Button>
-        )}
-        {step === 2 && (
-          <>
-            <CustomInput defaultValue={privateKey} label="Private Key" isCopyBtn={true} disabled={true} />
-            <CustomInput defaultValue={address} label="Address Key" isCopyBtn={true} disabled={true} />
-          </>
-        )}
-      </CardContent>
-    </Container>
+          {step === 1 && (
+            <LoadingButton className="button" size="large" onClick={onClick}>
+              SET PRIVATE KEY
+            </LoadingButton>
+          )}
+          {step === 2 && (
+            <>
+              <CustomInput defaultValue={privateKey} label="Private Key" isCopyBtn={true} disabled={true} />
+              <CustomInput defaultValue={address} label="Address Key" isCopyBtn={true} disabled={true} />
+            </>
+          )}
+        </CardContent>
+      </Card>
+      {step === 2 && (
+        <Card custom onClick={() => navigate('/faucet')} background={'#e5fbf842'}>
+          <CardContent>
+            <Typography variant="h5">Click if you want to receive coins.</Typography>
+            <span className="link">
+              <LinkUnderline underlink="You need to use the faucet service to get a Barrel." />
+            </span>
+          </CardContent>
+
+          <CardActions className="wrapper">
+            <div className="icon-wrapper">
+              <CallMadeIcon />
+            </div>
+          </CardActions>
+        </Card>
+      )}
+    </>
   );
 };
 

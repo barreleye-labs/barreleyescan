@@ -3,8 +3,6 @@ import TableRow from '@mui/material/TableRow';
 
 import { TableCell } from '@components/table';
 
-// import { TableRow } from '@pages/blocks/styles.tsx';
-
 interface Props {
   columns: number;
   size: number;

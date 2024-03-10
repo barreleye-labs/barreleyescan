@@ -24,7 +24,7 @@ export const Logo = styled.div`
     font-size: 15px;
     height: 35px;
     color: white;
-    line-height: 35px;
+    line-height: 40px;
     text-align: center;
     font-weight: 600;
   }

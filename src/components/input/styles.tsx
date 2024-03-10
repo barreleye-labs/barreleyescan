@@ -25,7 +25,9 @@ export const Container = styles.div`
         background: ${primary}
       }
     }
-
+   .MuiFormControl-root{
+      margin-left: 0;
+   }
   .copy-button{
     position: relative;
     box-sizing: border-box;

@@ -47,4 +47,16 @@ export const TableContainer = styled(ITableContainer)`
 `;
 export const TableWrapper = styled(ITable)``;
 export const Head = styled(IHead)``;
-export const Body = styled(IBody)``;
+export const Body = styled(IBody)`
+  .MuiTableRow-root {
+    animation-name: twinkle;
+    animation-duration: 600ms;
+
+    background-size: cover;
+    @keyframes twinkle {
+      50% {
+        filter: blur(8px);
+      }
+    }
+  }
+`;

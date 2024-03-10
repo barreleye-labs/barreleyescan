@@ -10,7 +10,7 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Container = styled.div`
   background: #f8f9fa;
-  height: calc(var(--vh, 1vh) * 100);
+  height: 100%;
   display: flex;
 
   ${mq[1]} {
@@ -18,14 +18,14 @@ export const Container = styled.div`
       height: 540px;
     }
     flex-direction: column;
-    padding-top: 50px;
+    padding-top: 30px;
     padding-bottom: 2rem;
   }
 `;
 
 export const Sider = styled.div`
   z-index: 1;
-  min-width: 248px;
+  min-width: 286px;
   border-right: #636b7433;
   background: #001529;
   padding: 16px;
@@ -39,7 +39,6 @@ export const Sider = styled.div`
     padding: 7px;
     height: 57px;
     > div {
-      margin-left: 13px;
       width: 95%;
     }
   }

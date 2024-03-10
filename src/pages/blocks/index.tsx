@@ -1,4 +1,5 @@
 import { Block } from '@type/api';
+import { SkeletonTable } from 'src/components/skeleton';
 
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,8 +13,6 @@ import { styled } from '@mui/material/styles';
 import LinkUnderline from '@components/link';
 import { Table, TableBody, TableCell, TableHead } from '@components/table';
 import IntervalTimestamp from '@components/time';
-
-import { SkeletonTable } from '@src/components/Skeleton';
 
 import { Hash } from '@utils';
 
@@ -38,10 +37,11 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props) => {
+  console.count('blocks');
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
-  const { data, isLoading } = BlocksService().GetAll({ page, size });
+  const { data } = BlocksService().GetAll({ page, size });
 
   const handleChange = useCallback(
     (_, value: number) => {
@@ -51,7 +51,6 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
   );
 
   const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
-  console.log(data);
 
   return (
     <Table count={count} page={page} onChange={handleChange} isPagination={isPagination}>
