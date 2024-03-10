@@ -70,33 +70,6 @@ export const Card = styled.div`
     }
   }
 
-  .purple {
-    .icon-wrapper {
-      background-color: rgba(140, 141, 255, 0.1);
-    }
-    color: rgb(140, 141, 255);
-    h2 {
-      color: rgb(140, 141, 255);
-    }
-  }
-  .yellow {
-    .icon-wrapper {
-      background-color: rgba(255, 198, 117, 0.1);
-    }
-    color: rgb(255, 198, 117);
-    h2 {
-      color: rgb(255, 198, 117);
-    }
-  }
-  .blue {
-    .icon-wrapper {
-      background-color: rgba(36, 153, 239, 0.1);
-    }
-    color: rgb(36, 153, 239);
-    h2 {
-      color: rgb(36, 153, 239);
-    }
-  }
   .wrapper {
     padding: 31px 24px;
     display: flex;

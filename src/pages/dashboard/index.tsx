@@ -49,7 +49,7 @@ const Dashboard = () => {
       <Grid container spacing={2} className="margin-spacing">
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper purple">
+            <div className="wrapper">
               <div className="icon-wrapper ">
                 <ViewInArIcon />
               </div>
@@ -63,7 +63,7 @@ const Dashboard = () => {
 
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper purple">
+            <div className="wrapper">
               <div className="icon-wrapper">
                 <AccessTimeIcon />
               </div>
@@ -77,7 +77,7 @@ const Dashboard = () => {
 
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper yellow">
+            <div className="wrapper">
               <div className="icon-wrapper ">
                 <AccessAlarmIcon />
               </div>
@@ -92,7 +92,7 @@ const Dashboard = () => {
         </Grid>
         <Grid xs={12} sm={6} md={3}>
           <Card>
-            <div className="wrapper blue">
+            <div className="wrapper">
               <div className="icon-wrapper ">
                 <PolylineIcon />
               </div>
