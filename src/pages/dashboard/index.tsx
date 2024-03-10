@@ -5,11 +5,14 @@ import { Card, Container, DashboardTable, Highlight } from './styles';
 
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PolylineIcon from '@mui/icons-material/Polyline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
 
+import Link from '@components/link';
 import Logo from '@components/logo';
 
 import Blocks from '@pages/blocks';
@@ -118,11 +121,15 @@ const Dashboard = () => {
           <Card>
             <DashboardTable>
               <div>
-                <h2>Recent Blocks</h2>
+                <div className="header">
+                  <h2>Recent Blocks</h2>
+
+                  <Link underlink="View All" onClick={() => navigate('/blocks')}>
+                    <KeyboardArrowRightIcon />
+                  </Link>
+                </div>
                 <Blocks isSimpleData={true} isPagination={false} size={5} />
               </div>
-
-              <Button onClick={() => navigate('/blocks')}>VIEW ALL BLOCKS </Button>
             </DashboardTable>
           </Card>
         </Grid>
@@ -131,10 +138,14 @@ const Dashboard = () => {
           <Card>
             <DashboardTable>
               <div>
-                <h2>Recent Transactions</h2>
+                <div className="header">
+                  <h2>Recent Transactions</h2>
+                  <Link underlink="View All" onClick={() => navigate('/transactions')}>
+                    <KeyboardArrowRightIcon />
+                  </Link>
+                </div>
                 <Transactions isSimpleData={true} isPagination={false} size={5} />
               </div>
-              <Button onClick={() => navigate('/transactions')}>VIEW ALL TRANSACTIONS </Button>
             </DashboardTable>
           </Card>
         </Grid>

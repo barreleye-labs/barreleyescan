@@ -3,10 +3,17 @@ import styles from '@emotion/styled';
 import { Card } from '@mui/joy';
 import { teal } from '@mui/material/colors';
 
-const second = teal[400];
+const breakpoints = [576, 768, 992, 1200];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+const second = teal[500];
 const primary = teal[500];
 
 export const Container = styles(Card)`
+  padding: 2.5rem;
+    ${mq[1]} {
+        padding: 1rem;
+    }
   border: none;
   background-color: rgb(255, 255, 255);
   color: rgb(33, 43, 54);
@@ -15,13 +22,47 @@ export const Container = styles(Card)`
     rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
   border-radius: 16px;
 
+  .MuiStack-root{
+    margin-top: 3rem;
+    float:right;
+    ${mq[1]} {
+         float:none;
+         flex-direction: column;
+         width: 100%;
+         gap: 20px;
+    }
+  }
+  
  .button{
+    .MuiSvgIcon-root{
+        font-size: 14px;
+        margin-left: 5px;
+    }
+    border-radius:10px;
     font-size: 1rem;
     font-weight: 700;
-    background: ${second};
-   &:hover{
-      background: ${primary}
+    &:hover{
+      color:#34b4a9;
+      background: #e5fbf8;
     }
+    ${mq[1]} {
+        width: 100%;
+        float:center;
+        font-size: 13px;
+        margin: 0;
+    }
+  }
+  
+  .button-secondary {
+    background: #001529;
+      &:hover{
+        background: #001529;
+      }  
+  }
+
+ .button-primary{
+      color:#34b4a9;
+      background: #e5fbf8;
   } 
   
   .MuiTypography-h5{

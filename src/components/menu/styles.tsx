@@ -16,7 +16,7 @@ export const Container = styled.div`
   .copyRight {
     span {
       position: absolute;
-      bottom: 3rem;
+      bottom: 2rem;
       color: rgba(202, 203, 216, 0.5) !important;
     }
     ${mq[1]} {

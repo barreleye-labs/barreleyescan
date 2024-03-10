@@ -3,10 +3,18 @@ import styles from '@emotion/styled';
 import { Card } from '@mui/joy';
 import { teal } from '@mui/material/colors';
 
+const breakpoints = [576, 768, 992, 1200];
+
+const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
+
 const second = teal[400];
 const primary = teal[500];
 
 export const Container = styles(Card)`
+  padding: 2.5rem;
+  ${mq[1]} {
+      padding: 1rem;
+  }
  border: none;
   background-color: rgb(255, 255, 255);
   color: rgb(33, 43, 54);
@@ -18,22 +26,42 @@ export const Container = styles(Card)`
 
   .MuiTypography-h5{
     font-weight: 700;
+    margin-top: 1rem;
   }
   
   .button{
     font-size: 1rem;
     font-weight: 700;
-    color:white;
-    background: ${second};
-    &:hover{
-      background: ${primary};
-    }
+    color:#34b4a9;
+    background: #e5fbf8;
+   
     &:disabled {
+       color: #ffffff;
        background: #ececec;
     }
+    
+    &:hover{
+    
     }
+  }
   
-    .return {
+  .return {
+    color: #00987b;
+    margin-bottom: 1rem;
+    padding: 0;
+    margin: 0;
+    min-width: 0px;
+    gap: 5px;
+    svg{
+      font-size:13px;
+    }
+  }
+    
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+    
+    .link{
       text-align: right;
     }
     
@@ -49,8 +77,6 @@ export const Container = styles(Card)`
     .warning {
       color: red;
     }
-
- 
   }
  }
 `;

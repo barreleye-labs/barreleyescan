@@ -2,11 +2,14 @@ import { useSnackbar } from 'notistack';
 import sha256 from 'sha256';
 
 import { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Container } from './styles';
 
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { CardContent, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 
 import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
@@ -32,7 +35,7 @@ const txDefaultData = (): Tx => {
 
 const Transfer = () => {
   const { enqueueSnackbar } = useSnackbar();
-
+  const navigate = useNavigate();
   const [tx, onChange, setTx] = useInput<Tx>(txDefaultData());
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
@@ -145,6 +148,12 @@ const Transfer = () => {
           </div>
         ) : (
           <>
+            {step === 2 && (
+              <Button className="return" onClick={() => setStep(1)}>
+                <ArrowBackIosNewIcon />
+                Back
+              </Button>
+            )}
             <Typography variant="h5" sx={{ mb: 1.5 }}>
               Enter Information
             </Typography>
@@ -152,10 +161,9 @@ const Transfer = () => {
               You can access your account using your private key. It takes 13 seconds to send.
             </Typography>
 
-            <Input fullWidth label="From Address" disabled={true} defaultValue={tx.from} />
-            <Input fullWidth label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
+            <Input label="From Address" disabled={true} defaultValue={tx.from} />
+            <Input label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
             <Input
-              fullWidth
               name="value"
               defaultValue={tx.value}
               onChange={onChange}
@@ -172,8 +180,8 @@ const Transfer = () => {
             {step === 1 ? 'Access' : 'Send Transaction'}
           </LoadingButton>
         </div>
-        <span className="return">
-          {step === 2 && <LinkUnderline onClick={() => setStep(1)} underlink="Turn Back" />}
+        <span className="link">
+          {step === 2 && <LinkUnderline onClick={() => navigate('/faucet')} underlink="Is there not enough value?" />}
         </span>
       </CardContent>
     </Container>

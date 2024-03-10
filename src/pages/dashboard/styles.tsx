@@ -1,7 +1,5 @@
 import styled from '@emotion/styled';
 
-import Row from '@mui/material/TableRow';
-
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
@@ -17,6 +15,16 @@ export const DashboardTable = styled.div`
   flex-direction: column;
   width: 100%;
   justify-content: space-between;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    svg {
+      transform: translateX(4px) translateY(5px);
+    }
+  }
 `;
 
 export const Highlight = styled.div`
@@ -90,7 +98,7 @@ export const Card = styled.div`
     }
   }
   .wrapper {
-    padding: 40px 24px;
+    padding: 31px 24px;
     display: flex;
     align-items: center;
     h4 {

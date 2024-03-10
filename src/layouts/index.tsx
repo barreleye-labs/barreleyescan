@@ -6,6 +6,7 @@ import Menu from '@components/menu';
 import DefaultLayout from '@layouts/default';
 
 const Layout = () => {
+  console.count('layout');
   return (
     <Container>
       <Sider className="menu">
