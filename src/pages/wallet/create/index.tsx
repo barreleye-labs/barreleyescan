@@ -26,7 +26,8 @@ const Create = () => {
     const { x: signerX, y: signerY } = publicKey;
 
     const temp: string = signerX.concat(signerY);
-    return sha256(temp).toString().substring(0, 40);
+    const result = sha256(temp).toString().substring(0, 40);
+    return `0x${result}`;
   }
 
   const onClick = () => {
@@ -54,7 +55,7 @@ const Create = () => {
           {step === 2 && (
             <>
               <CustomInput defaultValue={privateKey} label="Private Key" isCopyBtn={true} disabled={true} />
-              <CustomInput defaultValue={address} label="Address Key" isCopyBtn={true} disabled={true} />
+              <CustomInput defaultValue={address} label="Address" isCopyBtn={true} disabled={true} />
             </>
           )}
         </CardContent>

@@ -13,7 +13,7 @@ export const Container = styled.div`
   gap: 17px;
   overflow: auto;
   padding: 3.4rem 3rem;
-  max-width: 1200px;
+  max-width: 1550px;
   margin: 0 auto;
 
   ${mq[1]} {

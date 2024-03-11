@@ -106,7 +106,7 @@ const Dashboard = () => {
       </Grid>
 
       <Grid container spacing={2} className="margin-spacing">
-        <Grid xs={16}>
+        <Grid xs={16} className="signature-height">
           <Card>
             <div className="signature">
               <img src="src/assets/barreleye.png" />
@@ -117,7 +117,7 @@ const Dashboard = () => {
       </Grid>
 
       <Grid container spacing={2} className="margin-spacing">
-        <Grid xs={16} md={5.5}>
+        <Grid xs={16} md={5}>
           <Card>
             <DashboardTable>
               <div>
@@ -128,13 +128,13 @@ const Dashboard = () => {
                     <KeyboardArrowRightIcon />
                   </Link>
                 </div>
-                <Blocks isSimpleData={true} isPagination={false} size={5} />
+                <Blocks isSimpleData={true} isPagination={false} size={7} />
               </div>
             </DashboardTable>
           </Card>
         </Grid>
 
-        <Grid xs={16} md={6.5}>
+        <Grid xs={16} md={7}>
           <Card>
             <DashboardTable>
               <div>
@@ -144,7 +144,7 @@ const Dashboard = () => {
                     <KeyboardArrowRightIcon />
                   </Link>
                 </div>
-                <Transactions isSimpleData={true} isPagination={false} size={5} />
+                <Transactions isSimpleData={true} isPagination={false} size={7} />
               </div>
             </DashboardTable>
           </Card>

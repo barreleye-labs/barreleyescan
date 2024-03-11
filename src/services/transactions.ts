@@ -17,8 +17,8 @@ const TransactionsService = () => {
     return useApi<ITx>(`${PATH}/txs/${id}`, {});
   }
 
-  function Send(params: Tx) {
-    return service.post<ITx>(`/txs`, params);
+  async function Send(params: Tx) {
+    return await service.post<ITx>(`/txs`, params);
   }
 
   return {

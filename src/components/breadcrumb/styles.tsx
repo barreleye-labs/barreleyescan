@@ -9,4 +9,6 @@ export const Breadcrumbs = styles(Crumbs)`
   ${mq[1]}{
      padding-top:1rem;
   }
+  
+  overflow-wrap: anywhere;
 `;

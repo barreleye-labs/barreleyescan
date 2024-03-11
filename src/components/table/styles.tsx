@@ -50,7 +50,7 @@ export const Head = styled(IHead)``;
 export const Body = styled(IBody)`
   .MuiTableRow-root {
     animation-name: twinkle;
-    animation-duration: 600ms;
+    animation-duration: 400ms;
 
     background-size: cover;
     @keyframes twinkle {

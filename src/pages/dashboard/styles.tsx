@@ -8,6 +8,10 @@ export const Container = styled.div`
   .margin-spacing {
     margin: 3px 0;
   }
+
+  .signature-height {
+    height: 120px;
+  }
 `;
 export const DashboardTable = styled.div`
   padding: 1rem;
@@ -29,7 +33,7 @@ export const DashboardTable = styled.div`
 
 export const Highlight = styled.div`
   animation-name: twinkle;
-  animation-duration: 600ms;
+  animation-duration: 400ms;
 
   background-size: cover;
   @keyframes twinkle {
