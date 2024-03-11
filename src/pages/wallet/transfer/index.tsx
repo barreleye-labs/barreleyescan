@@ -95,7 +95,7 @@ const Transfer = () => {
       const { error } = await TransactionsService().Send({
         ...tx,
         nonce,
-
+        value: Number(tx.value).toString(16).padStart(2, '0'),
         to: Crypto.remove0x(tx.to),
         signatureR: r,
         signatureS: s,
