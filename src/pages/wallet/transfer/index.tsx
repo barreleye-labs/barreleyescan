@@ -41,7 +41,7 @@ const Transfer = () => {
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
-  const { data, error, mutate: accountMutate } = AccountService().GetOneById(tx.from);
+  const { data: accountInfo, error, mutate: accountMutate } = AccountService().GetOneById(tx.from);
   const initData = useCallback(() => {
     setTx(txDefaultData());
     setStep(1);
@@ -79,37 +79,42 @@ const Transfer = () => {
   );
 
   const sendTransaction = useCallback(async () => {
-    await accountMutate();
+    try {
+      const accountInfo = await accountMutate();
 
-    if (error)
-      return showToast({
-        variant: 'error',
-        message: 'Insufficient balance. You can receive coins through faucet.'
+      if (!accountInfo)
+        return showToast({
+          variant: 'error',
+          message: 'Insufficient balance. You can receive coins through faucet.'
+        });
+
+      const nonce = accountInfo.account.nonce;
+      const { r, s } = getSignature(nonce);
+      const { x, y } = getSigner();
+
+      const { error } = await TransactionsService().Send({
+        ...tx,
+        nonce,
+        value: '0x' + Number(tx.value).toString(16).padStart(2, '0'),
+        to: Crypto.remove0x(tx.to),
+        signatureR: r,
+        signatureS: s,
+        signerX: x,
+        signerY: y
       });
 
-    const nonce = data!.account.nonce;
-    const { r, s } = getSignature(nonce);
-    const { x, y } = getSigner();
+      if (error)
+        return showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
 
-    const { error: sendError } = await TransactionsService().Send({
-      ...tx,
-      nonce,
-      to: Crypto.remove0x(tx.to),
-      signatureR: r,
-      signatureS: s,
-      signerX: x,
-      signerY: y
-    });
-
-    if (sendError)
-      return showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
-
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
-      initData();
-    }, 13000);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
+        initData();
+      }, 13000);
+    } catch (error) {
+      console.log('err', error);
+    }
   }, [tx]);
 
   const onSubmit = useCallback(() => {

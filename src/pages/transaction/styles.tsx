@@ -1,4 +1,5 @@
 import styles from '@emotion/styled';
+
 import { grey } from '@mui/material/colors';
 
 const second = grey[50];
@@ -6,15 +7,14 @@ const primary = grey[200];
 
 export const Container = styles.div`
   .badge{
-
     display: flex;
     align-items: center;
     gap: 4px;
 
     .MuiSvgIcon-root{
       font-size: 11px;
-
     }
+    
     background:red;
     padding: 4px 6px;
     width: 75px;

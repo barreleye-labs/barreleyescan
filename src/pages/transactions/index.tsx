@@ -40,7 +40,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
           <TableCell align="left">From</TableCell>
           <TableCell align="left"></TableCell>
           <TableCell align="left">To</TableCell>
-          {!isSimpleData && <TableCell align="left">Value</TableCell>}
+          <TableCell align="left">Value</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -73,11 +73,9 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
               <TableCell align="left">
                 <LinkUnderline path={`/account/${row.to}`} underlink={`0x${Hash.ellipsis(row.to)}`}></LinkUnderline>
               </TableCell>
-              {!isSimpleData && (
-                <TableCell align="left">
-                  {Crypto.hexToDecimal(row.value)} <span className="description">Barrel</span>
-                </TableCell>
-              )}
+              <TableCell align="left">
+                {Crypto.hexToDecimal(row.value)} <span className="description">Barrel</span>
+              </TableCell>
             </TableRow>
           ))
         )}
