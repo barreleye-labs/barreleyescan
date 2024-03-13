@@ -36,10 +36,19 @@ function uint8ArrayToHex(bytes: Uint8Array): string {
   return hex;
 }
 
+function numberToHex(value: number): string {
+  let hex: string = value.toString(16);
+  if (hex.length % 2 == 1) {
+    hex = "0".concat(hex);
+  }
+  return hex;
+}
+
 export const Char = {
   upperFirstString,
   hexToBytes,
   bytesToHex,
   hexToUint8Array,
-  uint8ArrayToHex
+  uint8ArrayToHex,
+  numberToHex
 };

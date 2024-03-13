@@ -68,6 +68,9 @@ const Transfer = () => {
         value,
         data
       };
+
+      sig.value = Char.numberToHex(Number(sig.value))
+      
       const txUintArray = new Uint8Array(
         Object.keys(sig).reduce((acc: number[], key: string) => acc.concat(...Char.hexToUint8Array(sig[key])), [])
       );
@@ -95,7 +98,7 @@ const Transfer = () => {
       const { error } = await TransactionsService().Send({
         ...tx,
         nonce,
-        value: '0x' + Number(tx.value).toString(16).padStart(2, '0'),
+        value: '0x' + Char.numberToHex(Number(tx.value)),
         to: Crypto.remove0x(tx.to),
         signatureR: r,
         signatureS: s,
