@@ -1,11 +1,219 @@
 import styles from '@emotion/styled';
 
 import ICard from '@mui/joy/Card';
+import Content from '@mui/joy/CardContent';
 
 const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
+export const CardContainer = styles.div`
+    display: flex;
+    justify-content:center;
+    .MuiCardContent-root {
+      cursor: pointer;
+    }
+    .MuiCard-root{
+      max-width: 340px;
+      min-width: 300px;
+      width: 100%;
+      background: #fcfcfd;
+      border: 1px solid #e8eaee;
+      border-radius: 20px;
+      box-sizing: border-box;
+      
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 90px;
+      padding: 32px 15px;
+      position: relative;
+      height: 300px;
+      
+      display: inline-block;
+      perspective: 1000;
+      position: relative;
+      transition: all 0.3s 0s ease-in;
+      z-index: 1;
+      .copy-icon {
+        svg {
+          font-size: 11px;
+          margin-left: 5px;
+          cursor: pointer;
+        }
+      }
+      .card-flap-wrapper{
+        margin-top: 3rem;
+
+        .MuiTypography-body-md{
+          font-family: Gilroy, sans-serif;
+          font-size: 13px;
+          font-stretch: normal;
+
+          font-style: normal;
+          font-weight: 600;
+          letter-spacing: .2px;
+          line-height: 1.79;
+          margin-bottom: 0;
+          white-space: nowrap;
+          color: #354052;
+        }
+       
+    
+        .MuiTypography-colorNeutral{
+          color: #7f8fa4;
+          font-family: Gilroy, sans-serif;
+          font-size: 13px;
+          font-stretch: normal;
+          font-style: normal;
+          font-weight: 600;
+          letter-spacing: -.2px;
+          line-height: 1.79;
+          margin-bottom: 0;
+          white-space: nowrap;
+          margin-top: 1rem;
+        }
+      }
+      
+      .card-flap {
+        background: ##fcfcfd;
+        width: 100%;
+        transform-origin: top;
+        transform: rotateX(-90deg);background: ##fcfcfd;
+        
+      .value {
+          font-size: 12px;
+        }
+      }
+        
+      .flap1 {
+        transition: all 0.1s 0.2s ease-out;
+        z-index: -1;
+      }
+      
+      .flap2 {
+        transition: all 0.1s 0s ease-out;
+        z-index: -2;
+      }
+    }
+    .icons {
+      &:hover {
+       svg{
+        color: white;
+        }
+      }
+        text-align: center;
+        margin-top: 2rem;
+        svg {
+          color: #dfdede;
+        
+        }
+      }
+    .active {
+      transition: all 0.3s 0s ease-in;
+      height: 542px;
+      opacity: 1 !important;
+      transform: scale(1) !important;
+        
+      
+      .card-flap {
+        background: ##fcfcfd !important;
+        transform: rotateX(0deg);
+      }
+      .flap1 {
+        transition: all 0.6s 0s ease-out;
+      }
+      .flap2 {
+        transition: all 0.6s 0.2s ease-out;
+      }
+   }
+`;
+
+export const CardContent = styles(Content)`
+  .title-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    .title, .description {
+      font-family: Gilroy, sans-serif;
+      font-stretch: normal;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 1.3;
+      margin-bottom: 0;
+    }
+    .title {
+      color: #46546c;
+      font-size: 16px;
+    }
+    .description {
+      font-size: 14px;
+      color: rgb(119, 126, 144);
+    }
+  }
+  .sub{
+      color: #777e90;
+      font-family: Gilroy, sans-serif;
+      font-size: 13px;
+      font-style: normal;
+      font-weight: 500;
+      letter-spacing: .35px;
+      line-height: 17px;
+      margin-bottom: 0;
+      text-align: center;
+  }
+  
+  .MuiButtonBase-root {
+    margin: 0 auto;
+  }
+  .content-wrapper{
+    margin-top: 1rem;
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .left {
+      width: 100%;
+    }
+    .right {
+       width: 100%;
+    }
+    .divider {
+      background: #e6e8ec;
+      height: 100%;
+      width: 1px;
+    }
+    
+    .value {
+      color: #777e90;
+      font-family: Gilroy, sans-serif;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: .4px;
+      line-height: 20px;
+      margin-bottom: 3px;
+      text-align: center;
+    }
+    
+    .key{
+      font-family: Gilroy, sans-serif;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: .35px;
+      text-align: center;
+      color: #b1b5c4;
+      display: block;
+      line-height: 17px;
+    }
+    
+  }
+    
+  }
+`;
 export const CustomCard = styles.div`
 .MuiCard-root{
   cursor: pointer;
@@ -80,8 +288,6 @@ export const CustomCard = styles.div`
       }
     }
   }
-
-
 }
 `;
 
@@ -159,11 +365,8 @@ export const Container = styles(ICard)`
     }
   }
   
-  
   .link{
     text-align: left;
   }
-    
-  
  }
 `;

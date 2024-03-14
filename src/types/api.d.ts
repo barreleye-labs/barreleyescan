@@ -40,7 +40,7 @@ export interface Tx {
   nonce: string;
   from: string;
   to: string;
-  value: string;
+  value: number;
   data: string;
   blockHeight?: string;
   timestamp?: number;

@@ -1,3 +1,5 @@
+import { Crypto } from '@src/utils/crypto.ts';
+
 function upperFirstString(str: string) {
   const firstChar = str.charAt(0);
   const restChar = str.slice(1);
@@ -11,6 +13,9 @@ function hexToBytes(hex: string): Uint8Array {
   return bytes;
 }
 
+function hexToBalance(hex: string): string {
+  return Number(Crypto.hexToDecimal(hex)).toLocaleString('ko-KR');
+}
 function bytesToHex(bytes: number[]) {
   const hex = [];
   for (let i = 0; i < bytes.length; i++) {
@@ -40,6 +45,7 @@ export const Char = {
   upperFirstString,
   hexToBytes,
   bytesToHex,
+  hexToBalance,
   hexToUint8Array,
   uint8ArrayToHex
 };
