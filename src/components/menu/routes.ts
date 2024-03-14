@@ -34,6 +34,12 @@ export const routes: Route[] = [
         title: 'Account',
         path: '/account',
         icon: loadable(() => import('@mui/icons-material/AlternateEmailRounded'))
+      },
+
+      {
+        title: 'Nodes',
+        path: '/nodes',
+        icon: loadable(() => import('@mui/icons-material/Polyline'))
       }
     ]
   },
@@ -54,6 +60,16 @@ export const routes: Route[] = [
         title: 'Barrel Faucet',
         path: '/faucet',
         icon: loadable(() => import('@mui/icons-material/InvertColors'))
+      }
+    ]
+  },
+  {
+    category: 'Docs',
+    content: [
+      {
+        title: 'Source Code & Docs',
+        path: 'https://github.com/barreleye-labs/barreleye',
+        icon: loadable(() => import('@mui/icons-material/AddBox'))
       }
     ]
   }

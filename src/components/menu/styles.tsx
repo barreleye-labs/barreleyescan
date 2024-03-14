@@ -14,9 +14,13 @@ export const Container = styled.div`
   flex: 0.3;
   max-width: 256px;
   .copyRight {
-    span {
-      position: absolute;
-      bottom: 2rem;
+    position: absolute;
+    bottom: 2rem;
+    .icons {
+    }
+
+    div {
+      margin-top: 0.55rem;
       color: rgba(202, 203, 216, 0.5) !important;
     }
     ${mq[1]} {
