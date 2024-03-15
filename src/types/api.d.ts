@@ -36,11 +36,11 @@ export interface ITxs {
 export interface ITx {
   transaction: Tx;
 }
-export interface Tx {
+export interface Transfer {
   nonce: string;
   from: string;
   to: string;
-  value: string;
+  value: number | string;
   data: string;
   blockHeight?: string;
   timestamp?: number;
@@ -48,6 +48,20 @@ export interface Tx {
   signerY?: string;
   signatureR?: string;
   signatureS?: string;
+}
+
+export interface Tx {
+  dataHash: string;
+  extra: string;
+  hash: string;
+  height: number;
+  prevBlockHash: string;
+  signature: Record<r | s, string>;
+  signer: string;
+  timestamp: number;
+  transactions: string[];
+  txCount: number;
+  version: number;
 }
 
 export interface IFaucet {

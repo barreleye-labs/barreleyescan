@@ -13,18 +13,26 @@ const sub = teal[50];
 export const Container = styled.div`
   flex: 0.3;
   max-width: 256px;
-  .copyRight {
+
+  .button-wrapper {
     position: absolute;
-    bottom: 2rem;
-    .icons {
+    left: 21px;
+    bottom: 1rem;
+    color: rgba(202, 203, 216, 0.5);
+    margin-bottom: 1rem;
+    button {
+      width: 240px;
+      height: 40px;
+      color: #b5b5c3;
+      margin-bottom: 3rem;
+      background-color: rgba(63, 66, 84, 0.35);
     }
 
-    div {
-      margin-top: 0.55rem;
-      color: rgba(202, 203, 216, 0.5) !important;
-    }
     ${mq[1]} {
       display: none;
+      p {
+        display: none;
+      }
     }
   }
   ${mq[1]} {
@@ -36,6 +44,9 @@ export const Container = styled.div`
 
     .menu-block {
       margin-bottom: 3rem;
+      ${mq[1]} {
+        margin-bottom: 1rem;
+      }
     }
 
     .gap {
@@ -88,16 +99,18 @@ export const Container = styled.div`
   }
 
   .menu-icon {
+    .MuiSvgIcon-root {
+      font-size: 1.9rem;
+    }
+    transform: scaleX(-1);
     color: ${sub};
     display: none;
     position: absolute;
-    top: 18px;
+    top: 14px;
     right: 14px;
     cursor: pointer;
     padding: 1px;
-    box-shadow:
-      rgb(243, 246, 249) 0px 1px 2px inset,
-      rgba(229, 234, 242, 0.6) 0px 1px 0.5px;
+
     border-radius: 4px;
     width: 23px;
     align-items: center;
@@ -121,5 +134,10 @@ export const Container = styled.div`
 
   .active {
     display: flex !important;
+
+    .button-wrapper {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;

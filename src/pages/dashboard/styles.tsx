@@ -41,6 +41,12 @@ export const Highlight = styled.div`
       filter: blur(8px);
     }
   }
+
+  a {
+    h2 {
+      color: #34b4a9 !important;
+    }
+  }
 `;
 export const Card = styled.div`
   display: flex;

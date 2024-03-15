@@ -3,12 +3,14 @@ import { ReactNode } from 'react';
 import { Container } from './styles';
 
 import Grid from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
 
 interface Props {
   label: string;
   content?: string;
   children?: ReactNode;
 }
+
 const Row = (props: Props) => {
   return (
     <Container>

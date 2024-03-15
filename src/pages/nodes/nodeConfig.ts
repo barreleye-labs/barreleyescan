@@ -9,7 +9,8 @@ export interface NodeConfig {
 export const barreleyeConfig: NodeConfig = {
   KEY: 'barreleye',
   API: 'https://barreleyescan.com:9000',
-  P2P_END_POINT: 'https://barreleyescan.com:4100'
+  P2P_END_POINT: 'https://barreleyescan.com:4100',
+  github: 'https://github.com/barreleye-labs'
 };
 
 export const youngminConfig: NodeConfig = {

@@ -34,7 +34,7 @@ export const TableContainer = styled(ITableContainer)`
       height: 15px;
       border-radius: 50%;
       background: ${second};
-      color: ${primary};
+      color: #ffffff;
     }
   }
 

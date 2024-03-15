@@ -5,8 +5,10 @@ import { CardContainer, CardContent } from './styles';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { Avatar, Card, Chip, Typography } from '@mui/joy';
+import SendIcon from '@mui/icons-material/Send';
+import { Avatar, Card, Chip, Stack, Typography } from '@mui/joy';
 import IconButtonJoy from '@mui/joy/IconButton';
+import Divider from '@mui/material/Divider';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
@@ -84,11 +86,12 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
             </Typography>
           </div>
 
-          <div className="content-wrapper ">
+          <div className="content-wrapper">
             <div className="left">
               <Typography className="value" level="body-sm">
                 {Char.hexToBalance(balance)}
               </Typography>
+
               <Typography className="key" level="body-sm">
                 Barrel
               </Typography>
@@ -146,9 +149,16 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
                 {config.P2P_END_POINT}
               </Typography>
 
-              <div className="icons">
+              <Stack
+                className="icons"
+                justifyContent="center"
+                alignItems="center"
+                direction="row"
+                spacing={2}
+                divider={<Divider variant="middle" orientation="vertical" flexItem />}
+              >
                 {config.github && (
-                  <Tooltip title="Github" placement="top">
+                  <Tooltip title={`${title} Github`} placement="top">
                     <a href={config.github} target="_blank">
                       <IconButtonJoy variant="soft">
                         <GitHubIcon />
@@ -156,7 +166,16 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
                     </a>
                   </Tooltip>
                 )}
-              </div>
+                {config.email && (
+                  <Tooltip title={`${title} Eamil`} placement="top">
+                    <a href={`mailto:${config.email}`}>
+                      <IconButtonJoy variant="soft">
+                        <SendIcon />
+                      </IconButtonJoy>
+                    </a>
+                  </Tooltip>
+                )}
+              </Stack>
             </div>
           </div>
         </div>

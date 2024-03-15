@@ -3,7 +3,8 @@ import { useCallback, useState } from 'react';
 import MenuItems from './components/MenuItems';
 import { type Route, routes } from './routes';
 
-import MenuIcon from '@mui/icons-material/Menu';
+import SortIcon from '@mui/icons-material/Sort';
+import Button from '@mui/joy/Button';
 import ListJoy from '@mui/joy/List';
 import ListSubheader from '@mui/joy/ListSubheader';
 
@@ -18,7 +19,7 @@ const Menu = () => {
     <Container>
       <div>
         <div className="menu-icon" onClick={onClick}>
-          <MenuIcon />
+          <SortIcon />
         </div>
         <ListJoy className={`menu-list  ${active ? 'active' : ''}`}>
           {routes?.map((route: Route, index: number) => (
@@ -30,11 +31,18 @@ const Menu = () => {
           ))}
         </ListJoy>
       </div>
+      <div className={active ? 'active' : ''}>
+        <div className="button-wrapper">
+          <a className="link" href="https://github.com/barreleye-labs/barreleye" target="_blank">
+            <Button size="lg" variant="soft">
+              Docs & Source Code
+            </Button>
+          </a>
 
-      <div className="copyRight">
-        <div>
-          Copyright © 2023 - 2024 Barreleye Team,
-          <br /> All Rights Reserved.
+          <p>
+            Copyright © 2023 - 2024 Barreleye Team,
+            <br /> All Rights Reserved.
+          </p>
         </div>
       </div>
     </Container>

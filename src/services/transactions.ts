@@ -1,4 +1,4 @@
-import { ITx, ITxs, Pagination, Tx } from '@type/api';
+import { ITx, ITxs, Pagination, Transfer, Tx } from '@type/api';
 
 import { service } from '@src/utils/http';
 
@@ -17,8 +17,8 @@ const TransactionsService = () => {
     return useApi<ITx>(`${PATH}/txs/${id}`, {});
   }
 
-  async function Send(params: Tx) {
-    return await service.post<ITx>(`/txs`, params);
+  async function Send(params: Transfer) {
+    return await service.post<Transfer>(`/txs`, params);
   }
 
   return {

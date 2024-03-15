@@ -1,3 +1,4 @@
+import { Tx } from '@type/api';
 import { SkeletonTable } from 'src/components/skeleton';
 
 import { useMemo, useState } from 'react';
@@ -11,7 +12,7 @@ import LinkUnderline from '@components/link';
 import { Table, TableBody, TableHead } from '@components/table/index.ts';
 import IntervalTimestamp from '@components/time';
 
-import { Crypto, Hash } from '@utils';
+import { Char, Crypto, Hash } from '@utils';
 
 import transactions from '@services/transactions';
 
@@ -40,14 +41,14 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
           <TableCell align="left">From</TableCell>
           <TableCell align="left"></TableCell>
           <TableCell align="left">To</TableCell>
-          <TableCell align="left">Value</TableCell>
+          <TableCell align="right">Value</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {!data ? (
           <SkeletonTable columns={isSimpleData ? 5 : 7} size={size} />
         ) : (
-          data.transactions.map((row) => (
+          data.transactions.map((row: Tx) => (
             <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell align="left">
                 <LinkUnderline
@@ -73,8 +74,8 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
               <TableCell align="left">
                 <LinkUnderline path={`/account/${row.to}`} underlink={`0x${Hash.ellipsis(row.to)}`}></LinkUnderline>
               </TableCell>
-              <TableCell align="left">
-                {Crypto.hexToDecimal(row.value)} <span className="description">Barrel</span>
+              <TableCell align="right">
+                {Char.hexToBalance(row.value.toString())} <span className="description">Barrel</span>
               </TableCell>
             </TableRow>
           ))

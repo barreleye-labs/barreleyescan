@@ -15,7 +15,7 @@ import Card from '@components/card';
 import { CustomInput, Input } from '@components/input';
 import LinkUnderline from '@components/link';
 
-import { Tx } from '@src/types/api';
+import { Transfer } from '@src/types/api';
 
 import { Char, Crypto } from '@utils';
 
@@ -25,7 +25,7 @@ import TransactionsService from '@services/transactions.ts';
 import useInput from '@hooks/useInput';
 import { utils } from 'elliptic';
 
-const txDefaultData = (): Tx => {
+const txDefaultData = (): Transfer => {
   return {
     nonce: '',
     from: '',
@@ -38,7 +38,7 @@ const txDefaultData = (): Tx => {
 const Transfer = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const [tx, onChange, setTx] = useInput<Tx>(txDefaultData());
+  const [tx, onChange, setTx] = useInput<Transfer>(txDefaultData());
   const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
@@ -62,7 +62,7 @@ const Transfer = () => {
     (nonce: string) => {
       const { from, to, value, data } = tx;
 
-      const sig = {
+      const sig   = {
         nonce,
         from,
         to,
@@ -161,6 +161,9 @@ const Transfer = () => {
       return setStep(2);
     }
 
+    if( tx.from === Crypto.remove0x(tx.to)) {
+      return showToast({ variant: 'error', message: 'Cannot send to the same address.' });
+    }
     /**
      * validator
      */
@@ -204,7 +207,7 @@ const Transfer = () => {
                   You can access your account using your private key. It takes 13 seconds to send.
                 </Typography>
 
-                <Input label="From Address" disabled={true} defaultValue={tx.from} />
+                <Input label="From Address" disabled={true} defaultValue={`0x${tx.from}`} />
                 <Input label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
                 <Input
                   name="value"

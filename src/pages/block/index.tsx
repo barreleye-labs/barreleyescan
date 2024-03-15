@@ -5,6 +5,7 @@ import { useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
+import Skeleton from '@mui/material/Skeleton';
 
 import Detail from '@components/detail';
 import LinkUnderline from '@components/link';
@@ -41,8 +42,6 @@ function Block() {
     return `${elapsedTime} (${formatUtc} +UTC)`;
   }, [data]);
 
-  if (!data) return <div>loading</div>;
-
   return (
     <Detail
       onClickPrev={() => changeBlockPage(Number(height) - 1)}
@@ -53,25 +52,35 @@ function Block() {
       isAction={true}
     >
       <>
-        <Row label="Time" content={setTime()}></Row>
-        <Row label="Hash" content={`0x${data?.block.hash}`}></Row>
-        <Row label="Prev Hash" content={`0x${data?.block.prevBlockHash}`}></Row>
-        <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
-          {data?.block.txCount > 0
-            ? data?.block.transactions.map((hash: string) => (
-                <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
-              ))
-            : ''}
-        </Row>
-        <Row label="Block Reward" content="10 Barrel"></Row>
-        <Row label="Version" content={data?.block.version}></Row>
-        <Row label="Datahash" content={`0x${data?.block.dataHash}`}></Row>
-        <Row label="Extra">
-          <Button onClick={() => navigate(`/account/${data?.block.signer}`)} size="small" variant="outlined">
-            {data?.block.extra}
-          </Button>
-        </Row>
-        <Row label="Block producer" content={`0x${data?.block.signer}`}></Row>
+        {!data ? (
+          <>
+            {[...new Array(3)].map(() => {
+              return <Skeleton />;
+            })}
+          </>
+        ) : (
+          <>
+            <Row label="Time" content={setTime()}></Row>
+            <Row label="Hash" content={`0x${data?.block.hash}`}></Row>
+            <Row label="Prev Hash" content={`0x${data?.block.prevBlockHash}`}></Row>
+            <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
+              {data?.block.txCount > 0
+                ? data?.block.transactions.map((hash: string) => (
+                    <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
+                  ))
+                : ''}
+            </Row>
+            <Row label="Block Reward" content="10 Barrel"></Row>
+            <Row label="Version" content={data?.block.version}></Row>
+            <Row label="Datahash" content={`0x${data?.block.dataHash}`}></Row>
+            <Row label="Extra">
+              <Button onClick={() => navigate(`/account/${data?.block.signer}`)} size="small" variant="outlined">
+                {data?.block.extra}
+              </Button>
+            </Row>
+            <Row label="Block producer" content={`0x${data?.block.signer}`}></Row>
+          </>
+        )}
       </>
     </Detail>
   );
