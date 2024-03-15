@@ -120,10 +120,39 @@ const Transfer = () => {
     }
   }, [tx]);
 
-  const onSubmit = useCallback(() => {
+  function arbuf2hex(buffer: any) {
+    var hexCodes = [];
+    var view = new DataView(buffer);
+    for (var i = 0; i < view.byteLength; i += 4) {
+      // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
+      var value = view.getUint32(i)
+      // toString(16) will give the hex representation of the number without padding
+      var stringValue = value.toString(16)
+      // We use concatenation and slice for padding
+      var padding = '00000000'
+      var paddedValue = (padding + stringValue).slice(-padding.length)
+      hexCodes.push(paddedValue);
+    }
+  
+    // Join all the hex strings into one
+    return hexCodes.join("");
+  }
+  
+  function sha256Veta(hexstr: any) {
+    // We transform the string into an arraybuffer.
+    var buffer = new Uint8Array(hexstr.match(/[\da-f]{2}/gi).map(function (h) {
+      return parseInt(h, 16)
+    }));
+    return crypto.subtle.digest("SHA-256", buffer).then(function (hash) {
+      return arbuf2hex(hash);
+    });
+  }
+  
+  const onSubmit = useCallback(async () => {
     if (step === 1) {
       const { x, y } = Crypto.generatePublicKey(privateKey);
-      const from = sha256(x.concat(y)).toString().substring(0, 40);
+      const from = (await sha256Veta(x.concat(y))).substring(0,40); // 임시.
+      // const from = sha256(x.concat(y)).toString().substring(0, 40); // TODO: 트랜잭션 해시할 때는 올바른 값이 나오는데, 왜 다른 값이 나오는지 확인 필요.
 
       setTx({ ...tx, from });
       return setStep(2);
