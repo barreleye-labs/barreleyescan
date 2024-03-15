@@ -31,6 +31,11 @@ export const router = createBrowserRouter([
         Component: loadable(() => import('src/pages/account'))
       },
 
+      {
+        path: '/nodes',
+        Component: loadable(() => import('src/pages/nodes'))
+      },
+
       // ===================== wallet ===============================
       {
         path: '/create',

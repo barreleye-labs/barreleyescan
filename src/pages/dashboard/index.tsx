@@ -6,10 +6,8 @@ import { Card, Container, DashboardTable, Highlight } from './styles';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import PolylineIcon from '@mui/icons-material/Polyline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Unstable_Grid2';
 
 import Link from '@components/link';
@@ -26,9 +24,12 @@ const Dashboard = () => {
   const { data } = BlocksService().GetAll({ size: 5, page: 1 });
 
   const BlockHeightCard = useCallback(() => {
+    const height = Number(data?.totalCount) - 1;
     return (
       <Highlight>
-        <h2>#{data ? Number(data?.totalCount) - 1 : '0'}</h2>
+        <Link onClick={() => navigate(`/block/${height}`)}>
+          <h2>#{data ? height : '0'}</h2>
+        </Link>
       </Highlight>
     );
   }, [data]);
@@ -97,7 +98,9 @@ const Dashboard = () => {
                 <PolylineIcon />
               </div>
               <div>
-                <h2>3</h2>
+                <Link onClick={() => navigate('/nodes')}>
+                  <h2>3</h2>
+                </Link>
                 <h4>Consensus Nodes</h4>
               </div>
             </div>

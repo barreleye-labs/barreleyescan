@@ -15,7 +15,7 @@ export const Container = styled.div`
 
   ${mq[1]} {
     .menu:has(.active) {
-      height: 540px;
+      height: 695px;
     }
     flex-direction: column;
     padding-top: 30px;
@@ -24,7 +24,7 @@ export const Container = styled.div`
 `;
 
 export const Sider = styled.div`
-  z-index: 1;
+  z-index: 999;
   min-width: 286px;
   border-right: #636b7433;
   background: #001529;
