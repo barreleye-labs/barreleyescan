@@ -154,7 +154,6 @@ const Transfer = () => {
   const onSubmit = useCallback(async () => {
     if (step === 1) {
       const { x, y } = Crypto.generatePublicKey(privateKey);
-      console.log("fffefe: ", (await sha256Veta(x.concat(y))).substring(0,40))
       const from = (await sha256Veta(x.concat(y))).substring(0,40); // 임시.
       // const from = sha256(x.concat(y)).toString().substring(0, 40); // TODO: 트랜잭션 해시할 때는 올바른 값이 나오는데, 왜 다른 값이 나오는지 확인 필요.
 
