@@ -5,6 +5,7 @@ import { CardContainer, CardContent } from './styles';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import SendIcon from '@mui/icons-material/Send';
 import { Avatar, Card, Chip, Stack, Typography } from '@mui/joy';
 import IconButtonJoy from '@mui/joy/IconButton';
@@ -171,6 +172,15 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
                     <a href={`mailto:${config.email}`}>
                       <IconButtonJoy variant="soft">
                         <SendIcon />
+                      </IconButtonJoy>
+                    </a>
+                  </Tooltip>
+                )}
+                {config.linkedIn && (
+                  <Tooltip title={`${title} LinkedIn`} placement="top">
+                    <a href={config.linkedIn} target="_blank">
+                      <IconButtonJoy variant="soft">
+                        <LinkedInIcon />
                       </IconButtonJoy>
                     </a>
                   </Tooltip>
