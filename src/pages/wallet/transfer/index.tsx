@@ -23,6 +23,7 @@ import AccountService from '@services/account';
 import TransactionsService from '@services/transactions.ts';
 
 import useInput from '@hooks/useInput';
+import { utils } from 'elliptic';
 
 const txDefaultData = (): Tx => {
   return {
@@ -69,7 +70,9 @@ const Transfer = () => {
         data
       };
 
-      sig.value = Char.numberToHex(Number(sig.value))
+      sig.from = Crypto.remove0x(from);
+      sig.to = Crypto.remove0x(to);
+      sig.value = Char.numberToHex(Number(sig.value));
       
       const txUintArray = new Uint8Array(
         Object.keys(sig).reduce((acc: number[], key: string) => acc.concat(...Char.hexToUint8Array(sig[key])), [])
