@@ -98,9 +98,11 @@ const Dashboard = () => {
                 <PolylineIcon />
               </div>
               <div>
-                <Link onClick={() => navigate('/nodes')}>
-                  <h2>3</h2>
-                </Link>
+                <Highlight>
+                  <Link onClick={() => navigate('/nodes')}>
+                    <h2>3</h2>
+                  </Link>
+                </Highlight>
                 <h4>Consensus Nodes</h4>
               </div>
             </div>

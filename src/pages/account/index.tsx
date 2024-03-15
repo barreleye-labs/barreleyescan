@@ -8,6 +8,7 @@ import { Container } from './styles';
 
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 
+import Card from '@components/card';
 import Detail from '@components/detail';
 import Row from '@components/row';
 import SearchInput from '@components/searchInput';
@@ -49,7 +50,7 @@ const Account = () => {
   }, []);
 
   return (
-    <Container>
+    <Card>
       <SearchInput onChange={onChange} />
 
       <Detail icon={<FilterNoneIcon />} title={address ? `0x${address}` : 'No Account Info'}>
@@ -71,7 +72,7 @@ const Account = () => {
           </>
         )}
       </Detail>
-    </Container>
+    </Card>
   );
 };
 

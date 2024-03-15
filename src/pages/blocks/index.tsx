@@ -14,7 +14,7 @@ import LinkUnderline from '@components/link';
 import { Table, TableBody, TableCell, TableHead } from '@components/table';
 import IntervalTimestamp from '@components/time';
 
-import { Hash } from '@utils';
+import { Char, Hash } from '@utils';
 
 import BlocksService from '@services/blocks';
 
@@ -116,7 +116,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
               )}
 
               <TableCell align="right">
-                10 <span className="sub-text">Barrel</span>
+                10 <span className="description">Barrel</span>
               </TableCell>
             </TableRow>
           ))

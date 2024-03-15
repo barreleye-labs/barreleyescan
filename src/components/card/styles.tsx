@@ -1,4 +1,5 @@
 import styles from '@emotion/styled';
+import styled from '@emotion/styled';
 
 import ICard from '@mui/joy/Card';
 import Content from '@mui/joy/CardContent';
@@ -98,17 +99,19 @@ export const CardContainer = styles.div`
       }
     }
     .icons {
+     margin-top: 1.3rem;
+     button{
       &:hover {
        svg{
         color: white;
         }
       }
         text-align: center;
-        margin-top: 2rem;
+        
         svg {
           color: #dfdede;
         
-        }
+        }}
       }
     .active {
       transition: all 0.3s 0s ease-in;
@@ -146,7 +149,7 @@ export const CardContent = styles(Content)`
     }
     .title {
       color: #46546c;
-      font-size: 16px;
+      font-size: 20px;
     }
     .description {
       font-size: 14px;
@@ -296,7 +299,7 @@ export const DefaultCard = styles.div`
   background-color: rgb(255, 255, 255);
   color: rgb(33, 43, 54);
   box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
-  padding-bottom: 0;
+
  }
  
   .MuiCardActions-root{
