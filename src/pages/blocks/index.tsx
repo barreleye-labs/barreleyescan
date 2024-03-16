@@ -14,7 +14,7 @@ import LinkUnderline from '@components/link';
 import { Table, TableBody, TableCell, TableHead } from '@components/table';
 import IntervalTimestamp from '@components/time';
 
-import { Char, Hash } from '@utils';
+import { Hash } from '@utils';
 
 import BlocksService from '@services/blocks';
 
@@ -37,7 +37,6 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props) => {
-  console.count('blocks');
   const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
@@ -57,9 +56,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
       <TableHead>
         <TableRow>
           <TableCell>Block</TableCell>
-          <TableCell size="medium" align="left">
-            Age
-          </TableCell>
+          <TableCell align="left">Age</TableCell>
           <TableCell align="left">Total TXs</TableCell>
           <TableCell align="left">Block Proposer</TableCell>
           {!isSimpleData && <TableCell align="left">Block Hash</TableCell>}

@@ -1,7 +1,6 @@
 import { ChangeEvent, ReactNode } from 'react';
 
-import { TableContainer, TableWrapper } from './styles';
-import { Container } from './styles';
+import { Container, TableContainer, TableWrapper } from './styles';
 
 import Pagination from '@mui/material/Pagination';
 

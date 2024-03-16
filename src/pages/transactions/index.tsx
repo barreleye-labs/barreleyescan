@@ -50,31 +50,31 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
         ) : (
           data.transactions.map((row: Tx) => (
             <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell align="left">
+              <TableCell style={{ width: 300 }} align="left">
                 <LinkUnderline
                   path={`/transaction/${row.hash}`}
                   underlink={`0x${Hash.ellipsis(row.hash)}`}
                 ></LinkUnderline>
               </TableCell>
-              <TableCell style={{ width: 120 }} align="left">
+              <TableCell align="left" style={{ width: 300 }}>
                 <IntervalTimestamp data={row.timestamp as number}></IntervalTimestamp>
               </TableCell>
               {!isSimpleData && (
-                <TableCell component="th" scope="row">
+                <TableCell style={{ width: 220 }} component="th" scope="row">
                   <LinkUnderline path={`/block/${row.blockHeight}`} underlink={row.blockHeight}></LinkUnderline>
                 </TableCell>
               )}
 
-              <TableCell align="left">
+              <TableCell style={{ width: '14%' }} align="left">
                 <LinkUnderline path={`/account/${row.from}`} underlink={`0x${Hash.ellipsis(row.from)}`}></LinkUnderline>
               </TableCell>
-              <TableCell align="left" style={{ padding: 0 }}>
+              <TableCell align="left" style={{ width: 100, padding: 0 }}>
                 <ArrowForwardIcon />
               </TableCell>
               <TableCell align="left">
                 <LinkUnderline path={`/account/${row.to}`} underlink={`0x${Hash.ellipsis(row.to)}`}></LinkUnderline>
               </TableCell>
-              <TableCell align="right">
+              <TableCell align="right" style={{ width: 130 }}>
                 {Char.hexToBalance(row.value.toString())} <span className="description">Barrel</span>
               </TableCell>
             </TableRow>

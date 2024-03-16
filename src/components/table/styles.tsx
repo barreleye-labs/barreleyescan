@@ -7,7 +7,6 @@ import IHead from '@mui/material/TableHead';
 import { grey, teal } from '@mui/material/colors';
 
 const second = teal[100];
-const primary = teal[500];
 const description = grey[500];
 
 export const Container = styled.div`
@@ -45,7 +44,15 @@ export const TableContainer = styled(ITableContainer)`
     color: ${description};
   }
 `;
-export const TableWrapper = styled(ITable)``;
+export const TableWrapper = styled(ITable)`
+  .MuiTableCell-root:nth-child(1) {
+    padding-left: 2rem;
+  }
+
+  .MuiTableCell-root:nth-last-child(1) {
+    padding-right: 2rem;
+  }
+`;
 export const Head = styled(IHead)``;
 export const Body = styled(IBody)`
   .MuiTableRow-root {

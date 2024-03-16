@@ -17,7 +17,7 @@ export const barreleyeConfig: NodeConfig = {
 export const youngminConfig: NodeConfig = {
   KEY: 'youngmin',
   API: 'https://barreleyescan.com:9002',
-  P2P_END_POINT: 'https://barreleyescan.com:4002',
+  P2P_END_POINT: 'https://barreleyescan.com:4102',
   email: 'k930503@gmail.com',
   github: 'https://github.com/k930503',
   linkedIn: 'https://www.linkedin.com/in/youngmin-kim-236574216/'
@@ -26,7 +26,7 @@ export const youngminConfig: NodeConfig = {
 export const nayoungConfig: NodeConfig = {
   KEY: 'nayoung',
   API: 'https://barreleyescan.com:9001',
-  P2P_END_POINT: 'https://barreleyescan.com:4001',
+  P2P_END_POINT: 'https://barreleyescan.com:4101',
   email: 'usiyoung7@gmail.com',
   github: 'https://github.com/usiyoung'
 };

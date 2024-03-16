@@ -5,6 +5,13 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Container = styled.div`
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
+
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -19,11 +26,4 @@ export const Container = styled.div`
   ${mq[1]} {
     padding: 2rem 1rem;
   }
-`;
-export const CopyRight = styled.div`
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  width: 100%;
-  color: #99a1b7;
 `;
