@@ -50,7 +50,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
         ) : (
           data.transactions.map((row: Tx) => (
             <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              <TableCell style={{ width: 300 }} align="left">
+              <TableCell style={{ width: 250 }} align="left">
                 <LinkUnderline
                   path={`/transaction/${row.hash}`}
                   underlink={`0x${Hash.ellipsis(row.hash)}`}
@@ -74,7 +74,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
               <TableCell align="left" style={{ width: '14%' }}>
                 <LinkUnderline path={`/account/${row.to}`} underlink={`0x${Hash.ellipsis(row.to)}`}></LinkUnderline>
               </TableCell>
-              <TableCell align="right" style={{ width: 130 }}>
+              <TableCell align="right" style={{ width: 200 }}>
                 {Char.hexToBalance(row.value.toString())} <span className="description">Barrel</span>
               </TableCell>
             </TableRow>
