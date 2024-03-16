@@ -1,22 +1,21 @@
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
 import { useCallback } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-
-import { Container } from './styles';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import Skeleton from '@mui/material/Skeleton';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+import transactions from '@services/transactions';
 
 import Detail from '@components/detail';
 import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
-import { Crypto, Time } from '@utils';
+import { Char, Time } from '@utils';
 
-import transactions from '@services/transactions.ts';
+import { Container } from './styles';
 
 function Transaction() {
   dayjs.extend(utc);
@@ -80,7 +79,7 @@ function Transaction() {
 
             <Row
               label="Value"
-              content={`${Number(Crypto.hexToDecimal(data.transaction.value)).toLocaleString('ko-KR')} Barrel`}
+              content={`${Number(Char.hexToDecimal(data.transaction.value)).toLocaleString('ko-KR')} Barrel`}
             ></Row>
             <Row label="Signer PublicKey">
               <span> x: 0x{data.transaction.signer.x}</span>
@@ -88,7 +87,7 @@ function Transaction() {
               <span> y: 0x{data.transaction.signer.y}</span>
             </Row>
 
-            <Row label="Nonce">{Crypto.hexToDecimal(data.transaction.nonce)}</Row>
+            <Row label="Nonce">{Char.hexToDecimal(data.transaction.nonce)}</Row>
           </>
         )}
       </Detail>

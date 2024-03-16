@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import ITable from '@mui/material/Table';
 import IBody from '@mui/material/TableBody';
 import ITableContainer from '@mui/material/TableContainer';
@@ -45,11 +44,11 @@ export const TableContainer = styled(ITableContainer)`
   }
 `;
 export const TableWrapper = styled(ITable)`
-  .MuiTableCell-root:nth-child(1) {
+  .MuiTableCell-root:nth-of-type(1) {
     padding-left: 2rem;
   }
 
-  .MuiTableCell-root:nth-last-child(1) {
+  .MuiTableCell-root:nth-last-of-type(1) {
     padding-right: 2rem;
   }
 `;

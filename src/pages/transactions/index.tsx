@@ -1,20 +1,20 @@
-import { Tx } from '@type/api';
-import { SkeletonTable } from 'src/components/skeleton';
-
 import { useMemo, useState } from 'react';
-
-import { TableRow } from './styles.tsx';
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import TableCell from '@mui/material/TableCell';
 
+import transactions from '@services/transactions';
+
+import { Transaction } from '@type/dto/transaction';
+
 import LinkUnderline from '@components/link';
+import { SkeletonTable } from '@components/skeleton';
 import { Table, TableBody, TableHead } from '@components/table/index.ts';
 import IntervalTimestamp from '@components/time';
 
-import { Char, Crypto, Hash } from '@utils';
+import { Char, Hash } from '@utils';
 
-import transactions from '@services/transactions';
+import { TableRow } from './styles.tsx';
 
 interface Props {
   isPagination: boolean;
@@ -48,7 +48,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
         {!data ? (
           <SkeletonTable columns={isSimpleData ? 5 : 7} size={size} />
         ) : (
-          data.transactions.map((row: Tx) => (
+          data.transactions.map((row: Transaction) => (
             <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell style={{ width: 250 }} align="left">
                 <LinkUnderline

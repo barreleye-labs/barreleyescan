@@ -1,21 +1,18 @@
+import { useCallback, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+
+import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import { debounce } from 'lodash-es';
 import { useSnackbar } from 'notistack';
 
-import { useCallback, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-
-import { Container } from './styles';
-
-import FilterNoneIcon from '@mui/icons-material/FilterNone';
+import AccountService from '@services/account';
 
 import Card from '@components/card';
 import Detail from '@components/detail';
 import Row from '@components/row';
 import SearchInput from '@components/searchInput';
 
-import { Crypto } from '@utils';
-
-import AccountService from '@services/account';
+import { Char } from '@utils';
 
 const Account = () => {
   const navigate = useNavigate();
@@ -36,17 +33,13 @@ const Account = () => {
   }, []);
 
   const fetchAccount = debounce(async (address: string) => {
-    /**
-     * validator
-     */
-
-    Crypto.isAddress(address)
-      ? navigate(`/account/${Crypto.remove0x(address)}`)
+    Char.isAddress(address)
+      ? navigate(`/account/${Char.remove0x(address)}`)
       : showToast({ variant: 'error', message: 'Check your address format' });
   }, 500);
 
   const onChange = useCallback(async (e) => {
-    fetchAccount(Crypto.remove0x(e.target.value));
+    fetchAccount(Char.remove0x(e.target.value));
   }, []);
 
   return (
@@ -64,11 +57,11 @@ const Account = () => {
               label="Balance"
               content={
                 data?.account
-                  ? `${Number(Crypto.hexToDecimal(data.account.balance)).toLocaleString('ko-KR')} Barrel`
+                  ? `${Number(Char.hexToDecimal(data.account.balance)).toLocaleString('ko-KR')} Barrel`
                   : '0 Barrel'
               }
             ></Row>
-            <Row label="Nonce" content={data?.account ? Crypto.hexToDecimal(data.account.nonce) : '0'}></Row>
+            <Row label="Nonce" content={data?.account ? Char.hexToDecimal(data.account.nonce) : '0'}></Row>
           </>
         )}
       </Detail>

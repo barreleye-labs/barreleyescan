@@ -20,7 +20,7 @@ export const routes: Route[] = [
       },
       {
         title: 'Blocks',
-        path: '/blocks',
+        path: '/block.d.ts',
         icon: loadable(() => import('@mui/icons-material/FilterNoneRounded'))
       },
 

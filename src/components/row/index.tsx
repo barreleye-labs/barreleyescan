@@ -1,13 +1,12 @@
 import { ReactNode } from 'react';
 
-import { Container } from './styles';
-
 import Grid from '@mui/material/Grid';
-import Skeleton from '@mui/material/Skeleton';
+
+import { Container } from './styles';
 
 interface Props {
   label: string;
-  content?: string;
+  content?: string | number;
   children?: ReactNode;
 }
 

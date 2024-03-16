@@ -1,22 +1,8 @@
-import { Crypto } from '@src/utils/crypto.ts';
-
-function upperFirstString(str: string) {
-  const firstChar = str.charAt(0);
-  const restChar = str.slice(1);
-
-  return firstChar.toUpperCase() + restChar;
-}
-
-function hexToBytes(hex: string): Uint8Array {
-  const bytes = [];
-  for (let c = 0; c < hex.length; c += 2) bytes.push(parseInt(hex.substr(c, 2), 16));
-  return bytes;
-}
-
 function hexToBalance(hex: string): string {
-  return Number(Crypto.hexToDecimal(hex)).toLocaleString('ko-KR');
+  return Number(hexToDecimal(hex)).toLocaleString('ko-KR');
 }
-function bytesToHex(bytes: number[]) {
+
+function bytesToHex(bytes: number[]): string {
   const hex = [];
   for (let i = 0; i < bytes.length; i++) {
     const current = bytes[i] < 0 ? bytes[i] + 256 : bytes[i];
@@ -44,17 +30,44 @@ function uint8ArrayToHex(bytes: Uint8Array): string {
 function numberToHex(value: number): string {
   let hex: string = value.toString(16);
   if (hex.length % 2 == 1) {
-    hex = "0".concat(hex);
+    hex = '0'.concat(hex);
   }
   return hex;
 }
 
+function remove0x(hex: string) {
+  return hex.replace('0x', '');
+}
+
+function hexToDecimal(hex: string) {
+  return parseInt(hex, 16).toString();
+}
+
+function isAddress(address: string) {
+  if (address.indexOf('0x') === 0) {
+    address = address.replace('0x', '');
+  }
+
+  if (address.length !== 40) {
+    return false;
+  }
+
+  const regexp: RegExp = /^[0-9a-fA-F]+$/;
+
+  if (regexp.test(address)) {
+    return true;
+  }
+  return false;
+}
+
 export const Char = {
-  upperFirstString,
-  hexToBytes,
   bytesToHex,
   hexToBalance,
   hexToUint8Array,
   uint8ArrayToHex,
-  numberToHex
+  numberToHex,
+
+  isAddress,
+  remove0x,
+  hexToDecimal
 };

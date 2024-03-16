@@ -1,22 +1,22 @@
-import { Block } from '@type/api';
-import { SkeletonTable } from 'src/components/skeleton';
-
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { Button, TableRow } from './styles.tsx';
 
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
+import BlocksService from '@services/blocks';
+
+import { Block } from '@type/dto/block';
+
 import LinkUnderline from '@components/link';
+import { SkeletonTable } from '@components/skeleton';
 import { Table, TableBody, TableCell, TableHead } from '@components/table';
 import IntervalTimestamp from '@components/time';
 
 import { Hash } from '@utils';
 
-import BlocksService from '@services/blocks';
+import { Button, TableRow } from './styles.tsx';
 
 interface Props {
   isPagination: boolean;

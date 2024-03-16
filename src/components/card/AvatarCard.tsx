@@ -16,7 +16,7 @@ import { styled } from '@mui/material/styles';
 
 import { NodeConfig } from '@pages/nodes/nodeConfig';
 
-import { Char, Crypto } from '@utils';
+import { Char } from '@utils';
 
 interface Props {
   config: NodeConfig;
@@ -48,7 +48,7 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
   };
 
   const onCopy = (value: string) => {
-    navigator.clipboard.writeText(value);
+    navigator.clipboard?.writeText(value);
   };
 
   return (
@@ -100,7 +100,7 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
             <div className="divider"></div>
             <div className="right">
               <Typography className="value" level="body-sm">
-                {Crypto.hexToDecimal(nonce)}
+                {Char.hexToDecimal(nonce)}
               </Typography>
               <Typography className="key" level="body-sm">
                 nonce

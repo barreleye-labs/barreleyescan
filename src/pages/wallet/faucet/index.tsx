@@ -1,5 +1,3 @@
-import { useSnackbar } from 'notistack';
-
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,24 +5,25 @@ import CallMadeIcon from '@mui/icons-material/CallMade';
 import { LoadingButton } from '@mui/lab';
 import { CardContent, Typography } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
+import { useSnackbar } from 'notistack';
+
+import FaucetService from '@services/faucet';
+
+import { FaucetRequest } from '@type/dto/transaction';
+
+import useInput from '@hooks/useInput';
 
 import Card from '@components/card';
 import { Input } from '@components/input';
 import LinkUnderline from '@components/link';
 
-import { IFaucet } from '@src/types/api';
-
-import { Crypto } from '@utils';
-
-import FaucetService from '@services/faucet';
-
-import useInput from '@hooks/useInput';
+import { Char } from '@utils';
 
 const Faucet = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [faucet, onChange] = useInput<IFaucet>({ accountAddress: '', balance: 0 });
+  const [faucet, onChange] = useInput<FaucetRequest & { balance: number }>({ accountAddress: '', balance: 0 });
   const [loading, setLoading] = useState(false);
   const { accountAddress, balance } = faucet;
 
@@ -36,11 +35,11 @@ const Faucet = () => {
   }, []);
 
   const onSubmit = useCallback(async () => {
-    const { data } = await FaucetService().Send({
-      accountAddress: Crypto.remove0x(accountAddress)
+    const { error } = await FaucetService().Send({
+      accountAddress: Char.remove0x(accountAddress)
     });
 
-    if (!data) return showToast({ variant: 'error', message: 'Invalid address format.\n' });
+    if (error) return showToast({ variant: 'error', message: 'Invalid address format.\n' });
 
     setLoading(true);
     setTimeout(() => {

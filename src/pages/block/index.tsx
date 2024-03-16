@@ -1,21 +1,20 @@
-import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
 import { useCallback } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
 import Skeleton from '@mui/material/Skeleton';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+import BlocksService from '@services/blocks';
+
+import { Button } from '@pages/blocks/styles';
 
 import Detail from '@components/detail';
 import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
-import { Button } from '@pages/blocks/styles.tsx';
-
 import { Time } from '@utils';
-
-import BlocksService from '@services/blocks.ts';
 
 function Block() {
   dayjs.extend(utc);
@@ -28,7 +27,7 @@ function Block() {
 
   const changeBlockPage = useCallback(
     (setHeight: number) => {
-      if (setHeight >= 0 && lastBlock?.block.height >= setHeight) {
+      if (setHeight >= 0 && lastBlock!.block.height >= setHeight) {
         navigate(`/block/${setHeight}`);
       }
     },
@@ -54,8 +53,8 @@ function Block() {
       <>
         {!data ? (
           <>
-            {[...new Array(3)].map(() => {
-              return <Skeleton />;
+            {[...new Array(3)].map((_, index) => {
+              return <Skeleton key={index} />;
             })}
           </>
         ) : (
