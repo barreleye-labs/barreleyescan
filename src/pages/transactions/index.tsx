@@ -56,7 +56,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
                   underlink={`0x${Hash.ellipsis(row.hash)}`}
                 ></LinkUnderline>
               </TableCell>
-              <TableCell align="left" style={{ width: 300 }}>
+              <TableCell align="left" style={{ width: 200 }}>
                 <IntervalTimestamp data={row.timestamp as number}></IntervalTimestamp>
               </TableCell>
               {!isSimpleData && (
@@ -65,13 +65,13 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
                 </TableCell>
               )}
 
-              <TableCell style={{ width: '14%' }} align="left">
+              <TableCell style={{ width: '11%' }} align="left">
                 <LinkUnderline path={`/account/${row.from}`} underlink={`0x${Hash.ellipsis(row.from)}`}></LinkUnderline>
               </TableCell>
-              <TableCell align="left" style={{ width: 100, padding: 0 }}>
+              <TableCell align="left" style={{ textAlign: 'center', width: 100, padding: 0 }}>
                 <ArrowForwardIcon />
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="left" style={{ width: '14%' }}>
                 <LinkUnderline path={`/account/${row.to}`} underlink={`0x${Hash.ellipsis(row.to)}`}></LinkUnderline>
               </TableCell>
               <TableCell align="right" style={{ width: 130 }}>
