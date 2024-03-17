@@ -40,39 +40,44 @@ const verifyMessage = (message: string, publicKey: PublicKey, signature: Signatu
   return key.verify(message, signature);
 };
 
-function isAddress(address: string) {
-  if (address.indexOf('0x') === 0) {
-    address = address.replace('0x', '');
+function arbuf2hex(buffer: any) {
+  const hexCodes = [];
+  const view = new DataView(buffer);
+  for (let i = 0; i < view.byteLength; i += 4) {
+    // Using getUint32 reduces the number of iterations needed (we process 4 bytes each time)
+    const value = view.getUint32(i);
+    // toString(16) will give the hex representation of the number without padding
+    const stringValue = value.toString(16);
+    // We use concatenation and slice for padding
+    let padding: string = '00000000';
+    const paddedValue = (padding + stringValue).slice(-padding.length);
+    hexCodes.push(paddedValue);
   }
 
-  if (address.length !== 40) {
-    return false;
-  }
-
-  const regexp: RegExp = /^[0-9a-fA-F]+$/;
-
-  if (regexp.test(address)) {
-    return true;
-  }
-  return false;
+  // Join all the hex strings into one
+  return hexCodes.join('');
 }
 
-function remove0x(hex: string) {
-  return hex.replace('0x', '');
-}
-
-function hexToDecimal(hex: string) {
-  return parseInt(hex, 16).toString();
+function sha256Veta(hexstr: string) {
+  // We transform the string into an arraybuffer.
+  const buffer = new Uint8Array(
+    hexstr.match(/[\da-f]{2}/gi).map(function (h) {
+      return parseInt(h, 16);
+    })
+  );
+  return crypto.subtle.digest('SHA-256', buffer).then(function (hash) {
+    return arbuf2hex(hash);
+  });
 }
 
 export const Crypto = {
-  isAddress,
-  remove0x,
-  hexToDecimal,
+  PublicKey,
+  Signature,
+
   generatePrivateKey,
   generatePublicKey,
   signMessage,
   verifyMessage,
-  PublicKey,
-  Signature
+  arbuf2hex,
+  sha256Veta
 };

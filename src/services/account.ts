@@ -1,4 +1,4 @@
-import { IAccount } from '@type/api';
+import { AccountResponse } from '@type/dto/account';
 
 import useApi from '@hooks/useApi.ts';
 
@@ -6,7 +6,7 @@ const AccountService = () => {
   const PATH: string = '/api';
 
   function GetOneById(id: string, option?: Record<string, boolean>) {
-    return useApi<IAccount>(id && `${PATH}/accounts/${id}`, {
+    return useApi<AccountResponse>(id && `${PATH}/accounts/${id}`, {
       revalidateOnMount: false,
       revalidateIfStale: false,
       revalidateOnReconnect: false,

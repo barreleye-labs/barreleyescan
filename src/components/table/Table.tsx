@@ -1,8 +1,8 @@
 import { ChangeEvent, ReactNode } from 'react';
 
-import { Container, TableContainer, TableWrapper } from './styles';
-
 import Pagination from '@mui/material/Pagination';
+
+import { Container, TableContainer, TableWrapper } from './styles';
 
 interface Props {
   children?: ReactNode;

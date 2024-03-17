@@ -1,6 +1,4 @@
-import sha256 from 'sha256';
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import CallMadeIcon from '@mui/icons-material/CallMade';
@@ -17,18 +15,18 @@ import { Crypto } from '@utils';
 const Create = () => {
   const navigate = useNavigate();
   const [privateKey] = useState(Crypto.generatePrivateKey());
-  const [address] = useState(getAddress());
+  const [address, setAddress] = useState<string>();
   const [step, setStep] = useState(1);
 
-  function getAddress() {
-    const publicKey = Crypto.generatePublicKey(privateKey);
+  useEffect(() => {
+    async function getAddress() {
+      const { x, y } = Crypto.generatePublicKey(privateKey);
+      const result = (await Crypto.sha256Veta(x.concat(y))).substring(0, 40);
 
-    const { x: signerX, y: signerY } = publicKey;
-
-    const temp: string = signerX.concat(signerY);
-    const result = sha256(temp).toString().substring(0, 40);
-    return `0x${result}`;
-  }
+      setAddress(result);
+    }
+    getAddress();
+  }, [privateKey]);
 
   const onClick = () => {
     setStep(2);

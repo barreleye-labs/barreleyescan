@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 
-import { barreleyeConfig, nayoungConfig, youngminConfig } from './nodeConfig';
-import { Stack } from './styles';
+import AccountService from '@services/account.ts';
 
 import AvatarCard from '@components/card/AvatarCard';
 
-import AccountService from '@services/account.ts';
+import { barreleyeConfig, nayoungConfig, youngminConfig } from './nodeConfig';
+import { Stack } from './styles';
 
 const Nodes = () => {
   const { data: barreleye, mutate: barreleyeMutate } = AccountService().GetOneById(

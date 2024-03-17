@@ -1,24 +1,24 @@
-import { ITx, ITxs, Pagination, Transfer, Tx } from '@type/api';
-
-import { service } from '@src/utils/http';
+import { TransactionRequest, TransactionResponse, TransactionsResponse } from '@type/dto/transaction';
 
 import useApi from '@hooks/useApi';
+
+import { service } from '@src/utils/http';
 
 const TransactionsService = () => {
   const PATH: string = '/api';
 
-  function GetAll({ page, size }: Pagination) {
-    return useApi<ITxs>(`${PATH}/txs?page=${page}&size=${size}`, {
+  function GetAll({ page, size }: Record<string, number>) {
+    return useApi<TransactionsResponse>(`${PATH}/txs?page=${page}&size=${size}`, {
       refreshInterval: true
     });
   }
 
   function GetOneById(id: string) {
-    return useApi<ITx>(`${PATH}/txs/${id}`, {});
+    return useApi<TransactionResponse>(`${PATH}/txs/${id}`, {});
   }
 
-  async function Send(params: Transfer) {
-    return await service.post<Transfer>(`/txs`, params);
+  async function Send(params: TransactionRequest) {
+    return await service.post<TransactionRequest>(`/txs`, params);
   }
 
   return {

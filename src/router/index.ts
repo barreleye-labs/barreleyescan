@@ -1,6 +1,6 @@
-import loadable from '@loadable/component';
-
 import { createBrowserRouter } from 'react-router-dom';
+
+import loadable from '@loadable/component';
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
         Component: loadable(() => import('@pages/dashboard'))
       },
       {
-        path: '/blocks',
+        path: '/block.d.ts',
         Component: loadable(() => import('@pages/blocks'))
       },
 

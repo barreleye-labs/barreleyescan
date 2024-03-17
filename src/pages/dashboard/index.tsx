@@ -1,8 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Card, Container, DashboardTable, Highlight } from './styles';
-
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -10,13 +8,15 @@ import PolylineIcon from '@mui/icons-material/Polyline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import Link from '@components/link';
-import Logo from '@components/logo';
+import BlocksService from '@services/blocks.ts';
 
 import Blocks from '@pages/blocks';
 import Transactions from '@pages/transactions';
 
-import BlocksService from '@services/blocks.ts';
+import Link from '@components/link';
+import Logo from '@components/logo';
+
+import { Card, Container, DashboardTable, Highlight } from './styles';
 
 const Dashboard = () => {
   const navigate = useNavigate();
