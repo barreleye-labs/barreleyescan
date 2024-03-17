@@ -1,11 +1,11 @@
-import { SnackbarProvider } from 'notistack';
-
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import './App.css';
+import { SnackbarProvider } from 'notistack';
 
 import { GlobalStyle } from '@styles/globalStyle';
+
+import './App.css';
 
 export function App() {
   const navigate = useNavigate();

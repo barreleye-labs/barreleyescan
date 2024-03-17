@@ -1,6 +1,5 @@
 import styles from '@emotion/styled';
 import styled from '@emotion/styled';
-
 import ICard from '@mui/joy/Card';
 import Content from '@mui/joy/CardContent';
 
@@ -326,6 +325,10 @@ export const Container = styles(ICard)`
   
   .warning {
     color: #c73d3d;
+  }
+  
+  .info {
+    color: #00987b;
   }
   
   .input-wrapper{

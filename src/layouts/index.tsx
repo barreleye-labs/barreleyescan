@@ -1,9 +1,9 @@
-import { Container, Sider } from './styles';
+import DefaultLayout from '@layouts/default';
 
 import Logo from '@components/logo';
 import Menu from '@components/menu';
 
-import DefaultLayout from '@layouts/default';
+import { Container, Sider } from './styles';
 
 const Layout = () => {
   console.count('layout');

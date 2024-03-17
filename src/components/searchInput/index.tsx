@@ -19,6 +19,7 @@ const SearchInput = memo(({ onChange }: Props) => {
         size="md"
         placeholder="Search by account address."
         sx={{
+          fontSize: '16px',
           '--Input-radius': `${16}px`,
           '--Input-decoratorChildHeight': `${29}px`
         }}

@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import { teal } from '@mui/material/colors';
 
 const color = teal[100];
@@ -18,7 +17,6 @@ export const Container = styled.div`
       height: 645px;
     }
     flex-direction: column;
-    padding-top: 30px;
     padding-bottom: 2rem;
   }
 `;
@@ -38,7 +36,7 @@ export const Sider = styled.div`
     position: fixed;
     top: 0;
     padding: 7px;
-    height: 57px;
+    height: calc(env(safe-area-inset-top) + 57px);
     > div {
       width: 100%;
     }
