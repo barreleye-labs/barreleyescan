@@ -147,7 +147,7 @@ const Transfer = () => {
                 Enter an acceptable private key.
               </Typography>
               <Typography sx={{ mb: 1 }} color="text.secondary">
-                Please enter your private key. It takes 13 seconds to transmit barrelee transaction.
+                Please enter the private key to sign the transaction.
               </Typography>
 
               <CustomInput
@@ -168,10 +168,10 @@ const Transfer = () => {
               )}
               <div className="input-wrapper">
                 <Typography variant="h5" sx={{ mb: 1.5 }}>
-                  Enter Information
+                  Enter the information
                 </Typography>
                 <Typography sx={{ mb: 1 }} color="text.secondary">
-                  You can access your account using your private key. It takes 13 seconds to send.
+                  Please enter the information required to send the transaction. And try sending the transaction.
                 </Typography>
 
                 <Input label="From Address" disabled={true} defaultValue={`0x${tx.from}`} />

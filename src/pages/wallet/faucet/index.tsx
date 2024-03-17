@@ -7,6 +7,7 @@ import { CardContent, Typography } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import { useSnackbar } from 'notistack';
 
+import AccountService from '@services/account.ts';
 import FaucetService from '@services/faucet';
 
 import { FaucetRequest } from '@type/dto/transaction';
@@ -22,6 +23,7 @@ import { Char } from '@utils';
 import { BTN_TYPE, buttonHandlerStore } from '@src/stores/index.ts';
 
 const Faucet = () => {
+  console.count('faucet');
   const loading = buttonHandlerStore((state) => state.loadingFaucet);
   const setLoading = buttonHandlerStore((state) => state.setLoading);
 
@@ -29,8 +31,8 @@ const Faucet = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const [faucet, onChange] = useInput<FaucetRequest & { balance: number }>({ accountAddress: '', balance: 0 });
-
   const { accountAddress, balance } = faucet;
+  const { data, mutate } = AccountService().GetOneById(accountAddress);
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -38,6 +40,11 @@ const Faucet = () => {
       anchorOrigin: { vertical: 'top', horizontal: 'right' }
     });
   }, []);
+
+  const onBlur = useCallback((value) => {
+    mutate();
+    console.log(value);
+  });
 
   const onSubmit = useCallback(async () => {
     const { error } = await FaucetService().Send({
@@ -64,7 +71,7 @@ const Faucet = () => {
               Barrel Faucet
             </Typography>
             <Typography sx={{ mb: 1 }} color="text.secondary">
-              The Barrel Faucet runs on Testnet. It takes 13 seconds to transmit barrelee transaction.
+              You can receive 10 Barrel through the faucet.
             </Typography>
 
             <Input
@@ -75,6 +82,7 @@ const Faucet = () => {
               name="accountAddress"
               disabled={loading}
               onChange={onChange}
+              onBlur={onBlur}
             />
             <Input
               label="Barrel Balance"
@@ -83,7 +91,7 @@ const Faucet = () => {
               type="number"
               placeholder="0.000000"
               disabled={true}
-              defaultValue="10"
+              defaultValue={data}
               fullWidth
               onChange={onChange}
             />

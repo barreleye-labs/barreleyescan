@@ -9,15 +9,16 @@ interface Props {
   name?: string;
   type?: string;
   label?: string;
-  defaultValue?: string;
+  defaultValue?: string | number;
   disabled?: boolean;
   fullWidth?: boolean;
   width?: string;
   placeholder?: string;
   onChange?: (e: ChangeEvent) => void;
+  onBlur?: (e: ChangeEvent) => void;
 }
 const Input = memo(
-  ({ name, width = '80%', type, defaultValue, disabled, label, fullWidth, onChange, placeholder }: Props) => {
+  ({ name, width = '80%', type, defaultValue, disabled, label, fullWidth, onChange, onBlur, placeholder }: Props) => {
     return (
       <Container>
         <FormControl sx={{ m: 1, width }} variant="standard">
@@ -32,6 +33,7 @@ const Input = memo(
             disabled={disabled}
             defaultValue={defaultValue}
             onChange={(e) => onChange && onChange(e)}
+            onBlur={(e) => onBlur && onBlur(e)}
           />
         </FormControl>
       </Container>
