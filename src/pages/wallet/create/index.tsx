@@ -21,7 +21,7 @@ const Create = () => {
   useEffect(() => {
     async function getAddress() {
       const { x, y } = Crypto.generatePublicKey(privateKey);
-      const result = (await Crypto.sha256Veta(x.concat(y))).substring(0, 40);
+      const result = '0x' + (await Crypto.sha256Veta(x.concat(y))).substring(0, 40);
 
       setAddress(result);
     }

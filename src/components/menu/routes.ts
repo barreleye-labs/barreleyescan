@@ -1,7 +1,7 @@
 // @ts-ignore
-import loadable from '@loadable/component';
-
 import { ElementType } from 'react';
+
+import loadable from '@loadable/component';
 
 export type RouteContent = { title: string; path: string; icon: ElementType };
 export interface Route {
@@ -20,7 +20,7 @@ export const routes: Route[] = [
       },
       {
         title: 'Blocks',
-        path: '/block.d.ts',
+        path: '/blocks',
         icon: loadable(() => import('@mui/icons-material/FilterNoneRounded'))
       },
 
