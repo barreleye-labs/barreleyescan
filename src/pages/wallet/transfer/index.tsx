@@ -23,6 +23,8 @@ import LinkUnderline from '@components/link';
 
 import { Char, Crypto } from '@utils';
 
+import { BTN_TYPE, buttonHandlerStore } from '@src/stores';
+
 const txDefaultData = (): TransactionRequest => {
   return {
     nonce: '',
@@ -34,10 +36,12 @@ const txDefaultData = (): TransactionRequest => {
 };
 
 const Transfer = () => {
+  const loading = buttonHandlerStore((state) => state.loadingTransfer);
+  const setLoading = buttonHandlerStore((state) => state.setLoading);
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const [tx, onChange, setTx] = useInput<TransactionRequest>(txDefaultData());
-  const [loading, setLoading] = useState(false);
+
   const [step, setStep] = useState(1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
   const { data: accountInfo, mutate: accountMutate } = AccountService().GetOneById(tx.from);
@@ -105,11 +109,11 @@ const Transfer = () => {
     if (error)
       return showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
 
-    setLoading(true);
+    setLoading(BTN_TYPE.TRANSFER);
     setTimeout(() => {
-      setLoading(false);
       showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
       initData();
+      setLoading(BTN_TYPE.TRANSFER);
     }, 13000);
   }, [tx]);
 
@@ -150,6 +154,7 @@ const Transfer = () => {
                 label="Private Key"
                 placeholder="Enter the private key"
                 defaultValue={privateKey}
+                disabled={loading}
                 onChange={(e) => onChangePrivateKey(e)}
               />
             </div>
@@ -173,7 +178,7 @@ const Transfer = () => {
                 <Input label="To Address" name="to" onChange={onChange} defaultValue={tx.to} />
                 <Input
                   name="value"
-                  defaultValue={tx.value}
+                  defaultValue={tx.value as string}
                   onChange={onChange}
                   type="number"
                   label="Amount to Send"

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import CallMadeIcon from '@mui/icons-material/CallMade';
@@ -19,12 +19,17 @@ import LinkUnderline from '@components/link';
 
 import { Char } from '@utils';
 
+import { BTN_TYPE, buttonHandlerStore } from '@src/stores/index.ts';
+
 const Faucet = () => {
+  const loading = buttonHandlerStore((state) => state.loadingFaucet);
+  const setLoading = buttonHandlerStore((state) => state.setLoading);
+
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const [faucet, onChange] = useInput<FaucetRequest & { balance: number }>({ accountAddress: '', balance: 0 });
-  const [loading, setLoading] = useState(false);
+
   const { accountAddress, balance } = faucet;
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
@@ -41,9 +46,11 @@ const Faucet = () => {
 
     if (error) return showToast({ variant: 'error', message: 'Invalid address format.\n' });
 
-    setLoading(true);
+    setLoading(BTN_TYPE.FAUCET);
+
     setTimeout(() => {
-      setLoading(false);
+      setLoading(BTN_TYPE.FAUCET);
+
       showToast({ variant: 'success', message: 'Your Barrel Faucet request accepted.' });
     }, 13000);
   }, [accountAddress, balance]);
@@ -66,6 +73,7 @@ const Faucet = () => {
               value="accountAddress"
               placeholder="Please put your wallet address here"
               name="accountAddress"
+              disabled={loading}
               onChange={onChange}
             />
             <Input

@@ -1,9 +1,9 @@
 import { ChangeEvent, memo } from 'react';
 
-import { Container } from './styles';
-
 import { TextField } from '@mui/material';
 import FormControl from '@mui/material/FormControl';
+
+import { Container } from './styles';
 
 interface Props {
   name?: string;
