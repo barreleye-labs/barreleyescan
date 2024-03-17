@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
         Component: loadable(() => import('@pages/dashboard'))
       },
       {
-        path: '/block.d.ts',
+        path: '/blocks',
         Component: loadable(() => import('@pages/blocks'))
       },
 

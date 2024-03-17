@@ -1,10 +1,10 @@
 import { ChangeEvent, memo } from 'react';
 
-import { Container } from './styles';
-
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/joy/Button';
 import Input from '@mui/joy/Input';
+
+import { Container } from './styles';
 
 interface Props {
   onChange?: (e: ChangeEvent) => void;
@@ -17,7 +17,7 @@ const SearchInput = memo(({ onChange }: Props) => {
       </Button>
       <Input
         size="md"
-        placeholder="You can search for block number, account address, transaction hash, token name, or token symbol"
+        placeholder="Search by account address."
         sx={{
           '--Input-radius': `${16}px`,
           '--Input-decoratorChildHeight': `${29}px`
