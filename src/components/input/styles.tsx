@@ -1,5 +1,4 @@
 import styles from '@emotion/styled';
-
 import { teal } from '@mui/material/colors';
 
 const breakpoints = [576, 768, 992, 1200];
@@ -10,7 +9,7 @@ const second = teal[400];
 
 export const Container = styles.div`
     display:flex;
-    align-items: baseline;
+    align-items: center;
     
    ${mq[1]} {
     .MuiFormControl-root{

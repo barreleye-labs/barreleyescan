@@ -5,7 +5,6 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
 export const Logo = styled.div`
-  cursor: pointer;
   .bold {
     font-weight: 700;
     font-size: 19px;
@@ -18,6 +17,7 @@ export const Logo = styled.div`
   text-align: center;
   font-weight: 600;
   > span {
+    cursor: pointer;
     font-weight: 100;
   }
 

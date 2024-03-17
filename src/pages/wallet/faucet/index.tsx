@@ -82,7 +82,7 @@ const Faucet = () => {
           </>
 
           <CardActions>
-            <span className="warning">{loading && ' Takes up to 13 seconds'}</span>
+            <span className="info">{loading && 'Please wait up to 13 seconds'}</span>
 
             <LoadingButton loading={loading} disabled={disabled} className="button" size="large" onClick={onSubmit}>
               Run Faucet

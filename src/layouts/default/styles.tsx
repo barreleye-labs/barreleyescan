@@ -24,6 +24,7 @@ export const Container = styled.div`
   margin: 0 auto;
   position: relative;
   ${mq[1]} {
-    padding: 2rem 1rem;
+    margin-top: 57px;
+    padding: 0 1rem;
   }
 `;
