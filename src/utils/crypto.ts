@@ -40,7 +40,7 @@ const verifyMessage = (message: string, publicKey: PublicKey, signature: Signatu
   return key.verify(message, signature);
 };
 
-function arbuf2hex(buffer: any) {
+function arbuf2hex(buffer: ArrayBuffer) {
   const hexCodes = [];
   const view = new DataView(buffer);
   for (let i = 0; i < view.byteLength; i += 4) {
@@ -49,7 +49,7 @@ function arbuf2hex(buffer: any) {
     // toString(16) will give the hex representation of the number without padding
     const stringValue = value.toString(16);
     // We use concatenation and slice for padding
-    let padding: string = '00000000';
+    const padding: string = '00000000';
     const paddedValue = (padding + stringValue).slice(-padding.length);
     hexCodes.push(paddedValue);
   }
@@ -70,6 +70,13 @@ function sha256Veta(hexstr: string) {
   });
 }
 
+async function privateKeyToAddress(privateKey: string) {
+  const { x, y } = generatePublicKey(privateKey);
+  const address = (await sha256Veta(x.concat(y))).substring(0, 40);
+  console.log(address);
+  return address;
+}
+
 export const Crypto = {
   PublicKey,
   Signature,
@@ -79,5 +86,6 @@ export const Crypto = {
   signMessage,
   verifyMessage,
   arbuf2hex,
-  sha256Veta
+  sha256Veta,
+  privateKeyToAddress
 };

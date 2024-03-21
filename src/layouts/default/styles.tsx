@@ -4,6 +4,13 @@ const breakpoints = [576, 768, 992, 1200];
 
 const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 
+export const ButtonWrapper = styled.div``;
+export const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+`;
 export const Container = styled.div`
   ::-webkit-scrollbar {
     display: none;

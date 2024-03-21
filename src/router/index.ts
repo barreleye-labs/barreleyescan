@@ -48,8 +48,12 @@ export const router = createBrowserRouter([
       {
         path: '/faucet',
         Component: loadable(() => import('@pages/wallet/faucet'))
-      }
+      },
       // ==========================================================
+      {
+        path: '/sign-in',
+        Component: loadable(() => import('@pages/sign-in'))
+      }
     ]
   }
 ]);
