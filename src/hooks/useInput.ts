@@ -6,7 +6,7 @@ const useInput = <T>(initialData: T): ReturnTypes<T> => {
   const [values, setValues] = useState(initialData);
 
   const handler = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const { value, name } = e.target;
 
       typeof values === 'object' ? setValues({ ...values, [name]: value }) : setValues(value);
