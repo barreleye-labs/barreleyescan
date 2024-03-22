@@ -7,7 +7,7 @@ import Input from '@mui/joy/Input';
 import { Container } from './styles';
 
 interface Props {
-  onChange?: (e: ChangeEvent) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 const SearchInput = memo(({ onChange }: Props) => {
   return (

@@ -1,18 +1,14 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import CallMadeIcon from '@mui/icons-material/CallMade';
 import { LoadingButton } from '@mui/lab';
-import { CardContent, Typography } from '@mui/material';
+import { CardContent, Typography, debounce } from '@mui/material';
 import CardActions from '@mui/material/CardActions';
 import { useSnackbar } from 'notistack';
 
 import AccountService from '@services/account.ts';
 import FaucetService from '@services/faucet';
-
-import { FaucetRequest } from '@type/dto/transaction';
-
-import useInput from '@hooks/useInput';
 
 import Card from '@components/card';
 import { Input } from '@components/input';
@@ -23,16 +19,14 @@ import { Char } from '@utils';
 import { BTN_TYPE, buttonHandlerStore } from '@src/stores/index.ts';
 
 const Faucet = () => {
-  console.count('faucet');
   const loading = buttonHandlerStore((state) => state.loadingFaucet);
   const setLoading = buttonHandlerStore((state) => state.setLoading);
 
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const [faucet, onChange] = useInput<FaucetRequest & { balance: number }>({ accountAddress: '', balance: 0 });
-  const { accountAddress, balance } = faucet;
-  const { data, mutate } = AccountService().GetOneById(accountAddress);
+  const [accountAddress, setAccountAddress] = useState<string>('');
+  const [balance, setBalance] = useState<string>('0');
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -41,10 +35,22 @@ const Faucet = () => {
     });
   }, []);
 
-  const onBlur = useCallback((value) => {
-    mutate();
-    console.log(value);
-  });
+  const fetchAccount = async (address = accountAddress) => {
+    const { data, error } = await AccountService().GetOneById(Char.remove0x(address));
+
+    if (error) {
+      return setBalance('0');
+    }
+
+    setBalance(Char.hexToBalance(data.account.balance));
+  };
+
+  const onValidCheck = debounce(async (e) => {
+    if (e.target.value) {
+      setAccountAddress(e.target.value);
+      fetchAccount(e.target.value);
+    }
+  }, 500);
 
   const onSubmit = useCallback(async () => {
     const { error } = await FaucetService().Send({
@@ -59,9 +65,13 @@ const Faucet = () => {
       setLoading(BTN_TYPE.FAUCET);
 
       showToast({ variant: 'success', message: 'Your Barrel Faucet request accepted.' });
+
+      fetchAccount();
     }, 13000);
-  }, [accountAddress, balance]);
+  }, [accountAddress]);
+
   const disabled = useMemo(() => !accountAddress, [accountAddress]);
+
   return (
     <>
       <Card>
@@ -77,23 +87,19 @@ const Faucet = () => {
             <Input
               fullWidth
               label="Account Address"
-              value="accountAddress"
               placeholder="Please put your wallet address here"
               name="accountAddress"
               disabled={loading}
-              onChange={onChange}
-              onBlur={onBlur}
+              onChange={onValidCheck}
             />
             <Input
               label="Barrel Balance"
               name="balance"
-              value="balance"
               type="number"
               placeholder="0.000000"
               disabled={true}
-              defaultValue={data}
+              value={balance}
               fullWidth
-              onChange={onChange}
             />
           </>
 

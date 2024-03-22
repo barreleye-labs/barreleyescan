@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import FilterNoneIcon from '@mui/icons-material/FilterNone';
@@ -14,16 +14,31 @@ import SearchInput from '@components/searchInput';
 
 import { Char } from '@utils';
 
+const defaultAccount = () => {
+  return { nonce: '0', balance: '0' };
+};
+
 const Account = () => {
   const navigate = useNavigate();
   const { address } = useParams();
   const { enqueueSnackbar } = useSnackbar();
-
-  const { data, mutate } = AccountService().GetOneById(address as string);
+  const [account, setAccount] = useState<{ nonce: string; balance: string }>(defaultAccount());
 
   useEffect(() => {
-    address && mutate();
+    if (address) {
+      fetchAccount();
+    }
   }, [address]);
+
+  async function fetchAccount() {
+    const { data, error } = await AccountService().GetOneById(address as string);
+
+    if (error) {
+      return setAccount(defaultAccount());
+    }
+
+    setAccount(data.account);
+  }
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -32,14 +47,14 @@ const Account = () => {
     });
   }, []);
 
-  const fetchAccount = debounce(async (address: string) => {
+  const onValidCheck = debounce(async (address: string) => {
     Char.isAddress(address)
       ? navigate(`/account/${Char.remove0x(address)}`)
       : showToast({ variant: 'error', message: 'Check your address format' });
   }, 500);
 
-  const onChange = useCallback(async (e) => {
-    fetchAccount(Char.remove0x(e.target.value));
+  const onChange = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
+    onValidCheck(Char.remove0x(e.target.value));
   }, []);
 
   return (
@@ -53,15 +68,8 @@ const Account = () => {
           <>
             <Row label="Address" content={`0x${address}`}></Row>
 
-            <Row
-              label="Balance"
-              content={
-                data?.account
-                  ? `${Number(Char.hexToDecimal(data.account.balance)).toLocaleString('ko-KR')} Barrel`
-                  : '0 Barrel'
-              }
-            ></Row>
-            <Row label="Nonce" content={data?.account ? Char.hexToDecimal(data.account.nonce) : '0'}></Row>
+            <Row label="Balance" content={`${Char.hexToBalance(account.balance)} Barrel `}></Row>
+            <Row label="Nonce" content={Char.hexToDecimal(account.nonce)}></Row>
           </>
         )}
       </Detail>

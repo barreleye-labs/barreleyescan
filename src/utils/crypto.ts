@@ -71,10 +71,14 @@ function sha256Veta(hexstr: string) {
 }
 
 async function privateKeyToAddress(privateKey: string) {
-  const { x, y } = generatePublicKey(privateKey);
-  const address = (await sha256Veta(x.concat(y))).substring(0, 40);
-  console.log(address);
-  return address;
+  try {
+    const { x, y } = generatePublicKey(privateKey);
+    const address = (await sha256Veta(x.concat(y))).substring(0, 40);
+
+    return address;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export const Crypto = {

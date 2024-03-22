@@ -10,15 +10,28 @@ interface Props {
   type?: string;
   label?: string;
   defaultValue?: string | number;
+  value?: string | number;
   disabled?: boolean;
   fullWidth?: boolean;
   width?: string;
   placeholder?: string;
-  onChange?: (e: ChangeEvent) => void;
-  onBlur?: (e: ChangeEvent) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 const Input = memo(
-  ({ name, width = '80%', type, defaultValue, disabled, label, fullWidth, onChange, onBlur, placeholder }: Props) => {
+  ({
+    name,
+    width = '80%',
+    type,
+    defaultValue,
+    value,
+    disabled,
+    label,
+    fullWidth,
+    onChange,
+    onBlur,
+    placeholder
+  }: Props) => {
     return (
       <Container>
         <FormControl sx={{ m: 1, width }} variant="standard">
@@ -32,6 +45,7 @@ const Input = memo(
             placeholder={placeholder}
             disabled={disabled}
             defaultValue={defaultValue}
+            value={value}
             onChange={(e) => onChange && onChange(e)}
             onBlur={(e) => onBlur && onBlur(e)}
           />

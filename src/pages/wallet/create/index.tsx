@@ -20,17 +20,12 @@ const Create = () => {
 
   useEffect(() => {
     async function getAddress() {
-      const { x, y } = Crypto.generatePublicKey(privateKey);
-      const result = '0x' + (await Crypto.sha256Veta(x.concat(y))).substring(0, 40);
-
-      setAddress(result);
+      const address = await Crypto.privateKeyToAddress(privateKey as string);
+      setAddress('0x' + address);
     }
+
     getAddress();
   }, [privateKey]);
-
-  const onClick = () => {
-    setStep(2);
-  };
 
   return (
     <>
@@ -46,7 +41,7 @@ const Create = () => {
           </Typography>
 
           {step === 1 && (
-            <LoadingButton className="button" size="large" onClick={onClick}>
+            <LoadingButton className="button" size="large" onClick={() => setStep(2)}>
               SET PRIVATE KEY
             </LoadingButton>
           )}

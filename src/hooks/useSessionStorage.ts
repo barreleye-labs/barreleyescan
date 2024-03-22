@@ -6,7 +6,6 @@ function useSessionStorage<T>(key: string): UseSessionStorage<T> {
       const item = window.sessionStorage.getItem(key);
 
       if (item === null) return undefined;
-      console.log(typeof item, item);
 
       return item;
     } catch (error) {

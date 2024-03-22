@@ -27,41 +27,47 @@ import { Char, Crypto } from '@utils';
 
 import { BTN_TYPE, buttonHandlerStore } from '@src/stores';
 
+const txDefaultData = (): TransactionRequest => {
+  return {
+    nonce: '',
+    from: '',
+    to: '',
+    value: '',
+    data: 'ab'
+  };
+};
+
 const Transfer = () => {
   const loading = buttonHandlerStore((state) => state.loadingTransfer);
   const setLoading = buttonHandlerStore((state) => state.setLoading);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
   const [getSession] = useSessionStorage<string>('key');
+  const isSession = getSession();
+  const [tx, onChange, setTx] = useInput<TransactionRequest>(txDefaultData());
 
-  const txDefaultData = useCallback(async (): TransactionRequest => {
-    return {
-      nonce: '',
-      from: '',
-      to: '',
-      value: '',
-      data: 'ab'
-    };
-  }, []);
-  const [tx, onChange, setTx] = useInput<TransactionRequest>();
-
-  useEffect(() => {
-    if (getSession()) {
-      setTx({ ...tx, from: Crypto.privateKeyToAddress(getSession() as string) });
-    }
-    console.log('tx', Crypto.privateKeyToAddress(getSession() as string));
-  }, []);
-
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(isSession ? 2 : 1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
-  const { data: accountInfo, mutate: accountMutate } = AccountService().GetOneById(tx?.from);
 
   const initData = useCallback(() => {
     setTx(txDefaultData());
     setStep(1);
     setPrivateKey('');
   }, []);
-  console.log(txDefaultData());
+
+  useEffect(() => {
+    const getAddress = async () => {
+      const address = await Crypto.privateKeyToAddress(isSession as string);
+      console.log(address);
+      setTx({ ...tx, from: address as string });
+    };
+
+    if (isSession) {
+      getAddress();
+      setPrivateKey(isSession as string);
+    }
+  }, []);
+
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
       variant,
@@ -94,19 +100,20 @@ const Transfer = () => {
   );
 
   const sendTransaction = useCallback(async () => {
-    const accountInfo = await accountMutate();
+    const { data, error: accountError } = await AccountService().GetOneById(tx.from);
 
-    if (!accountInfo)
+    if (accountError)
       return showToast({
         variant: 'error',
         message: 'Insufficient balance. You can receive coins through faucet.'
       });
 
-    const nonce = accountInfo.account.nonce;
+    const nonce = data.account.nonce;
+
     const { r, s } = getSignature(nonce);
     const { x, y } = getSigner();
 
-    const { error } = await TransactionsService().Send({
+    const { error: transactionsError } = await TransactionsService().Send({
       ...tx,
       nonce,
       value: '0x' + Char.numberToHex(Number(tx.value)),
@@ -117,32 +124,29 @@ const Transfer = () => {
       signerY: y
     });
 
-    if (error)
+    if (transactionsError)
       return showToast({ variant: 'error', message: 'Insufficient balance. You can receive coins through faucet.' });
 
     setLoading(BTN_TYPE.TRANSFER);
     setTimeout(() => {
       showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
-      initData();
+      !isSession && initData();
       setLoading(BTN_TYPE.TRANSFER);
     }, 13000);
   }, [tx]);
 
   const onSubmit = useCallback(async () => {
     if (step === 1) {
-      const from = Crypto.privateKeyToAddress(privateKey).toString();
+      const from = await Crypto.privateKeyToAddress(privateKey);
 
-      // const { x, y } = Crypto.generatePublicKey(privateKey);
-      // const from = (await Crypto.sha256Veta(x.concat(y))).substring(0, 40); // 임시.
-      // const from = sha256(x.concat(y)).toString().substring(0, 40); // TODO: 트랜잭션 해시할 때는 올바른 값이 나오는데, 왜 다른 값이 나오는지 확인 필요.
-
-      setTx({ ...tx, from });
+      setTx({ ...tx, from: from as string });
       return setStep(2);
     }
 
     if (tx.from === Char.remove0x(tx.to)) {
       return showToast({ variant: 'error', message: 'Cannot send to the same address.' });
     }
+
     /**
      * validator
      */
@@ -152,7 +156,7 @@ const Transfer = () => {
   const disabled = useMemo(() => (step === 1 ? !privateKey : !tx.to || !tx.value), [tx, step, privateKey]);
   return (
     <>
-      {step === 1 && !getSession() ? (
+      {step === 1 && !isSession ? (
         <PrivateForm
           title="Enter an acceptable private key."
           sub="Please enter the private key to sign the transaction."
@@ -181,12 +185,12 @@ const Transfer = () => {
                     Please enter the information required to send the transaction. And try sending the transaction.
                   </Typography>
 
-                  <Input label="From Address" disabled={true} defaultValue={`0x${tx?.from}`} />
-                  <Input label="To Address" name="to" onChange={onChange} defaultValue={tx?.to} />
+                  <Input label="From Address" disabled={true} value={`0x${tx.from}`} />
+                  <Input label="To Address" name="to" onChange={onChange} value={tx.to} />
 
                   <Input
                     name="value"
-                    defaultValue={tx?.value as string}
+                    value={tx.value}
                     onChange={onChange}
                     type="number"
                     label="Amount to Send"
