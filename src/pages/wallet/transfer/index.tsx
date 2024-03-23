@@ -45,7 +45,7 @@ const Transfer = () => {
   const commonPrivateKey = commonPrivateKeyStore((state) => state.privateKey);
 
   const [tx, onChange, setTx] = useInput<TransactionRequest>(txDefaultData());
-
+  const [balance, setBalance] = useState<string>();
   const [step, setStep] = useState(commonPrivateKey ? 2 : 1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
 
@@ -59,6 +59,7 @@ const Transfer = () => {
     if (commonPrivateKey) {
       setTx({ ...tx, from: commonAddress });
       setPrivateKey(commonPrivateKey);
+      fetchAccount();
     }
   }, []);
 
@@ -93,8 +94,8 @@ const Transfer = () => {
     [privateKey, tx]
   );
 
-  const sendTransaction = useCallback(async () => {
-    const { data, error: accountError } = await AccountService().GetOneById(tx.from);
+  async function fetchAccount(address = commonAddress) {
+    const { data, error: accountError } = await AccountService().GetOneById(address);
 
     if (accountError)
       return showToast({
@@ -102,15 +103,19 @@ const Transfer = () => {
         message: 'Insufficient balance. You can receive coins through faucet.'
       });
 
-    const nonce = data.account.nonce;
+    const { nonce, balance } = data.account;
 
-    const { r, s } = getSignature(nonce);
+    setTx((tx) => ({ ...tx, nonce }));
+    setBalance(Char.hexToBalance(balance));
+  }
+
+  const sendTransaction = useCallback(async () => {
+    const { r, s } = getSignature(tx.nonce);
     const { x, y } = getSigner();
 
     const { error: transactionsError } = await TransactionsService().Send({
       ...tx,
-      nonce,
-      value: '0x' + Char.numberToHex(Number(tx.value)),
+      value: Char.add0x(Char.numberToHex(Number(tx.value))),
       to: Char.remove0x(tx.to),
       signatureR: r,
       signatureS: s,
@@ -124,6 +129,7 @@ const Transfer = () => {
     setLoading(BTN_TYPE.TRANSFER);
     setTimeout(() => {
       showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
+      fetchAccount();
       !commonPrivateKey && initData();
       setLoading(BTN_TYPE.TRANSFER);
     }, 13000);
@@ -152,6 +158,8 @@ const Transfer = () => {
       const from = await Crypto.privateKeyToAddress(privateKey);
 
       setTx({ ...tx, from: from as string });
+      await fetchAccount(from);
+
       return setStep(2);
     }
 
@@ -189,10 +197,14 @@ const Transfer = () => {
                   <Typography sx={{ mb: 1 }} color="text.secondary">
                     Please enter the information required to send the transaction. And try sending the transaction.
                   </Typography>
+                  <Input
+                    label="From Address"
+                    helperText={`Account Balance: ${balance} Barrel.`}
+                    disabled={true}
+                    value={Char.add0x(tx.from)}
+                  />
 
-                  <Input label="From Address" disabled={true} value={`0x${tx.from}`} />
                   <Input label="To Address" name="to" onChange={onChange} value={tx.to} />
-
                   <Input
                     name="value"
                     value={tx.value}

@@ -28,13 +28,13 @@ const Nodes = () => {
   });
 
   return (
-    <Stack spacing={2} direction={{ sm: 'column', lg: 'row' }}>
+    <Stack>
       <AvatarCard
         config={barreleyeConfig}
         src="src/assets/barreleye.png"
         address={barreleye?.account.address ?? '-'}
-        nonce={barreleye?.account.nonce ?? '-'}
-        balance={barreleye?.account.balance ?? '-'}
+        nonce={barreleye?.account.nonce ?? '0'}
+        balance={barreleye?.account.balance ?? '0'}
         title="Barreleye"
       />
 
@@ -42,8 +42,8 @@ const Nodes = () => {
         config={nayoungConfig}
         src="src/assets/nayoung.jpeg"
         address={nayoung?.account.address ?? '-'}
-        nonce={nayoung?.account.nonce ?? '-'}
-        balance={nayoung?.account.balance ?? '-'}
+        nonce={nayoung?.account.nonce ?? '0'}
+        balance={nayoung?.account.balance ?? '0'}
         title="Nayoung"
       />
 
@@ -51,8 +51,8 @@ const Nodes = () => {
         config={youngminConfig}
         src="src/assets/youngmin.jpeg"
         address={youngmin?.account.address ?? '-'}
-        nonce={youngmin?.account.nonce ?? '-'}
-        balance={youngmin?.account.balance ?? '-'}
+        nonce={youngmin?.account.nonce ?? '0'}
+        balance={youngmin?.account.balance ?? '0'}
         title="Youngmin"
       />
     </Stack>

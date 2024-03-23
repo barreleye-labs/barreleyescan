@@ -17,6 +17,5 @@ export const commonPrivateKeyStore = create<State & Action>((set) => ({
 
   set: (privateKey: string) => set({ privateKey }),
   remove: () => set({ privateKey: '' }),
-
   setAddress: (address) => set({ address })
 }));

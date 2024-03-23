@@ -95,7 +95,6 @@ const Faucet = () => {
             <Input
               label="Barrel Balance"
               name="balance"
-              type="number"
               placeholder="0.000000"
               disabled={true}
               value={balance}

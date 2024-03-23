@@ -39,6 +39,10 @@ function remove0x(hex: string) {
   return hex.replace('0x', '');
 }
 
+function add0x(hex: string) {
+  return `0x${hex}`;
+}
+
 function hexToDecimal(hex: string) {
   return parseInt(hex, 16).toString();
 }
@@ -76,6 +80,7 @@ export const Char = {
 
   isAddress,
   ellipsis,
+  add0x,
   remove0x,
   hexToDecimal
 };

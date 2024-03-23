@@ -14,7 +14,7 @@ import Detail from '@components/detail';
 import LinkUnderline from '@components/link';
 import Row from '@components/row';
 
-import { Time } from '@utils';
+import { Char, Time } from '@utils';
 
 function Block() {
   dayjs.extend(utc);
@@ -60,24 +60,32 @@ function Block() {
         ) : (
           <>
             <Row label="Time" content={setTime()}></Row>
-            <Row label="Hash" content={`0x${data?.block.hash}`}></Row>
-            <Row label="Prev Hash" content={`0x${data?.block.prevBlockHash}`}></Row>
+            <Row label="Hash" content={Char.add0x(data?.block.hash)}></Row>
+            <Row label="Prev Hash" content={Char.add0x(data?.block.prevBlockHash)}></Row>
             <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
               {data?.block.txCount > 0
                 ? data?.block.transactions.map((hash: string) => (
-                    <LinkUnderline key={hash} path={`/transaction/${hash}`} underlink={hash}></LinkUnderline>
+                    <LinkUnderline
+                      key={hash}
+                      path={`/transaction/${Char.add0x(hash)}`}
+                      underlink={Char.add0x(hash)}
+                    ></LinkUnderline>
                   ))
                 : ''}
             </Row>
             <Row label="Block Reward" content="10 Barrel"></Row>
             <Row label="Version" content={data?.block.version}></Row>
-            <Row label="Datahash" content={`0x${data?.block.dataHash}`}></Row>
+            <Row label="Datahash" content={Char.add0x(data?.block.dataHash)}></Row>
             <Row label="Extra">
-              <Button onClick={() => navigate(`/account/${data?.block.signer}`)} size="small" variant="outlined">
+              <Button
+                onClick={() => navigate(`/account/${Char.add0x(data?.block.signer)}`)}
+                size="small"
+                variant="outlined"
+              >
                 {data?.block.extra}
               </Button>
             </Row>
-            <Row label="Block producer" content={`0x${data?.block.signer}`}></Row>
+            <Row label="Block producer" content={Char.add0x(data?.block.signer)}></Row>
           </>
         )}
       </>

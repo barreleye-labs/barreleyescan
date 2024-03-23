@@ -1,7 +1,5 @@
 import { useState } from 'react';
 
-import { CardContainer, CardContent } from './styles';
-
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -17,6 +15,8 @@ import { styled } from '@mui/material/styles';
 import { NodeConfig } from '@pages/nodes/nodeConfig';
 
 import { Char } from '@utils';
+
+import { CardContainer, CardContent } from './styles';
 
 interface Props {
   config: NodeConfig;
@@ -116,13 +116,13 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
             <Typography color="neutral" level="body-md" fontWeight="lg">
               Address
               <Tooltip title="Copy Address" placement="top">
-                <span className="copy-icon" onClick={() => onCopy(`0x${address}`)}>
+                <span className="copy-icon" onClick={() => onCopy(Char.add0x(address))}>
                   <ContentCopyIcon />
                 </span>
               </Tooltip>
             </Typography>
             <Typography className="value" fontWeight="md">
-              0x{address}
+              {Char.add0x(address)}
             </Typography>
 
             <Typography color="neutral" level="body-md" fontWeight="lg">

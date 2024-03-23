@@ -46,14 +46,14 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
       </TableHead>
       <TableBody>
         {!data ? (
-          <SkeletonTable columns={isSimpleData ? 5 : 7} size={size} />
+          <SkeletonTable columns={isSimpleData ? 6 : 7} size={size} />
         ) : (
           data.transactions.map((row: Transaction) => (
             <TableRow key={row.hash} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell style={{ width: 250 }} align="left">
                 <LinkUnderline
-                  path={`/transaction/${row.hash}`}
-                  underlink={`0x${Char.ellipsis(row.hash)}`}
+                  path={`/transaction/${Char.add0x(row.hash)}`}
+                  underlink={Char.add0x(Char.ellipsis(row.hash))}
                 ></LinkUnderline>
               </TableCell>
               <TableCell align="left" style={{ width: 200 }}>
@@ -66,13 +66,19 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
               )}
 
               <TableCell style={{ width: '11%' }} align="left">
-                <LinkUnderline path={`/account/${row.from}`} underlink={`0x${Char.ellipsis(row.from)}`}></LinkUnderline>
+                <LinkUnderline
+                  path={`/account/${Char.add0x(row.from)}`}
+                  underlink={Char.add0x(Char.ellipsis(row.from))}
+                ></LinkUnderline>
               </TableCell>
               <TableCell align="left" style={{ textAlign: 'center', width: 100, padding: 0 }}>
                 <ArrowForwardIcon />
               </TableCell>
               <TableCell align="left" style={{ width: '14%' }}>
-                <LinkUnderline path={`/account/${row.to}`} underlink={`0x${Char.ellipsis(row.to)}`}></LinkUnderline>
+                <LinkUnderline
+                  path={`/account/${Char.add0x(row.to)}`}
+                  underlink={Char.add0x(Char.ellipsis(row.to))}
+                ></LinkUnderline>
               </TableCell>
               <TableCell align="right" style={{ width: 200 }}>
                 {Char.hexToBalance(row.value.toString())} <span className="description">Barrel</span>

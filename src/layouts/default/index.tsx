@@ -83,9 +83,7 @@ const DefaultLayout = () => {
   return (
     <>
       <Container>
-        <Header>
-          <Breadcrumb />
-
+        <div>
           {/* Action Buttons */}
           <ButtonWrapper>
             {!privateKey ? (
@@ -94,6 +92,16 @@ const DefaultLayout = () => {
               </Button>
             ) : (
               <>
+                <Button
+                  variant="outlined"
+                  color="neutral"
+                  size="lg"
+                  startDecorator={<AutoAwesomeIcon />}
+                  onClick={() => modalHandle()}
+                >
+                  Clear Private Key
+                </Button>
+
                 <HtmlTooltip
                   title={
                     <>
@@ -110,35 +118,29 @@ const DefaultLayout = () => {
                     className="success"
                     startDecorator={<Ripple />}
                     size="lg"
-                    onClick={() => navigate(`/account/${commonAddress}`)}
-                  >{`0x${ellipsisAddress}`}</Button>
+                    onClick={() => navigate(`/account/${Char.add0x(commonAddress)}`)}
+                  >
+                    {Char.add0x(ellipsisAddress)}
+                  </Button>
                 </HtmlTooltip>
-
-                <Button
-                  variant="outlined"
-                  color="neutral"
-                  size="lg"
-                  startDecorator={<AutoAwesomeIcon />}
-                  onClick={() => modalHandle()}
-                >
-                  Clear Private Key
-                </Button>
               </>
             )}
-            <Chip label="Main Network" variant="outlined" icon={<RssFeedIcon />} />
+            <Chip className="responsive-mobile-none" label="Main Network" variant="outlined" icon={<RssFeedIcon />} />
           </ButtonWrapper>
 
-          <ResponsiveModal
-            open={open}
-            onConfirm={() => onConfirm()}
-            onClose={() => setOpen(false)}
-            title="Do you really want to clear your private key from your browser?"
-            sub="This action will delete your private key stored in your browser’s storage. You’ll need to type in your private key again to check your balance or send Barrel."
-          />
-        </Header>
+          <Breadcrumb />
 
-        <Outlet />
+          <Outlet />
+        </div>
       </Container>
+
+      <ResponsiveModal
+        open={open}
+        onConfirm={() => onConfirm()}
+        onClose={() => setOpen(false)}
+        title="Do you really want to clear your private key from your browser?"
+        sub="This action will delete your private key stored in your browser’s storage. You’ll need to type in your private key again to check your balance or send Barrel."
+      />
     </>
   );
 };

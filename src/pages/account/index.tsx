@@ -31,7 +31,7 @@ const Account = () => {
   }, [address]);
 
   async function fetchAccount() {
-    const { data, error } = await AccountService().GetOneById(address as string);
+    const { data, error } = await AccountService().GetOneById(Char.remove0x(address as string));
 
     if (error) {
       return setAccount(defaultAccount());
@@ -49,7 +49,7 @@ const Account = () => {
 
   const onValidCheck = debounce(async (address: string) => {
     Char.isAddress(address)
-      ? navigate(`/account/${Char.remove0x(address)}`)
+      ? navigate(`/account/${Char.add0x(address)}`)
       : showToast({ variant: 'error', message: 'Check your address format' });
   }, 500);
 
@@ -61,12 +61,12 @@ const Account = () => {
     <Card>
       <SearchInput onChange={onChange} />
 
-      <Detail icon={<FilterNoneIcon />} title={address ? `0x${address}` : 'No Account Info'}>
+      <Detail icon={<FilterNoneIcon />} title={address ? address : 'No Account Info'}>
         {!address ? (
           'Search Account!'
         ) : (
           <>
-            <Row label="Address" content={`0x${address}`}></Row>
+            <Row label="Address" content={address}></Row>
 
             <Row label="Balance" content={`${Char.hexToBalance(account.balance)} Barrel `}></Row>
             <Row label="Nonce" content={Char.hexToDecimal(account.nonce)}></Row>

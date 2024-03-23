@@ -307,7 +307,6 @@ export const DefaultCard = styles.div`
    }
 `;
 export const Container = styles(ICard)`
-  width: 80%;
   min-width: 80%;
   margin: 0 auto;
 

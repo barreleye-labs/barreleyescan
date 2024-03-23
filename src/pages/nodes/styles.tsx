@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 
-import IStack from '@mui/joy/Stack';
-
-export const Stack = styled(IStack)`
-  gap: 20px;
-  width: 100%;
-  justify-content: space-between;
+export const Stack = styled.div`
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 8px;
 `;

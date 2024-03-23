@@ -1,7 +1,7 @@
 import { ChangeEvent, memo } from 'react';
 
-import { TextField } from '@mui/material';
-import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/joy/FormHelperText';
+import { FormControl, TextField } from '@mui/material';
 
 import { Container } from './styles';
 
@@ -15,6 +15,7 @@ interface Props {
   fullWidth?: boolean;
   width?: string;
   placeholder?: string;
+  helperText?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -27,6 +28,7 @@ const Input = memo(
     value,
     disabled,
     label,
+    helperText,
     fullWidth,
     onChange,
     onBlur,
@@ -49,6 +51,7 @@ const Input = memo(
             onChange={(e) => onChange && onChange(e)}
             onBlur={(e) => onBlur && onBlur(e)}
           />
+          <FormHelperText>{helperText}</FormHelperText>
         </FormControl>
       </Container>
     );

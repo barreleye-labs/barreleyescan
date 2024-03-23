@@ -10,7 +10,7 @@ import Card from '@components/card';
 import { CustomInput } from '@components/input';
 import LinkUnderline from '@components/link';
 
-import { Crypto } from '@utils';
+import { Char, Crypto } from '@utils';
 
 const Create = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Create = () => {
   useEffect(() => {
     async function getAddress() {
       const address = await Crypto.privateKeyToAddress(privateKey as string);
-      setAddress('0x' + address);
+      setAddress(Char.add0x(address as string));
     }
 
     getAddress();

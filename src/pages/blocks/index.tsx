@@ -86,11 +86,15 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
                       <Typography color="inherit">
                         <b>{row.extra}</b>
                       </Typography>
-                      <em>(0x{row.signer})</em>
+                      <em>({Char.add0x(row.signer)})</em>
                     </>
                   }
                 >
-                  <Button onClick={() => navigate(`/account/${row.signer}`)} size="small" variant="outlined">
+                  <Button
+                    onClick={() => navigate(`/account/${Char.add0x(row.signer)}`)}
+                    size="small"
+                    variant="outlined"
+                  >
                     {row.extra}
                   </Button>
                 </HtmlTooltip>
@@ -98,16 +102,16 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
 
               {!isSimpleData && (
                 <TableCell align="left">
-                  <HtmlTooltip title={<em>0x{row.hash}</em>}>
-                    <span>0x{Char.ellipsis(row.hash)}</span>
+                  <HtmlTooltip title={<em>{Char.add0x(row.hash)}</em>}>
+                    <span>{Char.add0x(Char.ellipsis(row.hash))}</span>
                   </HtmlTooltip>
                 </TableCell>
               )}
 
               {!isSimpleData && (
                 <TableCell align="left">
-                  <HtmlTooltip title={<em>0x{row.prevBlockHash}</em>}>
-                    <span>0x{Char.ellipsis(row.prevBlockHash)}</span>
+                  <HtmlTooltip title={<em>{Char.add0x(row.prevBlockHash)}</em>}>
+                    <span>{Char.add0x(Char.ellipsis(row.prevBlockHash))}</span>
                   </HtmlTooltip>
                 </TableCell>
               )}
