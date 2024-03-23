@@ -14,7 +14,7 @@ import { SkeletonTable } from '@components/skeleton';
 import { Table, TableBody, TableCell, TableHead } from '@components/table';
 import IntervalTimestamp from '@components/time';
 
-import { Hash } from '@utils';
+import { Char } from '@utils';
 
 import { Button, TableRow } from './styles.tsx';
 
@@ -99,7 +99,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
               {!isSimpleData && (
                 <TableCell align="left">
                   <HtmlTooltip title={<em>0x{row.hash}</em>}>
-                    <span>0x{Hash.ellipsis(row.hash)}</span>
+                    <span>0x{Char.ellipsis(row.hash)}</span>
                   </HtmlTooltip>
                 </TableCell>
               )}
@@ -107,7 +107,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
               {!isSimpleData && (
                 <TableCell align="left">
                   <HtmlTooltip title={<em>0x{row.prevBlockHash}</em>}>
-                    <span>0x{Hash.ellipsis(row.prevBlockHash)}</span>
+                    <span>0x{Char.ellipsis(row.prevBlockHash)}</span>
                   </HtmlTooltip>
                 </TableCell>
               )}

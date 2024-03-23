@@ -9,6 +9,9 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [react(), tsconfigPaths()],
     server: {
+      hmr: {
+        overlay: false
+      },
       proxy: {
         '/api': {
           target: process.env.VITE_API_SERVER_URL,

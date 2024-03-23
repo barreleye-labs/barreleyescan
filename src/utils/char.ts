@@ -60,6 +60,13 @@ function isAddress(address: string) {
   return false;
 }
 
+function ellipsis(value: string) {
+  const a = value.substring(0, 6);
+  const b = value.slice(-6, value.length);
+
+  return `${a}...${b}`;
+}
+
 export const Char = {
   bytesToHex,
   hexToBalance,
@@ -68,6 +75,7 @@ export const Char = {
   numberToHex,
 
   isAddress,
+  ellipsis,
   remove0x,
   hexToDecimal
 };

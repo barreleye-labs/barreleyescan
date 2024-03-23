@@ -4,18 +4,19 @@ import type { ColorPaletteProp, VariantProp } from '@mui/joy';
 import DefaultButton from '@mui/joy/Button';
 
 interface Props {
-  text: string;
+  text: any;
   variant?: VariantProp;
   size?: 'sm' | 'md' | 'lg';
   color?: ColorPaletteProp;
+  className?: string;
   children?: ReactNode;
   startDecorator?: ReactNode;
   onClick?: () => void;
 }
-const Button = ({ children, variant = 'outlined', color = 'neutral', size, text, startDecorator, onClick }: Props) => {
+const Button = ({ className, variant = 'outlined', color = 'neutral', size, text, startDecorator, onClick }: Props) => {
   return (
     <DefaultButton
-      component="a"
+      className={className}
       size={size}
       startDecorator={startDecorator}
       variant={variant}
@@ -23,7 +24,6 @@ const Button = ({ children, variant = 'outlined', color = 'neutral', size, text,
       onClick={onClick}
     >
       {text}
-      {children}
     </DefaultButton>
   );
 };

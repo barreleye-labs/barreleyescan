@@ -16,7 +16,6 @@ import { Signature } from '@type/dto/signature';
 import { TransactionRequest } from '@type/dto/transaction';
 
 import useInput from '@hooks/useInput';
-import useSessionStorage from '@hooks/useSessionStorage';
 
 import Card from '@components/card';
 import { PrivateForm } from '@components/form';
@@ -25,7 +24,7 @@ import LinkUnderline from '@components/link';
 
 import { Char, Crypto } from '@utils';
 
-import { BTN_TYPE, buttonHandlerStore } from '@src/stores';
+import { BTN_TYPE, buttonHandlerStore, commonPrivateKeyStore } from '@src/stores';
 
 const txDefaultData = (): TransactionRequest => {
   return {
@@ -42,11 +41,12 @@ const Transfer = () => {
   const setLoading = buttonHandlerStore((state) => state.setLoading);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
-  const [getSession] = useSessionStorage<string>('key');
-  const isSession = getSession();
+  const commonAddress = commonPrivateKeyStore((state) => state.address);
+  const commonPrivateKey = commonPrivateKeyStore((state) => state.privateKey);
+
   const [tx, onChange, setTx] = useInput<TransactionRequest>(txDefaultData());
 
-  const [step, setStep] = useState(isSession ? 2 : 1);
+  const [step, setStep] = useState(commonPrivateKey ? 2 : 1);
   const [privateKey, onChangePrivateKey, setPrivateKey] = useInput('');
 
   const initData = useCallback(() => {
@@ -56,15 +56,9 @@ const Transfer = () => {
   }, []);
 
   useEffect(() => {
-    const getAddress = async () => {
-      const address = await Crypto.privateKeyToAddress(isSession as string);
-      console.log(address);
-      setTx({ ...tx, from: address as string });
-    };
-
-    if (isSession) {
-      getAddress();
-      setPrivateKey(isSession as string);
+    if (commonPrivateKey) {
+      setTx({ ...tx, from: commonAddress });
+      setPrivateKey(commonPrivateKey);
     }
   }, []);
 
@@ -130,10 +124,28 @@ const Transfer = () => {
     setLoading(BTN_TYPE.TRANSFER);
     setTimeout(() => {
       showToast({ variant: 'success', message: 'Transaction transfer was successful!' });
-      !isSession && initData();
+      !commonPrivateKey && initData();
       setLoading(BTN_TYPE.TRANSFER);
     }, 13000);
   }, [tx]);
+
+  const isValidAddress = (): boolean => {
+    let isValid = true;
+
+    if (tx.from === Char.remove0x(tx.to)) {
+      isValid = false;
+      showToast({ variant: 'error', message: 'Cannot send to the same address.' });
+      return isValid;
+    }
+
+    if (!Char.isAddress(tx.to)) {
+      showToast({ variant: 'error', message: 'Check your address format' });
+      isValid = false;
+      return isValid;
+    }
+
+    return isValid;
+  };
 
   const onSubmit = useCallback(async () => {
     if (step === 1) {
@@ -143,20 +155,13 @@ const Transfer = () => {
       return setStep(2);
     }
 
-    if (tx.from === Char.remove0x(tx.to)) {
-      return showToast({ variant: 'error', message: 'Cannot send to the same address.' });
-    }
-
-    /**
-     * validator
-     */
-    Char.isAddress(tx.to) ? sendTransaction() : showToast({ variant: 'error', message: 'Check your address format' });
+    if (isValidAddress()) await sendTransaction();
   }, [privateKey, tx, step]);
 
   const disabled = useMemo(() => (step === 1 ? !privateKey : !tx.to || !tx.value), [tx, step, privateKey]);
   return (
     <>
-      {step === 1 && !isSession ? (
+      {step === 1 && !commonPrivateKey ? (
         <PrivateForm
           title="Enter an acceptable private key."
           sub="Please enter the private key to sign the transaction."
