@@ -97,11 +97,7 @@ const Transfer = () => {
   async function fetchAccount(address = commonAddress) {
     const { data, error: accountError } = await AccountService().GetOneById(address);
 
-    if (accountError)
-      return showToast({
-        variant: 'error',
-        message: 'Insufficient balance. You can receive coins through faucet.'
-      });
+    if (accountError) return setBalance(0);
 
     const { nonce, balance } = data.account;
 
