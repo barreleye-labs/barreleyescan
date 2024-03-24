@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-
 import { teal } from '@mui/material/colors';
 
 const breakpoints = [576, 768, 992, 1200];
@@ -21,7 +20,7 @@ export const Container = styled.div`
     color: rgba(202, 203, 216, 0.5);
     margin-bottom: 1rem;
     button {
-      width: 240px;
+      width: 211px;
       height: 40px;
       color: #b5b5c3;
       margin-bottom: 3rem;

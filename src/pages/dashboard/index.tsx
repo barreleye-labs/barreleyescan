@@ -8,7 +8,7 @@ import PolylineIcon from '@mui/icons-material/Polyline';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import Grid from '@mui/material/Unstable_Grid2';
 
-import BlocksService from '@services/blocks.ts';
+import BlocksService from '@services/blocks';
 
 import Blocks from '@pages/blocks';
 import Transactions from '@pages/transactions';
@@ -91,6 +91,7 @@ const Dashboard = () => {
             </div>
           </Card>
         </Grid>
+
         <Grid xs={12} sm={6} md={2.75}>
           <Card>
             <div className="wrapper">
@@ -121,10 +122,10 @@ const Dashboard = () => {
         </Grid>
       </Grid>
 
-      <Grid container spacing={2} className="margin-spacing">
-        <Grid xs={16} md={5}>
+      <Grid container spacing={2} className=" margin-spacing">
+        <Grid xs={16} md={5} className="blocks-table">
           <Card>
-            <DashboardTable>
+            <DashboardTable className="blocks-table">
               <div>
                 <div className="header">
                   <h2>Recent Blocks</h2>

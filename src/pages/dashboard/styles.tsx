@@ -87,7 +87,7 @@ export const Card = styled.div`
     h4 {
       font-weight: 600;
       line-height: 1.57143;
-      font-size: 14px;
+      font-size: 12px;
       color: rgb(145, 158, 171);
     }
     h2 {
@@ -127,6 +127,18 @@ export const Card = styled.div`
         font-size: 1.5rem;
       }
     }
+  }
+
+  .MuiTableCell-root {
+    padding: 4px;
+  }
+
+  .MuiTableCell-root:nth-of-type(1) {
+    padding-left: 5px !important;
+  }
+
+  .MuiTableCell-root:nth-last-of-type(1) {
+    padding-right: 3px !important;
   }
 
   .dashboard-table-wrapper {
@@ -263,5 +275,25 @@ export const Card = styled.div`
 
     justify-content: space-around;
     padding: 1rem;
+  }
+
+  ${mq[1]} {
+    .MuiButtonBase-root {
+      font-size: 10px;
+      padding: 2px 7px;
+    }
+
+    .MuiTableCell-root:nth-of-type(2) {
+      font-size: 10px;
+      word-spacing: -1px;
+    }
+
+    .blocks-table {
+      tbody {
+        .MuiTableCell-root:nth-of-type(3) {
+          width: 30px !important;
+        }
+      }
+    }
   }
 `;

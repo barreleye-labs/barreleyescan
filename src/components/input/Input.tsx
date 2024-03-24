@@ -11,6 +11,7 @@ interface Props {
   label?: string;
   defaultValue?: string | number;
   value?: string | number;
+  error?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
   width?: string;
@@ -22,6 +23,7 @@ interface Props {
 const Input = memo(
   ({
     name,
+    error,
     width = '80%',
     type,
     defaultValue,
@@ -38,6 +40,7 @@ const Input = memo(
       <Container>
         <FormControl sx={{ m: 1, width }} variant="standard">
           <TextField
+            error={error}
             id="fullWidth"
             margin="normal"
             name={name}
@@ -51,7 +54,7 @@ const Input = memo(
             onChange={(e) => onChange && onChange(e)}
             onBlur={(e) => onBlur && onBlur(e)}
           />
-          <FormHelperText>{helperText}</FormHelperText>
+          <FormHelperText className={error ? 'error' : 'info'}>{helperText}</FormHelperText>
         </FormControl>
       </Container>
     );

@@ -73,6 +73,7 @@ const Blocks = ({ isPagination = true, size = 10, isSimpleData = false }: Props)
               <TableCell>
                 <LinkUnderline path={`/block/${row.height}`} underlink={row.height.toString()}></LinkUnderline>
               </TableCell>
+
               <TableCell align="left">
                 <IntervalTimestamp data={row.timestamp}></IntervalTimestamp>
               </TableCell>

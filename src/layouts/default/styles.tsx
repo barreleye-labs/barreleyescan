@@ -85,11 +85,11 @@ export const Container = styled.div`
     flex: 1;
     flex-direction: column;
     position: relative;
-    width: 80%;
+    width: 85%;
     height: 100%;
     gap: 17px;
     overflow: auto;
-    padding: 2.4rem 3rem;
+    padding: 1rem 3rem 2.4rem 3rem;
     max-width: 1550px;
     margin: 0 auto;
 

@@ -71,6 +71,12 @@ function ellipsis(value: string) {
   return `${a}...${b}`;
 }
 
+function ellipsis8(value: string) {
+  const a = value.substring(0, 8);
+
+  return `${a}...`;
+}
+
 export const Char = {
   bytesToHex,
   hexToBalance,
@@ -80,6 +86,7 @@ export const Char = {
 
   isAddress,
   ellipsis,
+  ellipsis8,
   add0x,
   remove0x,
   hexToDecimal

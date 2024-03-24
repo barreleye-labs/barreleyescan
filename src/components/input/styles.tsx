@@ -10,12 +10,13 @@ const second = teal[400];
 export const Container = styles.div`
     display:flex;
     align-items: center;
-    
+   
    ${mq[1]} {
     .MuiFormControl-root{
       width: 100% !important;
       }
     }
+
     .button{
       font-size: 1rem;
       font-weight: 700;
@@ -24,9 +25,17 @@ export const Container = styles.div`
         background: ${primary}
       }
     }
+    
    .MuiFormControl-root{
       margin-left: 0;
    }
+   
+   .Mui-error:has(.Mui-disabled) {
+      .MuiOutlinedInput-notchedOutline {
+          border-color: #D32F2F !important;
+      }
+   }  
+    
   .copy-button{
     position: relative;
     box-sizing: border-box;
@@ -72,13 +81,13 @@ export const Container = styles.div`
     .MuiFormControl-root{
       width: 50%;
     }
+  } 
+  .error{
+   color: #D32F2F;
   }
   
-  .MuiFormHelperText-root{
+  .info{
    color: #00987b;
   }
-  
-   
-  
  }
 `;

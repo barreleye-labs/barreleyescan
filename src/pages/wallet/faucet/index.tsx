@@ -27,6 +27,7 @@ const Faucet = () => {
 
   const [accountAddress, setAccountAddress] = useState<string>('');
   const [balance, setBalance] = useState<string>('0');
+  const [isBalanceError, setIsBalanceError] = useState<boolean>(false);
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -36,13 +37,17 @@ const Faucet = () => {
   }, []);
 
   const fetchAccount = async (address = accountAddress) => {
+    setIsBalanceError(false);
     const { data, error } = await AccountService().GetOneById(Char.remove0x(address));
 
     if (error) {
       return setBalance('0');
     }
 
-    setBalance(Char.hexToBalance(data.account.balance));
+    const balance = data.account.balance;
+    setBalance(Char.hexToBalance(balance));
+
+    if (Number(balance) >= 100) setIsBalanceError(true);
   };
 
   const onValidCheck = debounce(async (e) => {
@@ -57,7 +62,12 @@ const Faucet = () => {
       accountAddress: Char.remove0x(accountAddress)
     });
 
-    if (error) return showToast({ variant: 'error', message: 'Invalid address format.\n' });
+    if (error) {
+      if (error.message === 'faucet time limit')
+        return showToast({ variant: 'error', message: 'faucet can only be used once per hour.\n' });
+
+      return showToast({ variant: 'error', message: 'Invalid address format.\n' });
+    }
 
     setLoading(BTN_TYPE.FAUCET);
 
@@ -70,7 +80,7 @@ const Faucet = () => {
     }, 13000);
   }, [accountAddress]);
 
-  const disabled = useMemo(() => !accountAddress, [accountAddress]);
+  const disabled = useMemo(() => !accountAddress || isBalanceError, [accountAddress, isBalanceError]);
 
   return (
     <>
@@ -81,7 +91,7 @@ const Faucet = () => {
               Barrel Faucet
             </Typography>
             <Typography sx={{ mb: 1 }} color="text.secondary">
-              You can receive 10 Barrel through the faucet.
+              You can receive 50 Barrel through the faucet.
             </Typography>
 
             <Input
@@ -93,6 +103,8 @@ const Faucet = () => {
               onChange={onValidCheck}
             />
             <Input
+              error={isBalanceError}
+              helperText={isBalanceError && 'The account already has sufficient balance of more than 100 Barrel.'}
               label="Barrel Balance"
               name="balance"
               placeholder="0.000000"

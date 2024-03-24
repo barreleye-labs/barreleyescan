@@ -24,7 +24,7 @@ export const Container = styled.div`
 export const Sider = styled.div`
   position: relative;
   z-index: 999;
-  min-width: 286px;
+  min-width: 260px;
   border-right: #636b7433;
   background: #001529;
   padding: 16px;

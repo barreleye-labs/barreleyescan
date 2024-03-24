@@ -37,7 +37,7 @@ function Transaction() {
       <Detail
         icon={<FilterNoneIcon />}
         title={location.pathname.split('/')[1].toUpperCase()}
-        subheader={hash as string}
+        subheader={Char.ellipsis(hash as string)}
       >
         {!data ? (
           <>
@@ -48,6 +48,7 @@ function Transaction() {
           </>
         ) : (
           <>
+            <Row label="TX Hash" content={hash}></Row>
             <Row label="TX Type" content="Transfer"></Row>
             <Row label="Block">
               <LinkUnderline

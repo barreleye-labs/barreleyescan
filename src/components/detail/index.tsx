@@ -1,7 +1,5 @@
 import { ReactNode } from 'react';
 
-import { Container } from './styles';
-
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { CardHeader } from '@mui/material';
@@ -9,6 +7,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+
+import { Container } from './styles';
 
 interface Props {
   icon: ReactNode;

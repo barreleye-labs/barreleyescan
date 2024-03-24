@@ -61,7 +61,7 @@ const Account = () => {
     <Card>
       <SearchInput onChange={onChange} />
 
-      <Detail icon={<FilterNoneIcon />} title={address ? address : 'No Account Info'}>
+      <Detail icon={<FilterNoneIcon />} title={address ? Char.ellipsis(address) : 'No Account Info'}>
         {!address ? (
           'Search Account!'
         ) : (
