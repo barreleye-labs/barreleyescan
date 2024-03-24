@@ -27,7 +27,7 @@ const Faucet = () => {
 
   const [accountAddress, setAccountAddress] = useState<string>('');
   const [balance, setBalance] = useState<string>('0');
-  const [isBalanceError, setIsBalanceError] = useState<boolean>(false);
+  const [isBalanceEnoughError, setIsBalanceEnoughError] = useState<boolean>(false);
 
   const showToast = useCallback(({ variant, message }: { variant: 'success' | 'error'; message: string }) => {
     enqueueSnackbar(message, {
@@ -37,17 +37,18 @@ const Faucet = () => {
   }, []);
 
   const fetchAccount = async (address = accountAddress) => {
-    setIsBalanceError(false);
+    setIsBalanceEnoughError(false);
+
     const { data, error } = await AccountService().GetOneById(Char.remove0x(address));
 
     if (error) {
       return setBalance('0');
     }
 
-    const balance = data.account.balance;
-    setBalance(Char.hexToBalance(balance));
+    const balance: string = Char.hexToBalance(data.account.balance);
+    setBalance(balance);
 
-    if (Number(balance) >= 100) setIsBalanceError(true);
+    if (Number(balance) >= 100) setIsBalanceEnoughError(true);
   };
 
   const onValidCheck = debounce(async (e) => {
@@ -80,7 +81,7 @@ const Faucet = () => {
     }, 13000);
   }, [accountAddress]);
 
-  const disabled = useMemo(() => !accountAddress || isBalanceError, [accountAddress, isBalanceError]);
+  const disabled = useMemo(() => !accountAddress || isBalanceEnoughError, [accountAddress, isBalanceEnoughError]);
 
   return (
     <>
@@ -103,8 +104,8 @@ const Faucet = () => {
               onChange={onValidCheck}
             />
             <Input
-              error={isBalanceError}
-              helperText={isBalanceError && 'The account already has sufficient balance of more than 100 Barrel.'}
+              error={isBalanceEnoughError}
+              helperText={isBalanceEnoughError && 'The account already has sufficient balance of more than 100 Barrel.'}
               label="Barrel Balance"
               name="balance"
               placeholder="0.000000"
