@@ -21,7 +21,7 @@ function useSessionStorage<T>(key: string): UseSessionStorage<T> {
 
   const setSession = (value: T): void => {
     try {
-      window.sessionStorage.setItem(key, JSON.stringify(value));
+      window.sessionStorage.setItem(key, value);
     } catch (error) {
       console.log(error);
     }

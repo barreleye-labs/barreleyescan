@@ -15,7 +15,7 @@ const SignIn = () => {
   const [_, setSession] = useSessionStorage<string>('key');
 
   const onSubmit = useCallback(() => {
-    setSession(privateKey);
+    setSession(privateKey as string);
     setCommonPrivateKey(privateKey);
     navigate('/dashboard');
   }, [privateKey]);

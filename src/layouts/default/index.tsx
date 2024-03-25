@@ -63,7 +63,7 @@ const DefaultLayout = () => {
 
   useEffect(() => {
     if (privateKey) {
-      setCommonPrivateKey(privateKey);
+      setCommonPrivateKey(privateKey.toString());
     }
   }, []);
 
@@ -73,6 +73,7 @@ const DefaultLayout = () => {
 
   const fetchAddress = async () => {
     if (commonPrivateKey) {
+      console.log('commonPrivateKey >>> ', commonPrivateKey);
       const value = (await Crypto.privateKeyToAddress(commonPrivateKey)) as string;
 
       setCommonAddress(value);

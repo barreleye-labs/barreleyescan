@@ -45,10 +45,10 @@ const Faucet = () => {
       return setBalance('0');
     }
 
-    const balance: string = Char.hexToBalance(data.account.balance);
-    setBalance(balance);
+    const balance: string = data.account.balance;
+    setBalance(Char.hexToBalance(balance));
 
-    if (Number(balance) >= 100) setIsBalanceEnoughError(true);
+    if (Number(Char.hexToDecimal(balance)) >= 100) setIsBalanceEnoughError(true);
   };
 
   const onValidCheck = debounce(async (e) => {

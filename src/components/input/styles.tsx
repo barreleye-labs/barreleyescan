@@ -31,8 +31,15 @@ export const Container = styles.div`
    }
    
    .Mui-error:has(.Mui-disabled) {
+      input:disabled {
+        color:  #D32F2F !important;
+      }
+    
       .MuiOutlinedInput-notchedOutline {
-          border-color: #D32F2F !important;
+        input:disabled {
+          color:  #D32F2F !important;
+        }
+        border-color: #D32F2F !important;
       }
    }  
     
