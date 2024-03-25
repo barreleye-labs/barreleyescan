@@ -2,7 +2,6 @@ import styles from '@emotion/styled';
 
 export const Container = styles.div`
   .label, .content{
-    // padding-bottom: 1rem;
     font-size: 13px;
   }
 

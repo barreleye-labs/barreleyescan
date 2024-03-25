@@ -61,7 +61,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
           <TableRow>
             <TableCell>TX Hash</TableCell>
             <TableCell>Age</TableCell>
-            {!isSimpleData && <TableCell>Block</TableCell>}
+            {!isSimpleData && <TableCell align="left">Block</TableCell>}
             {!isMobile ? (
               <>
                 <TableCell align="left">From</TableCell>
@@ -97,7 +97,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
                 </TableCell>
 
                 {!isSimpleData && (
-                  <TableCell style={{ width: 220 }} component="th" scope="row">
+                  <TableCell align="left" style={{ width: 220 }} component="th" scope="row">
                     <LinkUnderline path={`/block/${row.blockHeight}`} underlink={row.blockHeight}></LinkUnderline>
                   </TableCell>
                 )}

@@ -34,8 +34,12 @@ function Block() {
     [lastBlock, navigate]
   );
 
+  const getTxHashLink = useCallback((hash: string) => {
+    return <LinkUnderline key={hash} path={`/transaction/${Char.add0x(hash)}`} underlink={Char.add0x(hash)} />;
+  }, []);
+
   const setTime = useCallback(() => {
-    const formatUnix = Time.formatUnixNano(data.block.timestamp);
+    const formatUnix = Time.formatUnixNano(data!.block.timestamp);
     const formatUtc = Time.formatUtc(formatUnix);
     const elapsedTime = Time.elapsedTime(formatUnix);
     return `${elapsedTime} (${formatUtc} +UTC)`;
@@ -63,15 +67,7 @@ function Block() {
             <Row label="Hash" content={Char.add0x(data?.block.hash)}></Row>
             <Row label="Prev Hash" content={Char.add0x(data?.block.prevBlockHash)}></Row>
             <Row label="Total TXs" content={`${data?.block.txCount.toString()} TXs`}>
-              {data?.block.txCount > 0
-                ? data?.block.transactions.map((hash: string) => (
-                    <LinkUnderline
-                      key={hash}
-                      path={`/transaction/${Char.add0x(hash)}`}
-                      underlink={Char.add0x(hash)}
-                    ></LinkUnderline>
-                  ))
-                : ''}
+              {data?.block.txCount > 0 ? data?.block.transactions.map((hash: string) => getTxHashLink(hash)) : ''}
             </Row>
             <Row label="Block Reward" content="10 Barrel"></Row>
             <Row label="Version" content={data?.block.version}></Row>

@@ -111,6 +111,7 @@ export default function AvatarCard({ src, address, config, balance, nonce, title
             <ExpandMoreIcon />
           </ExpandMore>
         </CardContent>
+
         <div className="card-flap-wrapper">
           <div className="card-flap flap1">
             <Typography color="neutral" level="body-md" fontWeight="lg">

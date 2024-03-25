@@ -1,5 +1,4 @@
 import styles from '@emotion/styled';
-import styled from '@emotion/styled';
 import ICard from '@mui/joy/Card';
 import Content from '@mui/joy/CardContent';
 
@@ -10,18 +9,19 @@ const mq = breakpoints.map((bp) => `@media (max-width: ${bp}px)`);
 export const CardContainer = styles.div`
     display: flex;
     justify-content:center;
+
     .MuiCardContent-root {
       cursor: pointer;
     }
+
     .MuiCard-root{
-      max-width: 340px;
+      max-width: 304px;
       min-width: 300px;
       width: 100%;
       background: #fcfcfd;
       border: 1px solid #e8eaee;
       border-radius: 20px;
       box-sizing: border-box;
-      
       display: flex;
       flex-wrap: wrap;
       flex-direction: column;
@@ -30,12 +30,12 @@ export const CardContainer = styles.div`
       padding: 32px 15px;
       position: relative;
       height: 300px;
-      
       display: inline-block;
       perspective: 1000;
       position: relative;
       transition: all 0.3s 0s ease-in;
       z-index: 1;
+
       .copy-icon {
         svg {
           font-size: 11px;
@@ -43,6 +43,7 @@ export const CardContainer = styles.div`
           cursor: pointer;
         }
       }
+
       .card-flap-wrapper{
         margin-top: 3rem;
 
@@ -56,7 +57,6 @@ export const CardContainer = styles.div`
           letter-spacing: .2px;
           line-height: 1.79;
           margin-bottom: 0;
-          white-space: nowrap;
           color: #354052;
         }
        
@@ -84,6 +84,7 @@ export const CardContainer = styles.div`
         
       .value {
           font-size: 12px;
+          overflow-wrap: break-word;
         }
       }
         
@@ -97,28 +98,28 @@ export const CardContainer = styles.div`
         z-index: -2;
       }
     }
+
     .icons {
      margin-top: 1.3rem;
      button{
-      &:hover {
-       svg{
-        color: white;
+        &:hover {
+          svg{
+            color: white;
+          }
         }
-      }
         text-align: center;
-        
         svg {
           color: #dfdede;
-        
-        }}
+        }
       }
+    }
+
     .active {
       transition: all 0.3s 0s ease-in;
-      height: 542px;
+      height: 560px;
       opacity: 1 !important;
       transform: scale(1) !important;
         
-      
       .card-flap {
         background: ##fcfcfd !important;
         transform: rotateX(0deg);
