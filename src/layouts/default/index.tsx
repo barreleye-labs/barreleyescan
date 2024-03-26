@@ -73,7 +73,6 @@ const DefaultLayout = () => {
 
   const fetchAddress = async () => {
     if (commonPrivateKey) {
-      console.log('commonPrivateKey >>> ', commonPrivateKey);
       const value = (await Crypto.privateKeyToAddress(commonPrivateKey)) as string;
 
       setCommonAddress(value);
@@ -126,7 +125,7 @@ const DefaultLayout = () => {
                 </HtmlTooltip>
               </>
             )}
-            <Chip className="responsive-mobile-none" label="Main Network" variant="outlined" icon={<RssFeedIcon />} />
+            <Chip className="responsive-mobile-none" label="Test Network" variant="outlined" icon={<RssFeedIcon />} />
           </ButtonWrapper>
 
           <Breadcrumb />

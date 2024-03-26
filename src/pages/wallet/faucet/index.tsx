@@ -48,7 +48,7 @@ const Faucet = () => {
     const balance: string = data.account.balance;
     setBalance(Char.hexToBalance(balance));
 
-    if (Number(Char.hexToDecimal(balance)) >= 100) setIsBalanceEnoughError(true);
+    if (Number(Char.hexToDecimal(balance)) >= 10) setIsBalanceEnoughError(true);
   };
 
   const onValidCheck = debounce(async (e) => {
@@ -92,7 +92,7 @@ const Faucet = () => {
               Barrel Faucet
             </Typography>
             <Typography sx={{ mb: 1 }} color="text.secondary">
-              You can receive 50 Barrel through the faucet.
+              You can receive 5 Barrel through the faucet.
             </Typography>
 
             <Input
@@ -105,7 +105,7 @@ const Faucet = () => {
             />
             <Input
               error={isBalanceEnoughError}
-              helperText={isBalanceEnoughError && 'The account already has sufficient balance of more than 100 Barrel.'}
+              helperText={isBalanceEnoughError && 'The account already has sufficient balance of more than 10 Barrel.'}
               label="Barrel Balance"
               name="balance"
               placeholder="0.000000"
