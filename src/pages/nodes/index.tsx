@@ -14,9 +14,9 @@ interface ConfigType {
 
 const Nodes = () => {
   const nodes: ConfigType[] = [
-    { config: barreleyeConfig, src: 'src/assets/barreleye.png', title: 'Barreleye' },
-    { config: nayoungConfig, src: 'src/assets/nayoung.jpeg', title: 'Nayoung' },
-    { config: youngminConfig, src: 'src/assets/youngmin.jpeg', title: 'Youngmin' }
+    { config: barreleyeConfig, src: '/images/barreleye.png', title: 'Barreleye' },
+    { config: nayoungConfig, src: '/images/nayoung.jpeg', title: 'Nayoung' },
+    { config: youngminConfig, src: '/images/youngmin.jpeg', title: 'Youngmin' }
   ];
 
   return (

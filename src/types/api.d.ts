@@ -11,6 +11,10 @@ declare namespace API {
     error: APIError;
   }
 
+  export interface ErrorResponseType {
+    response: SuccessResponse;
+  }
+
   type Response<T> = SuccessResponse<T> | ErrorResponse;
 
   interface APIError {

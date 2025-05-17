@@ -22,7 +22,7 @@ const createTransactionRequest = (
 const getTxUintArray = (sig: TransactionRequest): Uint8Array => {
   const sigEntries = Object.entries(sig) as [keyof TransactionRequest, string][];
   return new Uint8Array(
-    sigEntries.reduce((acc: number[], [key, value]) => acc.concat(...Char.hexToUint8Array(value)), [])
+    sigEntries.reduce((acc: number[], [, value]) => acc.concat(...Char.hexToUint8Array(value)), [])
   );
 };
 

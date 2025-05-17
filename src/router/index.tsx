@@ -2,6 +2,9 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import loadable from '@loadable/component';
 
+import Blocks from '@pages/blocks';
+import Transactions from '@pages/transactions';
+
 export const router = createBrowserRouter([
   {
     Component: loadable(() => import('@src/layouts')),
@@ -13,14 +16,14 @@ export const router = createBrowserRouter([
       },
       {
         path: '/blocks',
-        Component: loadable(() => import('@pages/blocks'))
+        element: <Blocks isPagination={true} isSimpleData={false} size={10} />
       },
 
       { path: '/block/:height', Component: loadable(() => import('@pages/block')) },
 
       {
         path: '/transactions',
-        Component: loadable(() => import('@pages/transactions'))
+        element: <Transactions isPagination={true} size={10} isSimpleData={false} />
       },
 
       { path: '/transaction/:hash', Component: loadable(() => import('@pages/transaction')) },

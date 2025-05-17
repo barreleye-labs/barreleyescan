@@ -154,7 +154,7 @@ const Dashboard = () => {
         <Grid xs={12} sm={12} md={6.5} className="signature-height">
           <Card>
             <div className="signature">
-              <img src="src/assets/barreleye.png" />
+              <img src="/images/barreleye.png" alt={'barreleye image'} />
               <Logo />
             </div>
           </Card>

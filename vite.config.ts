@@ -7,6 +7,7 @@ export default ({ mode }) => {
   Object.assign(process.env, loadEnv(mode, process.cwd()));
 
   return defineConfig({
+    base: '/',
     plugins: [react(), tsconfigPaths()],
     server: {
       hmr: {
