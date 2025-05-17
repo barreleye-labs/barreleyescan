@@ -12,7 +12,7 @@ export default function ErrorPage() {
   return (
     <div id="error-page" style={styles.container}>
       <div style={styles.content}>
-        <img src={'src/assets/barreleye.png'} alt="BarrelEye Logo" style={styles.logo} />
+        <img src={'/images/barreleye.png'} alt="BarrelEye Logo" style={styles.logo} />
         <h1 style={styles.header}>Oops!</h1>
         <p style={styles.message}>Sorry, an unexpected error has occurred.</p>
         {error && (

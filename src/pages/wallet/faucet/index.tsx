@@ -17,6 +17,8 @@ import LinkUnderline from '@components/link';
 
 import { Char } from '@utils';
 
+import ErrorResponseType = API.ErrorResponseType;
+
 const Faucet = () => {
   const { loadingFaucet, setLoading } = buttonHandlerStore();
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ const Faucet = () => {
         await refetch();
       }, 13000);
     } catch (error) {
-      (error as Error).response.data.error.message === 'faucet time limit'
+      (error as ErrorResponseType).response.data.error.message === 'faucet time limit'
         ? showToast({ variant: 'error', message: 'faucet can only be used once per hour.\n' })
         : showToast({ variant: 'error', message: 'Invalid address format.\n' });
     }

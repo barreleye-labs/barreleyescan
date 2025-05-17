@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { MouseEvent, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Container } from './styles';
@@ -7,7 +7,7 @@ interface Props {
   path?: string;
   underlink?: ReactNode | string | number;
   children?: ReactNode;
-  onClick?: (e) => void;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const LinkUnderline = ({ path, underlink, children, onClick }: Props) => {

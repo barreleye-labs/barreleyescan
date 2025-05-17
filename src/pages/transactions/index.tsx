@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react';
 
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -21,6 +21,7 @@ interface Props {
   isSimpleData: boolean;
   size: number;
 }
+
 const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: Props) => {
   const [isMobile, setMobile] = useState<boolean>();
 
@@ -33,8 +34,7 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
 
   const { data } = useTransactionsQuery().GetAll({ page, size });
 
-  const handleChange = (_, value: number) => {
-    console.log(_);
+  const handleChange = (_: ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
 
