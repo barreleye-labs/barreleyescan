@@ -1,9 +1,7 @@
 import { MutableRefObject, useEffect, useRef } from 'react';
 
-import { MutatorCallback } from 'swr';
-
-function useInterval(callback: MutatorCallback, delay: number) {
-  const savedCallback: MutableRefObject<MutatorCallback | undefined> = useRef();
+function useInterval(callback: () => void, delay: number) {
+  const savedCallback: MutableRefObject<(() => void) | undefined> = useRef();
 
   useEffect(() => {
     savedCallback.current = callback;
