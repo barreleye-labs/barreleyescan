@@ -70,7 +70,6 @@ const Dashboard = () => {
         </Link>
       </Highlight>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const TotalTxCountCard = useCallback(() => {
@@ -81,14 +80,13 @@ const Dashboard = () => {
         </Link>
       </Highlight>
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [txData]);
 
   return (
     <Container>
       <Grid>
         <Grid container spacing={2}>
-          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
             <Card>
               <div className="wrapper">
                 <div className="icon-wrapper ">
@@ -102,7 +100,7 @@ const Dashboard = () => {
             </Card>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
             <Card>
               <div className="wrapper">
                 <div className="icon-wrapper">
@@ -116,7 +114,7 @@ const Dashboard = () => {
             </Card>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
             <Card>
               <div className="wrapper">
                 <div className="icon-wrapper ">
@@ -132,7 +130,7 @@ const Dashboard = () => {
             </Card>
           </Grid>
 
-          <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
             <Card>
               <div className="wrapper">
                 <div className="icon-wrapper ">
@@ -151,7 +149,7 @@ const Dashboard = () => {
           </Grid>
 
           <Grid container spacing={2}>
-            <Grid size={{ xs: 12, sm: 12, md: 6 }} className="signature-height">
+            <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 6 }} className="signature-height">
               <Card>
                 <div className="signature">
                   <img src="/images/barreleye.png" alt={'barreleye image'} />
@@ -160,7 +158,7 @@ const Dashboard = () => {
               </Card>
             </Grid>
 
-            <Grid size={{ xs: 12, sm: 6, md: 3 }} className="signature-height">
+            <Grid size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 3 }} className="signature-height">
               <Card>
                 <div className="wrapper">
                   <div className="icon-wrapper ">
@@ -174,7 +172,7 @@ const Dashboard = () => {
               </Card>
             </Grid>
 
-            <Grid size={{ xs: 12, sm: 6, md: 3 }} className="signature-height">
+            <Grid size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 3 }} className="signature-height">
               <Card>
                 <div className="wrapper">
                   <div className="icon-wrapper ">
