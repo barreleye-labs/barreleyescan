@@ -44,7 +44,6 @@ const Transactions = ({ isPagination = true, size = 10, isSimpleData = false }: 
     return <LinkUnderline path={`/account/${Char.add0x(value)}`} underlink={underlink} />;
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const count = useMemo(() => (data ? Math.ceil(data.totalCount / size) : 1), [data]);
 
   return (

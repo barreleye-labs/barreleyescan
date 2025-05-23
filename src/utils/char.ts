@@ -20,6 +20,7 @@ function uint8ArrayToHex(bytes: Uint8Array): string {
     .map((byte) => byte.toString(16).padStart(2, '0'))
     .join('');
 }
+
 function numberToHex(value: number): string {
   let hex: string = value.toString(16);
   if (hex.length % 2 == 1) {
@@ -53,7 +54,7 @@ function ellipsisEnd(value: string): string {
   return `${value.substring(0, 8)}...`;
 }
 
-// 모든 유틸리티 함수들을 Char 객체로 내보내어 모듈화합니다.
+// Address, Balance 를 위한 utility 입니다.
 export const Char = {
   bytesToHex,
   hexToBalance,

@@ -1,6 +1,6 @@
 import { TransactionRequest, TransactionResponse, TransactionsResponse } from '@type/dto/transaction';
 
-import { service } from '@src/utils/http';
+import { service } from '@utils';
 
 const TransactionsService = () => {
   async function GetAll({ page, size }: Record<string, number>) {

@@ -1,6 +1,6 @@
 import { BlockResponse, BlocksResponse } from '@type/dto/block';
 
-import { service } from '@src/utils/http';
+import { service } from '@utils';
 
 const BlocksService = () => {
   async function GetAll({ page, size }: Record<string, number>) {
