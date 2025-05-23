@@ -3,7 +3,7 @@ name:  Cypress Test and Docker Build/Push
 on:
   push:
     branches:
-      - develop
+        - feature/__this_branch_does_not_exist__
 
 
 jobs:
