@@ -1,6 +1,6 @@
 import { FaucetRequest, TransactionResponse } from '@type/dto/transaction';
 
-import { service } from '@src/utils/http';
+import { service } from '@utils';
 
 const FaucetService = () => {
   async function Send(params: FaucetRequest) {

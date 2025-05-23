@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
+import { commonPrivateKeyStore } from '@stores';
+
 import useSessionStorage from '@hooks/useSessionStorage';
 
 import { PrivateForm } from '@components/form';
-
-import { commonPrivateKeyStore } from '@src/stores';
 
 const SignIn = () => {
   const navigate = useNavigate();

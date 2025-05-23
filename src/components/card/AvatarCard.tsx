@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { NodeConfig } from '@/config/nodeConfig';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import GitHubIcon from '@mui/icons-material/GitHub';
@@ -14,8 +15,6 @@ import { styled } from '@mui/material/styles';
 
 import { Char } from '@utils';
 
-import { NodeConfig } from '@src/config/nodeConfig.ts';
-
 import { CardContainer, CardContent } from './styles';
 
 interface Props {
@@ -26,12 +25,13 @@ interface Props {
   balance: string;
   title: string;
 }
+
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
+  const { ...other } = props;
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: expand ? 'rotate(180deg)' : 'rotate(0deg)',

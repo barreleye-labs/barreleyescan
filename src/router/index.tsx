@@ -7,7 +7,7 @@ import Transactions from '@pages/transactions';
 
 export const router = createBrowserRouter([
   {
-    Component: loadable(() => import('@src/layouts')),
+    Component: loadable(() => import('@layouts')),
     ErrorBoundary: loadable(() => import('@pages/errorPage')),
     children: [
       {

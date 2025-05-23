@@ -15,7 +15,7 @@ import IntervalTimestamp from '@components/time';
 
 import { Char } from '@utils';
 
-import { Button, TableRow } from './styles.tsx';
+import { Button, TableRow } from './styles';
 
 interface Props {
   isPagination: boolean;
