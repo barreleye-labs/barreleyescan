@@ -66,7 +66,7 @@ const Dashboard = () => {
             )
           }
         >
-          <h2 style={{ fontSize: '22px' }}>{extra.toUpperCase()}</h2>
+          <h2 style={{ fontSize: '20px' }}>{extra.toUpperCase()}</h2>
         </Link>
       </Highlight>
     );
@@ -76,7 +76,7 @@ const Dashboard = () => {
     return (
       <Highlight>
         <Link onClick={() => navigate(`/transactions`)}>
-          <h2>{txData ? txData.totalCount : '0'}</h2>
+          <h2 style={{ fontSize: '20px' }}>{txData ? txData.totalCount : '0'}</h2>
         </Link>
       </Highlight>
     );
@@ -84,143 +84,134 @@ const Dashboard = () => {
 
   return (
     <Container>
-      <Grid>
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
-            <Card>
-              <div className="wrapper">
-                <div className="icon-wrapper ">
-                  <ViewInArIcon />
-                </div>
-                <div>
-                  <BlockHeightCard />
-                  <h4>Block Height</h4>
-                </div>
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 12, sm: 6, lg: 3, xl: 3 }}>
+          <Card>
+            <div className="wrapper">
+              <div className="icon-wrapper">
+                <ViewInArIcon />
               </div>
-            </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
-            <Card>
-              <div className="wrapper">
-                <div className="icon-wrapper">
-                  <AccessTimeIcon />
-                </div>
-                <div>
-                  <SupplyCard />
-                  <h4>Circulating Supply</h4>
-                </div>
+              <div>
+                <BlockHeightCard />
+                <h4>Block Height</h4>
               </div>
-            </Card>
-          </Grid>
+            </div>
+          </Card>
+        </Grid>
 
-          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
-            <Card>
-              <div className="wrapper">
-                <div className="icon-wrapper ">
-                  <AccessAlarmIcon />
-                </div>
-                <div>
-                  <h2>
-                    10<span>S</span>
-                  </h2>
-                  <h4>Avg Block Time</h4>
-                </div>
+        <Grid size={{ xs: 12, sm: 6, lg: 3, xl: 3 }}>
+          <Card>
+            <div className="wrapper">
+              <div className="icon-wrapper">
+                <AccessTimeIcon />
               </div>
-            </Card>
-          </Grid>
-
-          <Grid size={{ xs: 12, sm: 6, lg: 6, xl: 3 }}>
-            <Card>
-              <div className="wrapper">
-                <div className="icon-wrapper ">
-                  <PolylineIcon />
-                </div>
-                <div>
-                  <Highlight>
-                    <Link onClick={() => navigate('/nodes')}>
-                      <h2>3</h2>
-                    </Link>
-                  </Highlight>
-                  <h4>Consensus Nodes</h4>
-                </div>
+              <div>
+                <SupplyCard />
+                <h4>Circulating Supply</h4>
               </div>
-            </Card>
-          </Grid>
+            </div>
+          </Card>
+        </Grid>
 
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12, xl: 6 }} className="signature-height">
-              <Card>
-                <div className="signature">
-                  <img src="/images/barreleye.png" alt={'barreleye image'} />
-                  <Logo />
-                </div>
-              </Card>
-            </Grid>
+        <Grid size={{ xs: 12, sm: 6, lg: 3, xl: 3 }}>
+          <Card>
+            <div className="wrapper">
+              <div className="icon-wrapper ">
+                <AccessAlarmIcon />
+              </div>
+              <div>
+                <h2>
+                  10<span>S</span>
+                </h2>
+                <h4>Avg Block Time</h4>
+              </div>
+            </div>
+          </Card>
+        </Grid>
 
-            <Grid size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 3 }} className="signature-height">
-              <Card>
-                <div className="wrapper">
-                  <div className="icon-wrapper ">
-                    <FlagIcon />
-                  </div>
-                  <div>
-                    <BlockProposerCard />
-                    <h4>Current Block Proposer</h4>
-                  </div>
-                </div>
-              </Card>
-            </Grid>
+        <Grid size={{ xs: 12, sm: 6, lg: 3, xl: 3 }}>
+          <Card>
+            <div className="wrapper">
+              <div className="icon-wrapper ">
+                <PolylineIcon />
+              </div>
+              <div>
+                <Highlight>
+                  <Link onClick={() => navigate('/nodes')}>
+                    <h2>3</h2>
+                  </Link>
+                </Highlight>
+                <h4>Consensus Nodes</h4>
+              </div>
+            </div>
+          </Card>
+        </Grid>
 
-            <Grid size={{ xs: 12, sm: 6, md: 6, lg: 6, xl: 3 }} className="signature-height">
-              <Card>
-                <div className="wrapper">
-                  <div className="icon-wrapper ">
-                    <ReceiptLongIcon />
-                  </div>
-                  <div>
-                    <TotalTxCountCard />
-                    <h4>Total Tx Count</h4>
-                  </div>
-                </div>
-              </Card>
-            </Grid>
+        <Grid size={{ xs: 12, sm: 12, md: 12, lg: 6, xl: 6 }}>
+          <Card>
+            <div className="signature">
+              <div>
+                <img src="/images/barreleye.png" alt={'barreleye image'} />
+                <Logo />
+              </div>
+            </div>
+          </Card>
+        </Grid>
 
-            <Grid container spacing={2} className=" margin-spacing">
-              <Grid size={{ xs: 16, md: 5 }} className="blocks-table">
-                <Card>
-                  <DashboardTable className="blocks-table">
-                    <div>
-                      <div className="header">
-                        <h2>Recent Blocks</h2>
+        <Grid size={{ xs: 12, sm: 6, md: 6, lg: 3, xl: 3 }}>
+          <Card>
+            <div className="wrapper">
+              <div className="icon-wrapper">
+                <FlagIcon />
+              </div>
+              <div>
+                <BlockProposerCard />
+                <h4 className="proposer-letter-spacing">Current Block Proposer</h4>
+              </div>
+            </div>
+          </Card>
+        </Grid>
 
-                        <Link underlink="View All" onClick={() => navigate('/blocks')}>
-                          <KeyboardArrowRightIcon />
-                        </Link>
-                      </div>
-                      <Blocks isSimpleData={true} isPagination={false} size={7} />
-                    </div>
-                  </DashboardTable>
-                </Card>
-              </Grid>
+        <Grid size={{ xs: 12, sm: 6, md: 6, lg: 3, xl: 3 }}>
+          <Card>
+            <div className="wrapper">
+              <div className="icon-wrapper">
+                <ReceiptLongIcon />
+              </div>
+              <div>
+                <TotalTxCountCard />
+                <h4>Total Tx Count</h4>
+              </div>
+            </div>
+          </Card>
+        </Grid>
 
-              <Grid size={{ xs: 16, md: 7 }}>
-                <Card>
-                  <DashboardTable>
-                    <div>
-                      <div className="header">
-                        <h2>Recent Transactions</h2>
-                        <Link underlink="View All" onClick={() => navigate('/transactions')}>
-                          <KeyboardArrowRightIcon />
-                        </Link>
-                      </div>
-                      <Transactions isSimpleData={true} isPagination={false} size={7} />
-                    </div>
-                  </DashboardTable>
-                </Card>
-              </Grid>
-            </Grid>
-          </Grid>
+        <Grid size={{ xs: 12, md: 5 }}>
+          <Card>
+            <DashboardTable>
+              <div className="header">
+                <h2>Recent Blocks</h2>
+                <Link underlink="View All" onClick={() => navigate('/blocks')}>
+                  <KeyboardArrowRightIcon />
+                </Link>
+              </div>
+              <Blocks isSimpleData={true} isPagination={false} size={7} />
+            </DashboardTable>
+          </Card>
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 7 }}>
+          <Card>
+            <DashboardTable>
+              <div className="header">
+                <h2>Recent Transactions</h2>
+                <Link underlink="View All" onClick={() => navigate('/transactions')}>
+                  <KeyboardArrowRightIcon />
+                </Link>
+              </div>
+              <Transactions isSimpleData={true} isPagination={false} size={7} />
+            </DashboardTable>
+          </Card>
         </Grid>
       </Grid>
     </Container>
