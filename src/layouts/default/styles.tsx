@@ -22,6 +22,7 @@ export const ButtonWrapper = styled.div`
     svg {
       font-size: 13px;
     }
+
     &:hover {
       color: #34b4a9;
       border-color: #34b4a9;
@@ -36,15 +37,18 @@ export const ButtonWrapper = styled.div`
   .MuiChip-root {
     height: 35.2px;
     padding: 6.4px 10.2px;
+
     span {
       font-weight: 700;
       color: #239b91;
     }
+
     svg {
       color: #34b4a9;
       transform: scaleX(-1);
       font-size: 14px;
     }
+
     border-color: #34b4a9;
   }
 
@@ -53,6 +57,7 @@ export const ButtonWrapper = styled.div`
       display: none;
     }
   }
+
   .success {
     border-color: #b1e1dd;
     color: #34b4a9;
@@ -74,6 +79,7 @@ export const Header = styled.div`
 export const Container = styled.div`
   width: 100%;
   height: 100%;
+
   > div {
     ::-webkit-scrollbar {
       display: none;
@@ -85,12 +91,12 @@ export const Container = styled.div`
     flex: 1;
     flex-direction: column;
     position: relative;
-    width: 85%;
+    width: 100%;
     height: 100%;
     gap: 17px;
     overflow: auto;
-    padding: 1rem 3rem 2.4rem 3rem;
-    max-width: 1550px;
+    padding: 20px 20px 20px 17px;
+    max-width: 1100px;
     margin: 0 auto;
 
     ${(mq[1], mq[3])} {

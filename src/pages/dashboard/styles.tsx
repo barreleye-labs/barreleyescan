@@ -50,7 +50,7 @@ export const Highlight = styled.div`
 `;
 export const Card = styled.div`
   display: flex;
-  height: 100%;
+
   flex-direction: row;
   background-color: rgb(255, 255, 255);
   color: rgb(33, 43, 54);
@@ -63,20 +63,37 @@ export const Card = styled.div`
   z-index: 0;
   border-radius: 16px;
 
+  .proposer-letter-spacing {
+    letter-spacing: -0.8px;
+  }
+
   .signature {
-    transform: translateX(60%);
+    padding-left: 100px;
+
+    ${mq[2]} {
+      padding-left: 70px;
+    }
+
     ${mq[1]} {
-      transform: translateX(10%);
+      padding-left: 20px;
     }
-    span {
-      color: black;
-    }
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 1rem;
-    img {
-      width: 50px;
+
+    > div {
+      width: 100%;
+
+      span {
+        color: black;
+      }
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 1rem;
+
+      img {
+        width: 50px;
+      }
     }
   }
 
@@ -84,17 +101,20 @@ export const Card = styled.div`
     padding: 31px 24px;
     display: flex;
     align-items: center;
+
     h4 {
       font-weight: 600;
       line-height: 1.57143;
       font-size: 12px;
       color: rgb(145, 158, 171);
     }
+
     h2 {
       color: #212b36;
       font-size: 27px;
       font-weight: 900;
       margin: 0;
+
       span {
         font-size: 13px;
         font-weight: 600;
@@ -116,6 +136,7 @@ export const Card = styled.div`
         rgba(95, 116, 141, 0.03) 0px 2px 1px -1px,
         rgba(95, 116, 141, 0.04) 0px 1px 1px 0px,
         rgba(95, 116, 141, 0.08) 0px 1px 3px 0px;
+
       .MuiSvgIcon-root {
         user-select: none;
         width: 1em;
@@ -144,21 +165,26 @@ export const Card = styled.div`
   .dashboard-table-wrapper {
     width: 100%;
   }
+
   .MuiTableContainer-root {
     box-shadow: none !important;
   }
+
   .MuiStack-root {
     display: flex;
     align-items: center;
   }
+
   button {
     margin: 0 auto;
   }
+
   h2 {
     margin: 7px 0 0 7px;
     font-weight: 700;
     color: black;
   }
+
   .dashboard-content-type {
     height: 150px;
 
@@ -192,9 +218,11 @@ export const Card = styled.div`
       p {
         margin-bottom: 0;
       }
+
       span {
         font-size: 13px;
       }
+
       ${mq[1]} {
         display: flex;
         flex-direction: row-reverse;
@@ -213,10 +241,12 @@ export const Card = styled.div`
     .footer {
       position: absolute;
       bottom: 9px;
+
       .MuiSvgIcon-root {
         font-size: 12px;
         margin-left: 3px;
       }
+
       .footer-button {
         display: inline-flex;
         align-items: center;
@@ -269,6 +299,7 @@ export const Card = styled.div`
     z-index: 0;
     display: flex;
     width: 100%;
+
     span {
       color: #000000 !important;
     }
